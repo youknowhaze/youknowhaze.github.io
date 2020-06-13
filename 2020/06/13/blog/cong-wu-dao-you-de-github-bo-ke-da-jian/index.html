@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 烹雪煮茶">
+    <meta name="keywords" content="blog/从无到有的github博客搭建, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 烹雪煮茶</title>
+    <title>blog/从无到有的github博客搭建 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">blog/从无到有的github博客搭建</h1>
                 </div>
             </div>
         </div>
@@ -466,16 +466,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+                <h2 id="从无到有的github博客搭建"><a href="#从无到有的github博客搭建" class="headerlink" title="从无到有的github博客搭建"></a>从无到有的github博客搭建</h2><h3 id="一、基于Hexo-github的静态博客搭建"><a href="#一、基于Hexo-github的静态博客搭建" class="headerlink" title="一、基于Hexo+github的静态博客搭建"></a>一、基于Hexo+github的静态博客搭建</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><p>  因为我是windows系统，所以下面的操作都是基于windows环境而言的<br>  （1）、<strong>Git Bash安装</strong>。我一直不太喜欢使用小乌龟，于是选择git bash进行安装。安装步骤便不再赘述。  <a href="https://gitforwindows.org/" target="_blank" rel="noopener">下载地址</a></p>
+<p>  （2）、<strong>安装NodeJs</strong>。Hexo是基于nodeJS环境的静态博客，里面的npm工具很有用。同样，安装步骤不再赘述   <a href="https://nodejs.org/en/" target="_blank" rel="noopener">下载地址</a></p>
+<p>  （3）、<strong>安装hexo</strong>。看到这么多需要安装的东西，千万不要慌张，这都是开发的必备环境，是比较简单的一些安装操作。建议全局安装hexo，安装命令如下：</p>
+<pre><code>npm i -g hexo</code></pre><p>  （4）、需要拥有一个github账号，若没有，<a href="https://gitforwindows.org/" target="_blank" rel="noopener">去创建</a></p>
+<h4 id="2、创建博客"><a href="#2、创建博客" class="headerlink" title="2、创建博客"></a>2、创建博客</h4><p>  （1）、在github远程仓库创建一个项目，项目名为username.github.io（比如我的github用户名为youknowhaze，那么我的项目名就是youknowhaze.github.io），github会将该名称的项目发布至远程，进行免费托管。每个github账户仅支持这样一个命名项目的托管。</p>
+<p>  （2）、将项目clone至本地目录，进入项目根目录，执行初始化命令</p>
+<pre><code>hexo init</code></pre><p>  初始化后的项目结构如下：<br>  <img src="images/blog_init.png" alt="blog init"></p>
+<p>  简单解释一下这个结构</p>
+<table>
+<thead>
+<tr>
+<th>模块/文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>node_modules</td>
+<td>是依赖包</td>
+</tr>
+<tr>
+<td>public</td>
+<td>存放的是生成的页面</td>
+</tr>
+<tr>
+<td>scaffolds</td>
+<td>命令生成文章等的模板</td>
+</tr>
+<tr>
+<td>source</td>
+<td>用命令创建的各种文章</td>
+</tr>
+<tr>
+<td>themes</td>
+<td>主题</td>
+</tr>
+<tr>
+<td>_config.yml</td>
+<td>整个博客的配置</td>
+</tr>
+<tr>
+<td>db.json</td>
+<td>source解析所得到的</td>
+</tr>
+<tr>
+<td>package.json</td>
+<td>项目所需模块项目的配置信息</td>
+</tr>
+</tbody></table>
+<p>  （3）、启动项目：</p>
+<pre><code>hexo g    # 构建项目，会在public下生成html页面
+hexo d    # 启动项目，启动后本地访问http://localhost:4000</code></pre><p>初始的博客页面有点丑，访问页面如下：<br><img src="images/blogpage_1.png" alt="blog page1"></p>
+<p>  （4）、修改主题<br>  既然默认主题比较丑，那么我们就修改一个自己喜欢的主题，  <a href="https://hexo.io/themes/" target="_blank" rel="noopener">官方主题</a><br>  现在使用的博客模板为：  <a href="https://github.com/youknowhaze/incredible-blog" target="_blank" rel="noopener">hexo-theme-matery</a>  </p>
+<p>  首先修改_config.yml文件中的theme: landscape改为theme: hexo-theme-matery ，然后需要下载模板文件至themes目录下，可以通过clone的方式，也可以下载压缩包进行解压，如下：<br>  <img src="images/blog_themes.png" alt="blog themes"></p>
+<p>  重新启动博客：</p>
+<pre><code>hexo s  # 启动博客
 
+## 若启动过程中出现报错，可以先清理缓存再启动
+hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、博客样式及组件调整" class="headerlink" title="3、博客样式及组件调整"></a>3、博客样式及组件调整</h4>
             </div>
             <hr/>
 
@@ -500,7 +548,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/06/13/test/hello-world8/">http://youknowhaze.github.io/haze/2020/06/13/test/hello-world8/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/06/13/blog/cong-wu-dao-you-de-github-bo-ke-da-jian/">http://youknowhaze.github.io/haze/2020/06/13/blog/cong-wu-dao-you-de-github-bo-ke-da-jian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -703,29 +751,30 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/haze/2020/06/13/hello-world9/">
+                <a href="/haze/2020/06/13/blog/cong-wu-dao-you-de-github-bo-ke-da-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/haze/medias/featureimages/4.jpg" class="responsive-img" alt="blog/从无到有的github博客搭建">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">blog/从无到有的github博客搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            从无到有的github博客搭建一、基于Hexo+github的静态博客搭建1、环境安装  因为我是windows系统，所以下面的操作都是基于windows环境而言的  （1）、Git Bash安装。我一直不太喜欢使用小乌龟，于是选择git 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -734,6 +783,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -741,44 +791,37 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/haze/2018/09/30/test/hello-world4/">
+                <a href="/haze/2020/06/13/blog/cong-wu-dao-you-de-github-bo-ke-da-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/12.jpg" class="responsive-img" alt="categories1111">
+                        <img src="/haze/medias/featureimages/4.jpg" class="responsive-img" alt="blog/从无到有的github博客搭建">
                         
-                        <span class="card-title">categories1111</span>
+                        <span class="card-title">blog/从无到有的github博客搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            从无到有的github博客搭建一、基于Hexo+github的静态博客搭建1、环境安装  因为我是windows系统，所以下面的操作都是基于windows环境而言的  （1）、Git Bash安装。我一直不太喜欢使用小乌龟，于是选择git 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-09-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-13
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/haze/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/" class="post-category">
-                                    服务器相关
-                                </a>
-                            
-                            <a href="/haze/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%B8%E5%85%B3/%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/" class="post-category">
-                                    运维相关
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            incredible
                             
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
