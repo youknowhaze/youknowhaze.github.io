@@ -6,7 +6,7 @@
   <link href="/haze/atom.xml" rel="self"/>
   
   <link href="http://youknowhaze.github.io/"/>
-  <updated>2020-06-14T03:24:45.313Z</updated>
+  <updated>2020-06-19T09:53:53.771Z</updated>
   <id>http://youknowhaze.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://youknowhaze.github.io/2020/06/10/blog/bo-ke-da-jian/"/>
     <id>http://youknowhaze.github.io/2020/06/10/blog/bo-ke-da-jian/</id>
     <published>2020-06-10T18:23:38.000Z</published>
-    <updated>2020-06-14T03:24:45.313Z</updated>
+    <updated>2020-06-19T09:53:53.771Z</updated>
     
     <summary type="html">
     
@@ -48,7 +48,7 @@
     <link href="http://youknowhaze.github.io/2020/06/10/blog/yang-shi-zu-jian-diao-zheng/"/>
     <id>http://youknowhaze.github.io/2020/06/10/blog/yang-shi-zu-jian-diao-zheng/</id>
     <published>2020-06-10T18:23:38.000Z</published>
-    <updated>2020-06-14T03:24:45.317Z</updated>
+    <updated>2020-06-19T09:53:53.775Z</updated>
     
     <summary type="html">
     
@@ -67,6 +67,66 @@
     
     
       <category term="blog" scheme="http://youknowhaze.github.io/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ELK搭建</title>
+    <link href="http://youknowhaze.github.io/2020/06/09/environment/elk-da-jian/elk/"/>
+    <id>http://youknowhaze.github.io/2020/06/09/environment/elk-da-jian/elk/</id>
+    <published>2020-06-09T00:00:00.000Z</published>
+    <updated>2020-06-19T09:53:53.775Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;ELK&quot;&gt;&lt;a href=&quot;#ELK&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="ELK" scheme="http://youknowhaze.github.io/categories/ELK/"/>
+    
+      <category term="环境搭建" scheme="http://youknowhaze.github.io/categories/ELK/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="ELK" scheme="http://youknowhaze.github.io/tags/ELK/"/>
+    
+      <category term="环境" scheme="http://youknowhaze.github.io/tags/%E7%8E%AF%E5%A2%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TIG搭建</title>
+    <link href="http://youknowhaze.github.io/2020/06/09/environment/tig-da-jian/tig/"/>
+    <id>http://youknowhaze.github.io/2020/06/09/environment/tig-da-jian/tig/</id>
+    <published>2020-06-09T00:00:00.000Z</published>
+    <updated>2020-06-19T09:53:53.775Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;TIG监控&quot;&gt;&lt;a href=&quot;#TIG监控&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="TIG" scheme="http://youknowhaze.github.io/categories/TIG/"/>
+    
+    
+      <category term="环境" scheme="http://youknowhaze.github.io/tags/%E7%8E%AF%E5%A2%83/"/>
+    
+      <category term="TIG" scheme="http://youknowhaze.github.io/tags/TIG/"/>
     
   </entry>
   
