@@ -211,7 +211,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/youknowhaze/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/youknowhaze/haze" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -268,7 +268,7 @@
     }
 </style>
 
-<a href="https://github.com/youknowhaze/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/youknowhaze/haze" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -1063,28 +1063,25 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/06/09/environment/elk-da-jian/elk/">
+                <a href="/haze/2020/06/09/docker/docker-an-zhuang-jiao-ben/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/1.jpg" class="responsive-img" alt="ELK搭建">
+                        <img src="/haze/medias/featureimages/15.jpg" class="responsive-img" alt="docker一键式安装脚本">
                         
-                        <span class="card-title">ELK搭建</span>
+                        <span class="card-title">docker一键式安装脚本</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ELKELK由elasticsearch（存储层）、logstash（收集）、kibana（展示）三部分组成，三个组件的版本建议保持一致。此文档是基于ELK7.6.2版本，其余版本在配置上可能会有差异。
+                            docker一键式安装脚本将以下脚本拷贝至shell脚本中，附于执行权限，使用管理员身份执行即可安装docker
+#!/bin/bash
 
+# 环境初始化：指定用户需要有sudo权限
 
-
-ip地址
-应用
-
-
-
-neti
+# step 1: 移除旧的docker
+sudo y
                         
                     </div>
                     <div class="publish-info">
@@ -1095,12 +1092,8 @@ neti
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/ELK/" class="post-category">
-                                    ELK
-                                </a>
-                            
-                            <a href="/haze/categories/ELK/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    环境搭建
+                            <a href="/haze/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                             
                             
@@ -1110,12 +1103,12 @@ neti
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/ELK/">
-                        <span class="chip bg-color">ELK</span>
+                    <a href="/haze/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/haze/tags/%E7%8E%AF%E5%A2%83/">
-                        <span class="chip bg-color">环境</span>
+                    <a href="/haze/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
@@ -1308,7 +1301,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     
     <div class="container row center-align" style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
+            create &nbsp;&copy;
             <span id="year">2019</span>
             <a href="http://youknowhaze.github.io" target="_blank">incredible</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

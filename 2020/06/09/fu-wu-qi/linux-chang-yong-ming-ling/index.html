@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="TIG搭建, 烹雪煮茶">
+    <meta name="keywords" content="Linux 常用命令, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>TIG搭建 | 烹雪煮茶</title>
+    <title>Linux 常用命令 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">TIG搭建</h1>
+                    <h1 class="description center-align post-title">Linux 常用命令</h1>
                 </div>
             </div>
         </div>
@@ -421,10 +421,6 @@
                                 <span class="chip bg-color">Linux</span>
                             </a>
                         
-                            <a href="/haze/tags/TIG/">
-                                <span class="chip bg-color">TIG</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -433,8 +429,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                encironment
+                            <a href="/haze/categories/Linux/" class="post-category">
+                                Linux
                             </a>
                         
                     </div>
@@ -462,98 +458,80 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="TIG监控"><a href="#TIG监控" class="headerlink" title="TIG监控"></a>TIG监控</h2><p>TIG监控是一种硬件、业务数据监控组件，主要用于监控服务器状态及业务数据量、时间等信息。</p>
-<ul>
-<li><p>Influxdb:一种时序性数据库，主要用于存储数据</p>
-</li>
-<li><p>Telegraf：收集数据组件，本实验中用于收集硬件、业务指标</p>
-</li>
-<li><p>Grafana：用于实时展示收集到的指标数据</p>
-</li>
-</ul>
-<h4 id="这里选择在目录-opt-app-TIG下进行"><a href="#这里选择在目录-opt-app-TIG下进行" class="headerlink" title="这里选择在目录/opt/app/TIG下进行"></a>这里选择在目录/opt/app/TIG下进行</h4><h3 id="一、influxdb"><a href="#一、influxdb" class="headerlink" title="一、influxdb"></a>一、influxdb</h3><h4 id="1-解压安装包-将安装包放到目录下-："><a href="#1-解压安装包-将安装包放到目录下-：" class="headerlink" title="1.解压安装包(将安装包放到目录下)："></a>1.解压安装包(将安装包放到目录下)：</h4><pre><code>cd /opt/app/TIG(或者其他服务器上传目录下)
-tar -xvzf influxdb-1.2.0_linux_amd64.tar.gz
-cd influxdb-1.2.0-1</code></pre><h4 id="2-查看InfluxDB默认端口8083-8086端口是否被占用，若未占用，则无信息返回"><a href="#2-查看InfluxDB默认端口8083-8086端口是否被占用，若未占用，则无信息返回" class="headerlink" title="2.查看InfluxDB默认端口8083,8086端口是否被占用，若未占用，则无信息返回"></a>2.查看InfluxDB默认端口8083,8086端口是否被占用，若未占用，则无信息返回</h4><pre><code> lsof -i:8083
- lsof -i:8086</code></pre><h4 id="3-如果未占用-则如下修改配置文件-否则修改为其他端口号"><a href="#3-如果未占用-则如下修改配置文件-否则修改为其他端口号" class="headerlink" title="3.如果未占用,则如下修改配置文件.否则修改为其他端口号"></a>3.如果未占用,则如下修改配置文件.否则修改为其他端口号</h4><pre><code>vi etc/influxdb/influxdb.conf</code></pre><h4 id="4-将admin下的enabled与bind-address修改为如下-："><a href="#4-将admin下的enabled与bind-address修改为如下-：" class="headerlink" title="4.将admin下的enabled与bind-address修改为如下.："></a>4.将admin下的enabled与bind-address修改为如下.：</h4><pre><code>[admin]
-   # Determines whether the admin service is enabled.
-   enabled = true
-
-   # The default bind address used by the admin service.
-   bind-address = &quot;:8083&quot;
-
-   # Whether the admin service should use HTTPS.
-   # https-enabled = false
-
-   # The SSL certificate used when HTTPS is enabled.
-   # https-certificate = &quot;/etc/ssl/influxdb.pem&quot;</code></pre><h4 id="5-启动influxdb"><a href="#5-启动influxdb" class="headerlink" title="5.启动influxdb"></a>5.启动influxdb</h4><pre><code>nohup usr/bin/influxd -config etc/influxdb/influxdb.conf &amp;</code></pre><h4 id="6-查看influxdb进程是否正常启动"><a href="#6-查看influxdb进程是否正常启动" class="headerlink" title="6.查看influxdb进程是否正常启动"></a>6.查看influxdb进程是否正常启动</h4><pre><code>ps aux|grep influxdb</code></pre><h4 id="7-在本地访问：http-ip-8083"><a href="#7-在本地访问：http-ip-8083" class="headerlink" title="7.在本地访问：http://ip:8083/"></a>7.在本地访问：<a href="http://ip:8083/" target="_blank" rel="noopener">http://ip:8083/</a></h4><p>   ip为linux服务器对外映射的ip</p>
-<p>####问题及注意：</p>
-<ul>
-<li><p>添加虚拟机ip访问的代理忽略（即本地访问不使用代理）</p>
-</li>
-<li><p>若未安装lsof命令，则运行sudo yum install lsof进行安装</p>
-</li>
-</ul>
-<h3 id="二、telegraf"><a href="#二、telegraf" class="headerlink" title="二、telegraf"></a>二、telegraf</h3><h4 id="1-解压安装包"><a href="#1-解压安装包" class="headerlink" title="1.解压安装包"></a>1.解压安装包</h4><pre><code>cd /opt/app/TIG(或者自定义上传目录下)
-tar -xzvf telegraf-1.6.1_linux_amd64.tar.gz
-cd telegraf</code></pre><h4 id="2-修改配置文件，将收集的信息放入刚才安装的influxd数据库"><a href="#2-修改配置文件，将收集的信息放入刚才安装的influxd数据库" class="headerlink" title="2.修改配置文件，将收集的信息放入刚才安装的influxd数据库"></a>2.修改配置文件，将收集的信息放入刚才安装的influxd数据库</h4><pre><code>vi etc/telegraf/telegraf.conf
-# 修改的节点为outputs.influxdb下的urls和database配置如下(P.S:IP改为InfluxDB部署服务器的IP地址)
-[[outputs.influxdb]]
-   ## The full HTTP or UDP URL for your InfluxDB instance.
-   ##
-   ## Multiple URLs can be specified for a single cluster, only ONE of the
-   ## urls will be written to each interval.
-   # urls = [&quot;unix:///var/run/influxdb.sock&quot;]
-   # urls = [&quot;udp://127.0.0.1:8089&quot;]
-   urls = [&quot;http://10.221.155.69:8086&quot;]
-
-   ## The target database for metrics; will be created as needed.
-   database = &quot;telegraf&quot;</code></pre><h4 id="3-启动telegraf，并查看进程是否正常运行"><a href="#3-启动telegraf，并查看进程是否正常运行" class="headerlink" title="3.启动telegraf，并查看进程是否正常运行"></a>3.启动telegraf，并查看进程是否正常运行</h4><pre><code>usr/bin/telegraf -config etc/telegraf/telegraf.conf &amp;
-ps aux|grep telegraf</code></pre><h4 id="4-验证telegraf是否将硬件指标插入influxdb数据库"><a href="#4-验证telegraf是否将硬件指标插入influxdb数据库" class="headerlink" title="4.验证telegraf是否将硬件指标插入influxdb数据库"></a>4.验证telegraf是否将硬件指标插入influxdb数据库</h4><p>   访问inflxudb admin页面<a href="http://influxdb的ip地址:8083/" target="_blank" rel="noopener">http://influxdb的ip地址:8083/</a></p>
-<h4 id="5-查看插入的表信息（页面query栏输入）"><a href="#5-查看插入的表信息（页面query栏输入）" class="headerlink" title="5.查看插入的表信息（页面query栏输入）"></a>5.查看插入的表信息（页面query栏输入）</h4><pre><code>   SHOW MEASUREMENTS</code></pre><h4 id="6-查看CPU信息（页面query栏输入）"><a href="#6-查看CPU信息（页面query栏输入）" class="headerlink" title="6.查看CPU信息（页面query栏输入）"></a>6.查看CPU信息（页面query栏输入）</h4><pre><code>select * from cpu order by time desc limit 10</code></pre><h4 id="收集业务指标"><a href="#收集业务指标" class="headerlink" title="收集业务指标"></a>收集业务指标</h4><p> 业务场景：将日志文件：/opt/applog/influxdb.log的内容收集到influxdb数据库中。</p>
-<h4 id="7-新增telegraf业务指标配置文件"><a href="#7-新增telegraf业务指标配置文件" class="headerlink" title="7.新增telegraf业务指标配置文件"></a>7.新增telegraf业务指标配置文件</h4><pre><code>    vi etc/telegraf/telegraf_tail.conf</code></pre><h4 id="8-配置文件内容如下-P-S-IP改为InfluxDB部署服务器的IP地址"><a href="#8-配置文件内容如下-P-S-IP改为InfluxDB部署服务器的IP地址" class="headerlink" title="8.配置文件内容如下(P.S:IP改为InfluxDB部署服务器的IP地址):"></a>8.配置文件内容如下(P.S:IP改为InfluxDB部署服务器的IP地址):</h4><pre><code>       [[outputs.influxdb]]
-          urls = [&quot;http://ip:8086&quot;]
-          database = &quot;tail&quot;
-          precision = &quot;s&quot;
-          timeout = &quot;5s&quot;
-          username = &quot;root&quot;
-          password = &quot;root&quot;
-        [[inputs.tail]]
-          ## files to tail.
-          ## These accept standard unix glob matching rules, but with the addition of
-          ## ** as a &quot;super asterisk&quot;. ie:
-          ##   &quot;/var/log/**.log&quot;  -&gt; recursively find all .log files in /var/log
-          ##   &quot;/var/log/*/*.log&quot; -&gt; find all .log files with a parent dir in /var/log
-          ##   &quot;/var/log/apache.log&quot; -&gt; just tail the apache log file
-          ##
-          ## See https://github.com/gobwas/glob for more examples
-          ##
-          files = [&quot;/opt/applog/influxdb.log&quot;]
-          ## Read file from beginning.
-          from_beginning = false
-          ## Whether file is a named pipe
-          pipe = false
-
-          ## Method used to watch for file updates.  Can be either &quot;inotify&quot; or &quot;poll&quot;.
-          watch_method = &quot;poll&quot;
-
-          ## Data format to consume.
-          ## Each data format has its own unique set of configuration options, read
-          ## more about them here:
-          ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
-          data_format = &quot;influx&quot;</code></pre><h4 id="9-新增一条业务日志"><a href="#9-新增一条业务日志" class="headerlink" title="9.新增一条业务日志"></a>9.新增一条业务日志</h4><pre><code>echo &#39;testtable,ip=127.0.0.1,user=taobao,service=airbook servicetime=31&#39;  &gt;&gt; /opt/applog/influxdb.log</code></pre><h4 id="10-启动telegraf-并查看进程是否正常启动"><a href="#10-启动telegraf-并查看进程是否正常启动" class="headerlink" title="10.启动telegraf,并查看进程是否正常启动"></a>10.启动telegraf,并查看进程是否正常启动</h4><pre><code>usr/bin/telegraf -config etc/telegraf/telegraf_tail.conf &amp;
-ps aux|grep telegraf</code></pre><h4 id="11-验证业务日志是否插入到influxdb中"><a href="#11-验证业务日志是否插入到influxdb中" class="headerlink" title="11.验证业务日志是否插入到influxdb中"></a>11.验证业务日志是否插入到influxdb中</h4><p>   访问inflxudb admin页面<a href="http://influxDB的ip地址:8083/" target="_blank" rel="noopener">http://influxDB的ip地址:8083/</a></p>
-<h4 id="12-查看插入的表信息"><a href="#12-查看插入的表信息" class="headerlink" title="12.查看插入的表信息"></a>12.查看插入的表信息</h4><pre><code>SHOW MEASUREMENTS</code></pre><h4 id="13-查看表信息"><a href="#13-查看表信息" class="headerlink" title="13.查看表信息"></a>13.查看表信息</h4><pre><code>select * from testtable order by time desc limit 10</code></pre><h3 id="三、安装grafana"><a href="#三、安装grafana" class="headerlink" title="三、安装grafana"></a>三、安装grafana</h3><h4 id="1-解压安装包："><a href="#1-解压安装包：" class="headerlink" title="1.解压安装包："></a>1.解压安装包：</h4><pre><code> cd /opt/app/TIG(或者本机上传目录下)
- tar -zxvf grafana-4.2.0.linux-x64.tar.gz
- cd grafana-4.2.0</code></pre><h4 id="2-启动grafana-并检查进程是否正常启动"><a href="#2-启动grafana-并检查进程是否正常启动" class="headerlink" title="2.启动grafana,并检查进程是否正常启动"></a>2.启动grafana,并检查进程是否正常启动</h4><pre><code>bin/grafana-server &amp;
-ps aux|grep grafana</code></pre><h4 id="3-验证grafana是否能正常访问"><a href="#3-验证grafana是否能正常访问" class="headerlink" title="3.验证grafana是否能正常访问"></a>3.验证grafana是否能正常访问</h4><p>   <a href="http://grafana的ip地址:3000/login" target="_blank" rel="noopener">http://grafana的ip地址:3000/login</a></p>
-<h4 id="4-登录grafana"><a href="#4-登录grafana" class="headerlink" title="4.登录grafana"></a>4.登录grafana</h4><p>默认账户：admin   密码：admin<br>备注：账户密码可配置，配置文件路径：conf/defaults.ini</p>
-<h4 id="5-新增硬件DataSource（配置数据库）访问地址："><a href="#5-新增硬件DataSource（配置数据库）访问地址：" class="headerlink" title="5.新增硬件DataSource（配置数据库）访问地址："></a>5.新增硬件DataSource（配置数据库）访问地址：</h4><p><a href="http://192.168.56.1:3000/datasources/new" target="_blank" rel="noopener">http://192.168.56.1:3000/datasources/new</a></p>
-<p><img src="/haze/2020/06/09/environment/tig-da-jian/tig/grafana1.png" alt="grafana 1"><br></p>
-<p><img src="/haze/2020/06/09/environment/tig-da-jian/tig/grafana2.png" alt="grafana 2"><br></p>
-<h4 id="6-新增CPU看板（dashboard）访问地址："><a href="#6-新增CPU看板（dashboard）访问地址：" class="headerlink" title="6.新增CPU看板（dashboard）访问地址："></a>6.新增CPU看板（dashboard）访问地址：</h4><p>   <a href="http://192.168.56.1:3000/dashboard/new?orgId=1" target="_blank" rel="noopener">http://192.168.56.1:3000/dashboard/new?orgId=1</a></p>
-<p><img src="/haze/2020/06/09/environment/tig-da-jian/tig/grafana3.png" alt="grafana 3"><br></p>
-<p><img src="/haze/2020/06/09/environment/tig-da-jian/tig/grafana4.png" alt="grafana 4"><br></p>
-
+                <h3 id="一、权限"><a href="#一、权限" class="headerlink" title="一、权限"></a>一、权限</h3><pre><code>chown -R 用户名 文件名(文件夹名)     #更改文件所属用户
+chmod 777 路径+文件名（文件夹）      #文件（文件夹）赋权
+chmod +x test.txt                  #赋予执行权限（当前用户？）
+chmod -x test.txt                  #没收执行权限
+chmod username+x test.txt          #某用户增加执行权限
+chmod o+x test.txt                 #所有用户增加执行权限</code></pre><h3 id="二、编辑"><a href="#二、编辑" class="headerlink" title="二、编辑"></a>二、编辑</h3><pre><code>vi 文件名                           #编辑文件，已存在则修改，未存在则自动创建
+vi /etc/profile                    #编辑linux环境变量
+export KAFKA_HOME=/DATA/software/kafka_2.11-2.0.1    #引入环境变量
+source /etc/profile                #让修改后的环境变量立即生效
+tar xvfz m.tar.gz                  #linux解压安装包
+ls &gt; cmd.txt                       #重定向  把命令的结果，重新写到文件里，会覆盖已有的内容
+ls &gt;&gt; cmd.txt                      #向文件中追加内容
+ps -ef|grep redis                  #查找redis进程
+man bash | col -b &gt; bash.txt       #过滤控制字符，解决乱码
+grep ok test.txt                  #查找test.txt文件中的ok字段</code></pre><h3 id="三、查找-查看-开启"><a href="#三、查找-查看-开启" class="headerlink" title="三、查找/查看/开启"></a>三、查找/查看/开启</h3><pre><code>ps -ef|grep 应用名称                 #得到(进程)进程号
+ls -l /proc/进程号/cwd               #得到 服务/进程 的路径
+history |grep 命令（应用）           #查找命令中含有“命令”的历史记录
+date                                #显示系统日期
+uname -r                            #显示正在使用的内核版本
+more 文件名                          #查看文件内容
+tail -300f 文件名                    #动态查看最近300行日志
+chkconfig --list                    #显示所有自动应用
+chkconfig vsftpd on                 #开启自动启动
+ls -l | grep &quot;^d&quot;                  #只列出目录
+rpm -qa                            #列出系统所有安装包
+df /home                           #查看挂载点
+which java                         #查找命令在哪个目录
+env                                #查看环境变量</code></pre><h3 id="四、磁盘"><a href="#四、磁盘" class="headerlink" title="四、磁盘"></a>四、磁盘</h3><pre><code>df -h  /  df -lh                     #查看系统各目录磁盘空间及使用情况
+du -h --max-depth=1                  #查看当前目录下各文件所占磁盘空间情况
+top                                  #top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。退出 top 的命令为 q （在 top 运行中敲 q 键一次）。
+du -s -h ./*                         #查看当前目录下各文件所占磁盘空间情况
+du -sh *| sort -hr                   #当前目录下占用磁盘空间大小排序</code></pre><h3 id="五、内存"><a href="#五、内存" class="headerlink" title="五、内存"></a>五、内存</h3><pre><code>top -d 1                             #监控内存，然后shift+m内存排列
+free -g                              #查看内存使用，单位为g
+free -m                              #查看内存使用，单位M
+grep MemTotal /proc/meminfo | cut -f2 -d:     #查看服务器总内存，单位kb
+grep MemTotal /proc/meminfo          #查看服务器总内存，单位kb</code></pre><h3 id="六、系统命令"><a href="#六、系统命令" class="headerlink" title="六、系统命令"></a>六、系统命令</h3><pre><code>reboot                               #重启系统
+shutdown -r now                      #重启系统
+logout                               #注销登陆
+shutdown -h now                      #关闭系统
+date 041217002007.00                 #设置日期和时间 - 月日时分年.秒</code></pre><h3 id="七、防火墙"><a href="#七、防火墙" class="headerlink" title="七、防火墙"></a>七、防火墙</h3><pre><code>service iptables stop                #关闭防火墙
+systemctl stop                       #关闭防火墙
+firewalld.services                   #关闭防火墙
+service iptables starts              #打开防火墙
+systemctl start                      #打开防火墙
+iptables.services                    #打开防火墙
+service iptables restart             #重启防火墙
+systemctl start                      #重启防火墙
+ip6tables.service                    #重启防火墙
+systemctl status firewalld          #查看防火墙状态
+systemctl disable firewalld         #开机禁用
+systemctl enable firewalld          #开机自启</code></pre><h3 id="八、TCP"><a href="#八、TCP" class="headerlink" title="八、TCP"></a>八、TCP</h3><pre><code>netstat -an | grep ESTABLISHED | wc -l       #查看apache当前并发访问数
+netstat -anp|more                            #显示整个系统目前的网络情况。例如目前的连接、数据包传递数据、或是路由表内容。
+netstat -tunlp|grep 5601                     #查找5601端口占用进程id</code></pre><h3 id="九、CPU"><a href="#九、CPU" class="headerlink" title="九、CPU"></a>九、CPU</h3><h4 id="总核数-物理CPU个数-X-每颗物理CPU的核数"><a href="#总核数-物理CPU个数-X-每颗物理CPU的核数" class="headerlink" title="总核数 = 物理CPU个数 X 每颗物理CPU的核数"></a>总核数 = 物理CPU个数 X 每颗物理CPU的核数</h4><h4 id="总逻辑CPU数-物理CPU个数-X-每颗物理CPU的核数-X-超线程数"><a href="#总逻辑CPU数-物理CPU个数-X-每颗物理CPU的核数-X-超线程数" class="headerlink" title="总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数"></a>总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数</h4><pre><code>cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l        #查看物理CPU个数
+cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq                       #查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l                      #查看逻辑CPU的个数
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c           #查看CPU信息（型号）
+vmstat 1                                                        #监控CPU.
+top                                                             #监控进程
+more /proc/cpuinfo | grep &quot;model name&quot;                          #查看cpu
+grep &quot;model name&quot; /proc/cpuinfo                                 #查看cpu
+grep &quot;model name&quot; /proc/cpuinfo | cut -f2 -d:                   #查看cpu
+getconf LONG_BIT                                               #查看CPU位数(32 or 64)</code></pre><h3 id="十、用户相关"><a href="#十、用户相关" class="headerlink" title="十、用户相关"></a>十、用户相关</h3><pre><code>useradd username              #创建用户（新创建的用户会在/home下创建一个用户目录incredible-test）
+passwd username               #给已创建的用户设置密码
+usermod --help                #修改用户这个命令的相关参数
+userdel username              #删除用户
+groupadd groupname            #添加组
+groupdel groupname            #删除组
+su username                   #切换登陆用户,exit退出到root账户？
+rm -rf /home/usernmae         #删除用户后，删除该用户目录
+passwd                        #登陆root账户情况下，修改root密码
+passwd username              #修改用户密码
+useradd username -g groupname     #指定用户到某个组
+usermod -g groupname username     #修改用户所在组
+whoami                            #查看当前登陆的用户</code></pre>
             </div>
             <hr/>
 
@@ -578,7 +556,7 @@ ps aux|grep grafana</code></pre><h4 id="3-验证grafana是否能正常访问"><a
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/06/09/environment/tig-da-jian/tig/">http://youknowhaze.github.io/haze/2020/06/09/environment/tig-da-jian/tig/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/06/09/fu-wu-qi/linux-chang-yong-ming-ling/">http://youknowhaze.github.io/haze/2020/06/09/fu-wu-qi/linux-chang-yong-ming-ling/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -618,10 +596,6 @@ ps aux|grep grafana</code></pre><h4 id="3-验证grafana是否能正常访问"><a
                             
                                 <a href="/haze/tags/Linux/">
                                     <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="/haze/tags/TIG/">
-                                    <span class="chip bg-color">TIG</span>
                                 </a>
                             
                         </div>
@@ -667,6 +641,65 @@ ps aux|grep grafana</code></pre><h4 id="3-验证grafana是否能正常访问"><a
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/haze/2020/06/09/docker/docker-an-zhuang-jiao-ben/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/haze/medias/featureimages/15.jpg" class="responsive-img" alt="docker一键式安装脚本">
+                        
+                        <span class="card-title">docker一键式安装脚本</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            docker一键式安装脚本将以下脚本拷贝至shell脚本中，附于执行权限，使用管理员身份执行即可安装docker
+#!/bin/bash
+
+# 环境初始化：指定用户需要有sudo权限
+
+# step 1: 移除旧的docker
+sudo y
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/haze/categories/Docker/" class="post-category">
+                                    Docker
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/haze/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/haze/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/haze/2020/06/09/environment/elk-da-jian/elk/">
                     <div class="card-image">
                         
@@ -692,9 +725,9 @@ neti
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -716,66 +749,6 @@ neti
                     
                     <a href="/haze/tags/ELK/">
                         <span class="chip bg-color">ELK</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/haze/2020/06/09/environment/tig-da-jian/tig/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/haze/medias/featureimages/15.jpg" class="responsive-img" alt="TIG搭建">
-                        
-                        <span class="card-title">TIG搭建</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            TIG监控TIG监控是一种硬件、业务数据监控组件，主要用于监控服务器状态及业务数据量、时间等信息。
-
-Influxdb:一种时序性数据库，主要用于存储数据
-
-Telegraf：收集数据组件，本实验中用于收集硬件、业务指标
-
-Grafana：
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-09
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                    encironment
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/haze/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/haze/tags/TIG/">
-                        <span class="chip bg-color">TIG</span>
                     </a>
                     
                 </div>
