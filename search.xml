@@ -4,7 +4,34 @@
   
     
     <entry>
-      <title>docker&amp;redis</title>
+      <title>java &amp; redis</title>
+      <link href="/haze/2020/07/05/environment/redis/redis-cao-zuo/"/>
+      <url>/haze/2020/07/05/environment/redis/redis-cao-zuo/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Redis-常见操作"><a href="#Redis-常见操作" class="headerlink" title="Redis 常见操作"></a>Redis 常见操作</h2><h3 id="一、运维常见命令"><a href="#一、运维常见命令" class="headerlink" title="一、运维常见命令"></a>一、运维常见命令</h3><p><strong>1、启动redis</strong></p><pre><code># 进入redis根目录nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p><strong>2、启动redis-sentinel 哨兵</strong></p><pre><code># 进入redis根目录nohup src/redis-sentinel sentinel.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p>*<em>3、停止redis  *</em></p><pre><code>redis-cli shutdown</code></pre><p><strong>4、选择数据库</strong></p><pre><code>//默认连接的数据库所有是0,默认数据库数是16个。返回1表示成功，0失败select db-index</code></pre><p><strong>5、清空数据库</strong></p><pre><code>flushdb    //删除当前选择数据库中的所有 key。生产上已经禁止。flushall   //删除所有的数据库。生产上已经禁止。</code></pre><p><strong>6、模拟宕机</strong></p><pre><code>redis-cli debug segfault</code></pre><p><strong>7、模拟hang</strong></p><pre><code>redis-cli -p 6379 DEBUG sleep 30</code></pre><p><strong>8、重命名命令</strong></p><pre><code>rename-command// 例如：rename-command FLUSHALL &quot;&quot;。必须重启。</code></pre><p><strong>9、设置密码</strong></p><pre><code>config set requirepass [passw0rd]</code></pre><p><strong>10、验证密码</strong></p><pre><code>auth passw0rd</code></pre><p><strong>11、查看日志</strong></p><pre><code>日志位置在/redis/log下，redis.log为redis主日志，sentinel.log为sentinel哨兵日志。</code></pre><h3 id="二、开发常见命令"><a href="#二、开发常见命令" class="headerlink" title="二、开发常见命令"></a>二、开发常见命令</h3><p>自注：key值为队列名</p><p><strong>1、在名称为key的队列尾添加一个值为value的元素</strong></p><pre><code>rpush(key, value)</code></pre><p><strong>2、在名称为key的队列头添加一个值为value的 元素</strong></p><pre><code>lpush(key, value)</code></pre><p><strong>3、返回名称为key的队列的长度</strong></p><pre><code>llen(key)</code></pre><p><strong>4、返回名称为key的队列中start至end之间的元素</strong></p><pre><code>lrange(key, start, end)</code></pre><p><strong>5、截取名称为key的队列</strong></p><pre><code>ltrim(key, start, end)</code></pre><p><strong>6、返回名称为key的队列中index位置的元素</strong></p><pre><code>lindex(key, index)</code></pre><p><strong>7、给名称为key的队列中index位置的元素赋值</strong></p><pre><code>lset(key, index, value)</code></pre><p><strong>8、删除count个key的队列中值为value的元素</strong></p><pre><code>lrem(key, count, value)</code></pre><p><strong>9、返回并删除名称为key的队列中的首元素</strong></p><pre><code>lpop(key)</code></pre><p><strong>10、返回并删除名称为key的队列中的尾元素</strong></p><pre><code>rpop(key)</code></pre><p><strong>11、lpop命令的block版本</strong></p><pre><code>blpop(key1, key2,… key N, timeout)</code></pre><p><strong>12、rpop的block版本</strong></p><pre><code>brpop(key1, key2,… key N, timeout)</code></pre><p><strong>13、返回并删除名称为srckey的队列的尾元素，并将该元素添加到名称为dstkey的list的头部</strong></p><pre><code>rpoplpush(srckey, dstkey)</code></pre><p><strong>14、删除某个队列</strong></p><pre><code>del key</code></pre><p><strong>15、清空redis</strong></p><pre><code>flushdb</code></pre><h3 id="三、java-连接redis"><a href="#三、java-连接redis" class="headerlink" title="三、java 连接redis"></a>三、java 连接redis</h3><p><strong>1、引入redis的依赖：</strong></p><pre><code>&lt;dependency&gt;      &lt;groupId&gt;redis.clients&lt;/groupId&gt;      &lt;artifactId&gt;jedis&lt;/artifactId&gt;      &lt;version&gt;2.5.0&lt;/version&gt;&lt;/dependency&gt;</code></pre><p><strong>2、连接池</strong></p><pre><code>// 用hash方式保存至redispublic boolean saveToRedis(String key,String event,String value){        try {            Jedis jedis = getJedisPool().getResource();            jedis.hset(key,event,value);        }catch (Exception ex){            DpLogger.GETDATALOG.error(&quot;redis存储异常..&quot;,ex);        }        return true;    }// redis哨兵连接池，redis是类似的private JedisSentinelPool getJedisPool(){        if (jedisPool == null){            lock1.lock();            try {                JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();                jedisPoolConfig.setMaxIdle(30);                // 哨兵连接127.0.0.1:26379,127.0.0.1:26378,127.0.0.1:26377                Set&lt;String&gt; sentinelSet = redisConfiguration.getSentinelHost().stream().collect(Collectors.toSet());                // redisConfiguration.getSentinelService()为服务名                JedisSentinelPool pool = new JedisSentinelPool(redisConfiguration.getSentinelService(),                        sentinelSet, jedisPoolConfig, redisConfiguration.getSentinelPwd());                return pool;            }catch (Exception ex){                DpLogger.GETDATALOG.error(&quot;创建redis连接失败..&quot;,ex);            }finally {                lock1.unlock();            }        }        return jedisPool;    }</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> command </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker &amp; redis</title>
       <link href="/haze/2020/07/04/environment/redis/docker-redis/"/>
       <url>/haze/2020/07/04/environment/redis/docker-redis/</url>
       

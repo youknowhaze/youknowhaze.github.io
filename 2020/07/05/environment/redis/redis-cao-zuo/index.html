@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="docker &amp; redis, 烹雪煮茶">
+    <meta name="keywords" content="java &amp; redis, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>docker &amp; redis | 烹雪煮茶</title>
+    <title>java &amp; redis | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">docker &amp; redis</h1>
+                    <h1 class="description center-align post-title">java &amp; redis</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +417,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/Docker/">
-                                <span class="chip bg-color">Docker</span>
-                            </a>
-                        
                             <a href="/haze/tags/redis/">
                                 <span class="chip bg-color">redis</span>
+                            </a>
+                        
+                            <a href="/haze/tags/java/">
+                                <span class="chip bg-color">java</span>
                             </a>
                         
                     </div>
@@ -433,8 +433,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                encironment
+                            <a href="/haze/categories/command/" class="post-category">
+                                command
                             </a>
                         
                     </div>
@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-04
+                    2020-07-05
                 </div>
                 
 
@@ -462,50 +462,77 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="docker搭建redis主从及哨兵"><a href="#docker搭建redis主从及哨兵" class="headerlink" title="docker搭建redis主从及哨兵"></a>docker搭建redis主从及哨兵</h2><h3 id="1、前提准备"><a href="#1、前提准备" class="headerlink" title="1、前提准备"></a>1、前提准备</h3><p>docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）</p>
-<h3 id="2、创建外部挂载目录"><a href="#2、创建外部挂载目录" class="headerlink" title="2、创建外部挂载目录"></a>2、创建外部挂载目录</h3><p>创建目录如下，每个目录下再创建data和conf目录用于外部挂载：<br><img src="/haze/2020/07/04/environment/redis/docker-redis/docker-redis01.png" alt="挂载目录"><br></p>
-<h3 id="3、下载redis配置和哨兵配置"><a href="#3、下载redis配置和哨兵配置" class="headerlink" title="3、下载redis配置和哨兵配置"></a>3、下载redis配置和哨兵配置</h3><pre><code>wget http://download.redis.io/redis-stable/redis.conf
+                <h2 id="Redis-常见操作"><a href="#Redis-常见操作" class="headerlink" title="Redis 常见操作"></a>Redis 常见操作</h2><h3 id="一、运维常见命令"><a href="#一、运维常见命令" class="headerlink" title="一、运维常见命令"></a>一、运维常见命令</h3><p><strong>1、启动redis</strong></p>
+<pre><code># 进入redis根目录
+nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p><strong>2、启动redis-sentinel 哨兵</strong></p>
+<pre><code># 进入redis根目录
+nohup src/redis-sentinel sentinel.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p>*<em>3、停止redis  *</em></p>
+<pre><code>redis-cli shutdown</code></pre><p><strong>4、选择数据库</strong></p>
+<pre><code>//默认连接的数据库所有是0,默认数据库数是16个。返回1表示成功，0失败
+select db-index</code></pre><p><strong>5、清空数据库</strong></p>
+<pre><code>flushdb    //删除当前选择数据库中的所有 key。生产上已经禁止。
+flushall   //删除所有的数据库。生产上已经禁止。</code></pre><p><strong>6、模拟宕机</strong></p>
+<pre><code>redis-cli debug segfault</code></pre><p><strong>7、模拟hang</strong></p>
+<pre><code>redis-cli -p 6379 DEBUG sleep 30</code></pre><p><strong>8、重命名命令</strong></p>
+<pre><code>rename-command
+// 例如：rename-command FLUSHALL &quot;&quot;。必须重启。</code></pre><p><strong>9、设置密码</strong></p>
+<pre><code>config set requirepass [passw0rd]</code></pre><p><strong>10、验证密码</strong></p>
+<pre><code>auth passw0rd</code></pre><p><strong>11、查看日志</strong></p>
+<pre><code>日志位置在/redis/log下，redis.log为redis主日志，sentinel.log为sentinel哨兵日志。</code></pre><h3 id="二、开发常见命令"><a href="#二、开发常见命令" class="headerlink" title="二、开发常见命令"></a>二、开发常见命令</h3><p>自注：key值为队列名</p>
+<p><strong>1、在名称为key的队列尾添加一个值为value的元素</strong></p>
+<pre><code>rpush(key, value)</code></pre><p><strong>2、在名称为key的队列头添加一个值为value的 元素</strong></p>
+<pre><code>lpush(key, value)</code></pre><p><strong>3、返回名称为key的队列的长度</strong></p>
+<pre><code>llen(key)</code></pre><p><strong>4、返回名称为key的队列中start至end之间的元素</strong></p>
+<pre><code>lrange(key, start, end)</code></pre><p><strong>5、截取名称为key的队列</strong></p>
+<pre><code>ltrim(key, start, end)</code></pre><p><strong>6、返回名称为key的队列中index位置的元素</strong></p>
+<pre><code>lindex(key, index)</code></pre><p><strong>7、给名称为key的队列中index位置的元素赋值</strong></p>
+<pre><code>lset(key, index, value)</code></pre><p><strong>8、删除count个key的队列中值为value的元素</strong></p>
+<pre><code>lrem(key, count, value)</code></pre><p><strong>9、返回并删除名称为key的队列中的首元素</strong></p>
+<pre><code>lpop(key)</code></pre><p><strong>10、返回并删除名称为key的队列中的尾元素</strong></p>
+<pre><code>rpop(key)</code></pre><p><strong>11、lpop命令的block版本</strong></p>
+<pre><code>blpop(key1, key2,… key N, timeout)</code></pre><p><strong>12、rpop的block版本</strong></p>
+<pre><code>brpop(key1, key2,… key N, timeout)</code></pre><p><strong>13、返回并删除名称为srckey的队列的尾元素，并将该元素添加到名称为dstkey的list的头部</strong></p>
+<pre><code>rpoplpush(srckey, dstkey)</code></pre><p><strong>14、删除某个队列</strong></p>
+<pre><code>del key</code></pre><p><strong>15、清空redis</strong></p>
+<pre><code>flushdb</code></pre><h3 id="三、java-连接redis"><a href="#三、java-连接redis" class="headerlink" title="三、java 连接redis"></a>三、java 连接redis</h3><p><strong>1、引入redis的依赖：</strong></p>
+<pre><code>&lt;dependency&gt;
+      &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+      &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+      &lt;version&gt;2.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre><p><strong>2、连接池</strong></p>
+<pre><code>// 用hash方式保存至redis
+public boolean saveToRedis(String key,String event,String value){
+        try {
+            Jedis jedis = getJedisPool().getResource();
+            jedis.hset(key,event,value);
+        }catch (Exception ex){
+            DpLogger.GETDATALOG.error(&quot;redis存储异常..&quot;,ex);
+        }
+        return true;
+    }
 
-wget http://download.redis.io/redis-stable/sentinel.conf</code></pre><p>文件下载后拷贝改名，分别放至对应目录下</p>
-<p>redis:（命名分别为：redis_6379.conf/redis_6371.conf/redis_6372.conf）<br>sentinel:（命名分别为：sentinel_1.conf/sentinel_2.conf/sentinel_3.conf）</p>
-<h3 id="4、修改redis配置"><a href="#4、修改redis配置" class="headerlink" title="4、修改redis配置"></a>4、修改redis配置</h3><pre><code># 注释掉使得Redis服务器可以跨网络访问
-# bind 0.0.0.0
-# 设置密码
-requirepass &quot;123456&quot;
-# 指定主服务器，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
-slaveof 192.168.11.128 6379
-# 主服务器密码，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
-masterauth 123456
-# 选择性配置，若配置需确保文件目录存在
-logfile &quot;&quot;</code></pre><p><strong>配置文件需更改对应端口</strong></p>
-<h3 id="5、启动一台redis"><a href="#5、启动一台redis" class="headerlink" title="5、启动一台redis"></a>5、启动一台redis</h3><pre><code>docker run -p 6372:6372
---name redis-6372
--v /opt/redis/redis03/conf/redis_6372.conf:/etc/redis/redis_6372.conf
--v /opt/redis/redis03/data:/data
--d redis redis-server /etc/redis/redis_6372.conf
---appendonly yes    # 开启持久化</code></pre><p>启动之后使用命令查看</p>
-<pre><code>docker ps</code></pre><p>未查找到运行中的redis容器，使用命令查看redis容器启动日志</p>
-<pre><code>docker logs ID|less</code></pre><p>发现是logfile日志目录不存在，程序没有自动创建，这里我直接删除这个配置再启动</p>
-<pre><code># 得到容器ID
-docker ps -a
-# 移除容器
-docker rm ID
+// redis哨兵连接池，redis是类似的
+private JedisSentinelPool getJedisPool(){
+        if (jedisPool == null){
+            lock1.lock();
+            try {
+                JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+                jedisPoolConfig.setMaxIdle(30);
+                // 哨兵连接127.0.0.1:26379,127.0.0.1:26378,127.0.0.1:26377
+                Set&lt;String&gt; sentinelSet = redisConfiguration.getSentinelHost().stream().collect(Collectors.toSet());
+                // redisConfiguration.getSentinelService()为服务名
+                JedisSentinelPool pool = new JedisSentinelPool(redisConfiguration.getSentinelService(),
+                        sentinelSet, jedisPoolConfig, redisConfiguration.getSentinelPwd());
 
-#启动redis</code></pre><p>使用redis-manager工具连接试试，发现可以连接。再启动其余几台redis，同样进行验证</p>
-<h3 id="6、更改redis哨兵配置"><a href="#6、更改redis哨兵配置" class="headerlink" title="6、更改redis哨兵配置"></a>6、更改redis哨兵配置</h3><pre><code># 禁止保护模式
-protected-mode no
-# 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。
-sentinel monitor mymaster 192.168.11.128 6379 2
-# sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码
-# sentinel auth-pass &lt;master-name&gt; &lt;password&gt;
-sentinel auth-pass mymaster 123456</code></pre><p><strong>这里需要注意的是，如果不使用默认的服务名mymaster，如更改为了sentinel-server，则需要将配置中所有涉及服务名的地方进行更改，如超时时间，且端口应配置为不一样</strong></p>
-<h3 id="7、启动哨兵"><a href="#7、启动哨兵" class="headerlink" title="7、启动哨兵"></a>7、启动哨兵</h3><pre><code>docker run -p 26379:26379
---name sentinel-26379
--v /opt/redis/sentinel01/conf/sentinel_1.conf:/etc/redis/sentinel.conf
--v /opt/redis/sentinel01/data:/data
--d redis redis-sentinel /etc/redis/sentinel.conf</code></pre><p>启动后执行命令查看是否启动成功</p>
-<pre><code>docker ps</code></pre><p>最后情况应该如下：<br><img src="/haze/2020/07/04/environment/redis/docker-redis/docker-redis02.png" alt="运行情况"><br></p>
-
+                return pool;
+            }catch (Exception ex){
+                DpLogger.GETDATALOG.error(&quot;创建redis连接失败..&quot;,ex);
+            }finally {
+                lock1.unlock();
+            }
+        }
+        return jedisPool;
+    }</code></pre>
             </div>
             <hr/>
 
@@ -530,7 +557,7 @@ sentinel auth-pass mymaster 123456</code></pre><p><strong>这里需要注意的�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/04/environment/redis/docker-redis/">http://youknowhaze.github.io/haze/2020/07/04/environment/redis/docker-redis/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/redis/redis-cao-zuo/">http://youknowhaze.github.io/haze/2020/07/05/environment/redis/redis-cao-zuo/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -568,12 +595,12 @@ sentinel auth-pass mymaster 123456</code></pre><p><strong>这里需要注意的�
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/Docker/">
-                                    <span class="chip bg-color">Docker</span>
-                                </a>
-                            
                                 <a href="/haze/tags/redis/">
                                     <span class="chip bg-color">redis</span>
+                                </a>
+                            
+                                <a href="/haze/tags/java/">
+                                    <span class="chip bg-color">java</span>
                                 </a>
                             
                         </div>
@@ -615,9 +642,10 @@ sentinel auth-pass mymaster 123456</code></pre><p><strong>这里需要注意的�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/haze/2020/07/05/environment/redis/redis-cao-zuo/">
                     <div class="card-image">
@@ -637,9 +665,9 @@ nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -652,6 +680,7 @@ nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -674,25 +703,26 @@ nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/">
+                <a href="/haze/2020/07/04/environment/redis/docker-redis/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/7.jpg" class="responsive-img" alt="Linix &amp; redis">
+                        <img src="/haze/medias/featureimages/17.jpg" class="responsive-img" alt="docker &amp; redis">
                         
-                        <span class="card-title">Linix &amp; redis</span>
+                        <span class="card-title">docker &amp; redis</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            redis主从及哨兵比较简陋的搭建一个主从及哨兵
-1、创建目录/opt/app/redis,如下：mkdir /opt/app/redis2、下载redis安装包至目录下，复制3份，各自重命名，并解压：tar xvfz m.tar.gz3、
+                            docker搭建redis主从及哨兵1、前提准备docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）
+2、创建外部挂载目录创建目录如下，每个目录下再创建data和conf目录用于外部挂载：
+3、下载redis配置和
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-04
                             </span>
                         <span class="publish-author">
                             
@@ -709,8 +739,8 @@ nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/haze/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                     <a href="/haze/tags/redis/">

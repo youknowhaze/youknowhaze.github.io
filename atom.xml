@@ -6,7 +6,7 @@
   <link href="/haze/atom.xml" rel="self"/>
   
   <link href="http://youknowhaze.github.io/"/>
-  <updated>2020-07-07T11:25:29.659Z</updated>
+  <updated>2020-07-07T11:48:36.844Z</updated>
   <id>http://youknowhaze.github.io/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>docker&amp;redis</title>
+    <title>java &amp; redis</title>
+    <link href="http://youknowhaze.github.io/2020/07/05/environment/redis/redis-cao-zuo/"/>
+    <id>http://youknowhaze.github.io/2020/07/05/environment/redis/redis-cao-zuo/</id>
+    <published>2020-07-05T00:00:00.000Z</published>
+    <updated>2020-07-07T11:48:36.844Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Redis-常见操作&quot;&gt;&lt;a href=&quot;#Redis-常见操作&quot; class=&quot;headerlink&quot; title=&quot;Redis 常见操作&quot;&gt;&lt;/a&gt;Redis 常见操作&lt;/h2&gt;&lt;h3 id=&quot;一、运维常见命令&quot;&gt;&lt;a href=&quot;#一、运维常见命令&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="command" scheme="http://youknowhaze.github.io/categories/command/"/>
+    
+    
+      <category term="redis" scheme="http://youknowhaze.github.io/tags/redis/"/>
+    
+      <category term="java" scheme="http://youknowhaze.github.io/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker &amp; redis</title>
     <link href="http://youknowhaze.github.io/2020/07/04/environment/redis/docker-redis/"/>
     <id>http://youknowhaze.github.io/2020/07/04/environment/redis/docker-redis/</id>
     <published>2020-07-04T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.844Z</updated>
     
     <summary type="html">
     
@@ -50,7 +79,7 @@
     <link href="http://youknowhaze.github.io/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/"/>
     <id>http://youknowhaze.github.io/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</id>
     <published>2020-07-03T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.844Z</updated>
     
     <summary type="html">
     
@@ -80,7 +109,7 @@
     <link href="http://youknowhaze.github.io/2020/07/02/web/session/"/>
     <id>http://youknowhaze.github.io/2020/07/02/web/session/</id>
     <published>2020-07-02T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.663Z</updated>
+    <updated>2020-07-07T11:48:36.844Z</updated>
     
     <summary type="html">
     
@@ -107,7 +136,7 @@
     <link href="http://youknowhaze.github.io/2020/07/01/web/cookie/"/>
     <id>http://youknowhaze.github.io/2020/07/01/web/cookie/</id>
     <published>2020-07-01T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.844Z</updated>
     
     <summary type="html">
     
@@ -135,7 +164,7 @@
     <link href="http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/"/>
     <id>http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/</id>
     <published>2020-06-29T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.663Z</updated>
+    <updated>2020-07-07T11:48:36.844Z</updated>
     
     <summary type="html">
     
@@ -163,7 +192,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/"/>
     <id>http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/</id>
     <published>2020-06-26T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.840Z</updated>
     
     <summary type="html">
     
@@ -192,7 +221,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/"/>
     <id>http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/</id>
     <published>2020-06-22T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.840Z</updated>
     
     <summary type="html">
     
@@ -221,7 +250,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/"/>
     <id>http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/</id>
     <published>2020-06-18T00:00:00.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.840Z</updated>
     
     <summary type="html">
     
@@ -250,7 +279,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/"/>
     <id>http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/</id>
     <published>2020-06-13T18:23:38.000Z</published>
-    <updated>2020-07-07T11:25:29.659Z</updated>
+    <updated>2020-07-07T11:48:36.840Z</updated>
     
     <summary type="html">
     
@@ -277,7 +306,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/"/>
     <id>http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/</id>
     <published>2020-06-06T18:23:38.000Z</published>
-    <updated>2020-07-07T11:25:29.655Z</updated>
+    <updated>2020-07-07T11:48:36.840Z</updated>
     
     <summary type="html">
     
