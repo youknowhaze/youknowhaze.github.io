@@ -6,7 +6,7 @@
   <link href="/haze/atom.xml" rel="self"/>
   
   <link href="http://youknowhaze.github.io/"/>
-  <updated>2020-06-20T05:06:58.036Z</updated>
+  <updated>2020-07-07T10:26:10.668Z</updated>
   <id>http://youknowhaze.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hexo+github的静态博客搭建</title>
-    <link href="http://youknowhaze.github.io/2020/06/10/blog/bo-ke-da-jian/"/>
-    <id>http://youknowhaze.github.io/2020/06/10/blog/bo-ke-da-jian/</id>
-    <published>2020-06-10T18:23:38.000Z</published>
-    <updated>2020-06-20T05:06:58.036Z</updated>
+    <title>session（会话）</title>
+    <link href="http://youknowhaze.github.io/2020/07/02/web/session/"/>
+    <id>http://youknowhaze.github.io/2020/07/02/web/session/</id>
+    <published>2020-07-02T00:00:00.000Z</published>
+    <updated>2020-07-07T10:26:10.668Z</updated>
     
     <summary type="html">
     
@@ -29,26 +29,26 @@
       
         
         
-          &lt;h2 id=&quot;从无到有的github博客搭建&quot;&gt;&lt;a href=&quot;#从无到有的github博客搭建&quot; class=&quot;headerlink&quot; title=&quot;从无到有的github博客搭建&quot;&gt;&lt;/a&gt;从无到有的github博客搭建&lt;/h2&gt;&lt;h3
+          &lt;h2 id=&quot;session&quot;&gt;&lt;a href=&quot;#session&quot; class=&quot;headerlink&quot; title=&quot;session&quot;&gt;&lt;/a&gt;session&lt;/h2&gt;&lt;p&gt;   参考自：&lt;a
         
       
     
     </summary>
     
     
-      <category term="博客" scheme="http://youknowhaze.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="Web" scheme="http://youknowhaze.github.io/categories/Web/"/>
     
     
-      <category term="blog" scheme="http://youknowhaze.github.io/tags/blog/"/>
+      <category term="session" scheme="http://youknowhaze.github.io/tags/session/"/>
     
   </entry>
   
   <entry>
-    <title>样式组件调整</title>
-    <link href="http://youknowhaze.github.io/2020/06/10/blog/yang-shi-zu-jian-diao-zheng/"/>
-    <id>http://youknowhaze.github.io/2020/06/10/blog/yang-shi-zu-jian-diao-zheng/</id>
-    <published>2020-06-10T18:23:38.000Z</published>
-    <updated>2020-06-20T05:06:58.040Z</updated>
+    <title>Cookie（缓存）</title>
+    <link href="http://youknowhaze.github.io/2020/07/01/web/cookie/"/>
+    <id>http://youknowhaze.github.io/2020/07/01/web/cookie/</id>
+    <published>2020-07-01T00:00:00.000Z</published>
+    <updated>2020-07-07T10:26:10.668Z</updated>
     
     <summary type="html">
     
@@ -56,55 +56,27 @@
       
         
         
-          &lt;h1 id=&quot;样式组件调整&quot;&gt;&lt;a href=&quot;#样式组件调整&quot; class=&quot;headerlink&quot; title=&quot;样式组件调整&quot;&gt;&lt;/a&gt;样式组件调整&lt;/h1&gt;&lt;h2 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;Cookie（缓存）&quot;&gt;&lt;a href=&quot;#Cookie（缓存）&quot; class=&quot;headerlink&quot; title=&quot;Cookie（缓存）&quot;&gt;&lt;/a&gt;Cookie（缓存）&lt;/h2&gt;&lt;p&gt;代码将在Advanced-Study 项目进行练习&lt;/p&gt;
+&lt;h3
         
       
     
     </summary>
     
     
-      <category term="博客" scheme="http://youknowhaze.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="Web" scheme="http://youknowhaze.github.io/categories/Web/"/>
     
     
-      <category term="blog" scheme="http://youknowhaze.github.io/tags/blog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker一键式安装脚本</title>
-    <link href="http://youknowhaze.github.io/2020/06/09/docker/docker-an-zhuang-jiao-ben/"/>
-    <id>http://youknowhaze.github.io/2020/06/09/docker/docker-an-zhuang-jiao-ben/</id>
-    <published>2020-06-09T00:00:00.000Z</published>
-    <updated>2020-06-20T05:06:58.040Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;docker一键式安装脚本&quot;&gt;&lt;a href=&quot;#docker一键式安装脚本&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Docker" scheme="http://youknowhaze.github.io/categories/Docker/"/>
-    
-    
-      <category term="Linux" scheme="http://youknowhaze.github.io/tags/Linux/"/>
-    
-      <category term="Docker" scheme="http://youknowhaze.github.io/tags/Docker/"/>
+      <category term="Cookie" scheme="http://youknowhaze.github.io/tags/Cookie/"/>
     
   </entry>
   
   <entry>
     <title>Linux 常用命令</title>
-    <link href="http://youknowhaze.github.io/2020/06/09/fu-wu-qi/linux-chang-yong-ming-ling/"/>
-    <id>http://youknowhaze.github.io/2020/06/09/fu-wu-qi/linux-chang-yong-ming-ling/</id>
-    <published>2020-06-09T00:00:00.000Z</published>
-    <updated>2020-06-20T05:06:58.040Z</updated>
+    <link href="http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/"/>
+    <id>http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/</id>
+    <published>2020-06-29T00:00:00.000Z</published>
+    <updated>2020-07-07T10:26:10.672Z</updated>
     
     <summary type="html">
     
@@ -128,11 +100,40 @@ chmod 777
   </entry>
   
   <entry>
+    <title>TIG搭建</title>
+    <link href="http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/"/>
+    <id>http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/</id>
+    <published>2020-06-26T00:00:00.000Z</published>
+    <updated>2020-07-07T10:26:10.668Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;TIG监控&quot;&gt;&lt;a href=&quot;#TIG监控&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="encironment" scheme="http://youknowhaze.github.io/categories/encironment/"/>
+    
+    
+      <category term="Linux" scheme="http://youknowhaze.github.io/tags/Linux/"/>
+    
+      <category term="TIG" scheme="http://youknowhaze.github.io/tags/TIG/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ELK搭建</title>
-    <link href="http://youknowhaze.github.io/2020/06/09/environment/elk-da-jian/elk/"/>
-    <id>http://youknowhaze.github.io/2020/06/09/environment/elk-da-jian/elk/</id>
-    <published>2020-06-09T00:00:00.000Z</published>
-    <updated>2020-06-20T05:06:58.040Z</updated>
+    <link href="http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/"/>
+    <id>http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/</id>
+    <published>2020-06-22T00:00:00.000Z</published>
+    <updated>2020-07-07T10:26:10.664Z</updated>
     
     <summary type="html">
     
@@ -157,11 +158,11 @@ chmod 777
   </entry>
   
   <entry>
-    <title>TIG搭建</title>
-    <link href="http://youknowhaze.github.io/2020/06/09/environment/tig-da-jian/tig/"/>
-    <id>http://youknowhaze.github.io/2020/06/09/environment/tig-da-jian/tig/</id>
-    <published>2020-06-09T00:00:00.000Z</published>
-    <updated>2020-06-20T05:06:58.040Z</updated>
+    <title>docker一键式安装脚本</title>
+    <link href="http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/"/>
+    <id>http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/</id>
+    <published>2020-06-18T00:00:00.000Z</published>
+    <updated>2020-07-07T10:26:10.664Z</updated>
     
     <summary type="html">
     
@@ -169,19 +170,73 @@ chmod 777
       
         
         
-          &lt;h2 id=&quot;TIG监控&quot;&gt;&lt;a href=&quot;#TIG监控&quot; class=&quot;headerlink&quot;
+          &lt;h2 id=&quot;docker一键式安装脚本&quot;&gt;&lt;a href=&quot;#docker一键式安装脚本&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
     
-      <category term="encironment" scheme="http://youknowhaze.github.io/categories/encironment/"/>
+      <category term="Docker" scheme="http://youknowhaze.github.io/categories/Docker/"/>
     
     
       <category term="Linux" scheme="http://youknowhaze.github.io/tags/Linux/"/>
     
-      <category term="TIG" scheme="http://youknowhaze.github.io/tags/TIG/"/>
+      <category term="Docker" scheme="http://youknowhaze.github.io/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>样式组件调整</title>
+    <link href="http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/"/>
+    <id>http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/</id>
+    <published>2020-06-13T18:23:38.000Z</published>
+    <updated>2020-07-07T10:26:10.664Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;样式组件调整&quot;&gt;&lt;a href=&quot;#样式组件调整&quot; class=&quot;headerlink&quot; title=&quot;样式组件调整&quot;&gt;&lt;/a&gt;样式组件调整&lt;/h1&gt;&lt;h2 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="博客" scheme="http://youknowhaze.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="blog" scheme="http://youknowhaze.github.io/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo+github的静态博客搭建</title>
+    <link href="http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/"/>
+    <id>http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/</id>
+    <published>2020-06-06T18:23:38.000Z</published>
+    <updated>2020-07-07T10:26:10.664Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;从无到有的github博客搭建&quot;&gt;&lt;a href=&quot;#从无到有的github博客搭建&quot; class=&quot;headerlink&quot; title=&quot;从无到有的github博客搭建&quot;&gt;&lt;/a&gt;从无到有的github博客搭建&lt;/h2&gt;&lt;h3
+        
+      
+    
+    </summary>
+    
+    
+      <category term="博客" scheme="http://youknowhaze.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="blog" scheme="http://youknowhaze.github.io/tags/blog/"/>
     
   </entry>
   

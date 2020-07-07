@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="ELK搭建, 烹雪煮茶">
+    <meta name="keywords" content="Hexo+github的静态博客搭建, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ELK搭建 | 烹雪煮茶</title>
+    <title>Hexo+github的静态博客搭建 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ELK搭建</h1>
+                    <h1 class="description center-align post-title">Hexo+github的静态博客搭建</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +417,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
-                            <a href="/haze/tags/ELK/">
-                                <span class="chip bg-color">ELK</span>
+                            <a href="/haze/tags/blog/">
+                                <span class="chip bg-color">blog</span>
                             </a>
                         
                     </div>
@@ -433,8 +429,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                encironment
+                            <a href="/haze/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                博客
                             </a>
                         
                     </div>
@@ -446,7 +442,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-09
+                    2020-06-06
                 </div>
                 
 
@@ -462,205 +458,67 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="ELK"><a href="#ELK" class="headerlink" title="ELK"></a>ELK</h2><p>ELK由elasticsearch（存储层）、logstash（收集）、kibana（展示）三部分组成，三个组件的版本建议保持一致。此文档是基于ELK7.6.2版本，其余版本在配置上可能会有差异。</p>
+                <h2 id="从无到有的github博客搭建"><a href="#从无到有的github博客搭建" class="headerlink" title="从无到有的github博客搭建"></a>从无到有的github博客搭建</h2><h3 id="一、基于Hexo-github的静态博客搭建"><a href="#一、基于Hexo-github的静态博客搭建" class="headerlink" title="一、基于Hexo+github的静态博客搭建"></a>一、基于Hexo+github的静态博客搭建</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><p>  因为我是windows系统，所以下面的操作都是基于windows环境而言的<br>  （1）、<strong>Git Bash安装</strong>。我一直不太喜欢使用小乌龟，于是选择git bash进行安装。安装步骤便不再赘述。  <a href="https://gitforwindows.org/" target="_blank" rel="noopener">下载地址</a></p>
+<p>  （2）、<strong>安装NodeJs</strong>。Hexo是基于nodeJS环境的静态博客，里面的npm工具很有用。同样，安装步骤不再赘述   <a href="https://nodejs.org/en/" target="_blank" rel="noopener">下载地址</a></p>
+<p>  （3）、<strong>安装hexo</strong>。看到这么多需要安装的东西，千万不要慌张，这都是开发的必备环境，是比较简单的一些安装操作。建议全局安装hexo，安装命令如下：</p>
+<pre><code>npm i -g hexo</code></pre><p>  （4）、需要拥有一个github账号，若没有，<a href="https://gitforwindows.org/" target="_blank" rel="noopener">去创建</a></p>
+<h4 id="2、创建博客"><a href="#2、创建博客" class="headerlink" title="2、创建博客"></a>2、创建博客</h4><p>  （1）、在github远程仓库创建一个项目，项目名为username.github.io（比如我的github用户名为youknowhaze，那么我的项目名就是youknowhaze.github.io），github会将该名称的项目发布至远程，进行免费托管。每个github账户仅支持这样一个命名项目的托管。</p>
+<p>  （2）、将项目clone至本地目录，进入项目根目录，执行初始化命令</p>
+<pre><code>hexo init</code></pre><p>  初始化后的项目结构如下：</p>
+<p><img src="/haze/2020/06/06/blog/bo-ke-da-jian/blog_init.png" alt="1"></p>
+<p>  简单解释一下这个结构</p>
 <table>
 <thead>
 <tr>
-<th>ip地址</th>
-<th>应用</th>
+<th>模块/文件</th>
+<th>作用</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>netip1</td>
-<td>es</td>
+<td>node_modules</td>
+<td>是依赖包</td>
 </tr>
 <tr>
-<td>netip2</td>
-<td>es</td>
+<td>public</td>
+<td>存放的是生成的页面</td>
 </tr>
 <tr>
-<td>netip3</td>
-<td>kibana</td>
+<td>scaffolds</td>
+<td>命令生成文章等的模板</td>
 </tr>
 <tr>
-<td>netip4</td>
-<td>logstash 业务日志收集</td>
+<td>source</td>
+<td>用命令创建的各种文章</td>
 </tr>
 <tr>
-<td>netip5</td>
-<td>logstash 防火墙日志收集</td>
+<td>themes</td>
+<td>主题</td>
+</tr>
+<tr>
+<td>_config.yml</td>
+<td>整个博客的配置</td>
+</tr>
+<tr>
+<td>db.json</td>
+<td>source解析所得到的</td>
+</tr>
+<tr>
+<td>package.json</td>
+<td>项目所需模块项目的配置信息</td>
 </tr>
 </tbody></table>
-<h3 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h3><p>主要介绍es的搭建，没有采用docker进行搭建，后续再加上docker搭建的文档</p>
-<h4 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h4><h5 id="1、下载es的安装包，上传至服务器，或者在服务器直接使用命令下载。"><a href="#1、下载es的安装包，上传至服务器，或者在服务器直接使用命令下载。" class="headerlink" title="1、下载es的安装包，上传至服务器，或者在服务器直接使用命令下载。"></a>1、下载es的安装包，上传至服务器，或者在服务器直接使用命令下载。</h5><p>这里给出当前最新版本安装包<br>   <a href="https://www.elastic.co/cn/downloads/elasticsearch" target="_blank" rel="noopener">点击下载es</a></p>
-<h5 id="2、es是基于java环境的，所以安装es前需要先配置jdk，这里配置的是jdk8。7-6的es要求是jdk11以上，但他是向下兼容的，所以jdk8即可。java环境的配置是基本操作这里就不赘述了。"><a href="#2、es是基于java环境的，所以安装es前需要先配置jdk，这里配置的是jdk8。7-6的es要求是jdk11以上，但他是向下兼容的，所以jdk8即可。java环境的配置是基本操作这里就不赘述了。" class="headerlink" title="2、es是基于java环境的，所以安装es前需要先配置jdk，这里配置的是jdk8。7.6的es要求是jdk11以上，但他是向下兼容的，所以jdk8即可。java环境的配置是基本操作这里就不赘述了。"></a>2、es是基于java环境的，所以安装es前需要先配置jdk，这里配置的是jdk8。7.6的es要求是jdk11以上，但他是向下兼容的，所以jdk8即可。java环境的配置是基本操作这里就不赘述了。</h5><h5 id="3、搭建2台es作为集群吧，先准备两台服务器-虚拟机（net1，net2【这里用netip1、netip2代替ip地址】）"><a href="#3、搭建2台es作为集群吧，先准备两台服务器-虚拟机（net1，net2【这里用netip1、netip2代替ip地址】）" class="headerlink" title="3、搭建2台es作为集群吧，先准备两台服务器/虚拟机（net1，net2【这里用netip1、netip2代替ip地址】）"></a>3、搭建2台es作为集群吧，先准备两台服务器/虚拟机（net1，net2【这里用netip1、netip2代替ip地址】）</h5><h4 id="二、编辑es配置"><a href="#二、编辑es配置" class="headerlink" title="二、编辑es配置"></a>二、编辑es配置</h4><p>1、创建文件夹</p>
-<pre><code>--创建elk的文件夹
-mkdir /opt/elk
--- 存放es的数据
-mkdir /opt/elk/data/es/data
--- 存放es的日志
-mkdir /opt/elk/data/es/logs
--- 将目录权限赋值给非root用户，非root用户创建请忽略
-chown -R prouser /opt/elk</code></pre><h5 id="2、解压文件并重命名"><a href="#2、解压文件并重命名" class="headerlink" title="2、解压文件并重命名"></a>2、解压文件并重命名</h5><pre><code>tar zvxf elasticsearch-7.6.2-linux-x86_64.tar.gz
-mv elasticsearch-7.6.2  elasticsearch</code></pre><h5 id="3、编辑配置文件"><a href="#3、编辑配置文件" class="headerlink" title="3、编辑配置文件"></a>3、编辑配置文件</h5><pre><code>-- 先进入根目录
-cd elasticsearch
-vi config/elasticsearch.yml</code></pre><h5 id="4、配置文件需要配置的内容如下-两个服务器配置只有nodename和ip不同"><a href="#4、配置文件需要配置的内容如下-两个服务器配置只有nodename和ip不同" class="headerlink" title="4、配置文件需要配置的内容如下,两个服务器配置只有nodename和ip不同"></a>4、配置文件需要配置的内容如下,两个服务器配置只有nodename和ip不同</h5><pre><code>-- 集群设置，es会默认将相同网段的es作为集群，当有多个集群时，通过该字段进行区分
-cluster.name: dp-es
--- 节点名称，集群必须定义，单台可不用定义
-node.name: dp-122
-path.data: /opt/elk/data/es/data
-path.logs: /opt/elk/data/es/logs
-network.host: netip1
-http.port: 9200
--- 可以作为master的节点，集群必不可少
-cluster.initial_master_nodes: [&quot;netip1&quot;,&quot;netip2&quot;]
--- 可以初始化的节点，集群必不可少
-discovery.seed_hosts: [&quot;netip1&quot;,&quot;netip2&quot;]
--- 检测到几个节点时开始恢复数据
-gateway.recover_after_nodes: 1
--- 跨域设置，这个选择性设置，非必要
-http.cors.enabled: true
-http.cors.allow-origin: &quot;*&quot;</code></pre><h4 id="三、启动es前的准备"><a href="#三、启动es前的准备" class="headerlink" title="三、启动es前的准备"></a>三、启动es前的准备</h4><p>es对环境有比较高的要求，现对服务器做如下配置：<br></p>
-<pre><code>-- 1、切换至root用户
-su root
+<p>  （3）、启动项目：</p>
+<pre><code>hexo g    # 构建项目，会在public下生成html页面
+hexo d    # 启动项目，启动后本地访问http://localhost:4000</code></pre><p>初始的博客页面有点丑，访问页面如下：</p>
+<p><img src="/haze/2020/06/06/blog/bo-ke-da-jian/blogpage_1.png" alt="1"></p>
+<p>  （4）、修改主题<br>  既然默认主题比较丑，那么我们就修改一个自己喜欢的主题，  <a href="https://hexo.io/themes/" target="_blank" rel="noopener">官方主题</a><br>  现在使用的博客模板为：  <a href="https://github.com/youknowhaze/incredible-blog" target="_blank" rel="noopener">hexo-theme-matery</a></p>
+<p>  首先修改_config.yml文件中的theme: landscape改为theme: hexo-theme-matery ，然后需要下载模板文件至themes目录下，可以通过clone的方式，也可以下载压缩包进行解压，如下：</p>
+<p><img src="/haze/2020/06/06/blog/bo-ke-da-jian/blog_themes.png" alt="1"></p>
+<p>  重新启动博客：</p>
+<pre><code>hexo s  # 启动博客
 
--- 2、编辑打开文件数限制
-vi /etc/security/limits.conf
--- 编辑如下内容，注意*号不要复制掉了
-* soft nofile 65536
-* hard nofile 65536
-
--- 3、更改vm
-echo &#39;vm.max_map_count=262144&#39;&gt;&gt; /etc/sysctl.conf
--- 查看更改
-sysctl -p
-
--- 4、编辑限制
-vi /etc/security/limits.d/90-nproc.conf
--- 内容如下
-* soft nproc 4096</code></pre><h4 id="四、启动es"><a href="#四、启动es" class="headerlink" title="四、启动es"></a>四、启动es</h4><h5 id="1、依次启动es，注意观察启动日志。"><a href="#1、依次启动es，注意观察启动日志。" class="headerlink" title="1、依次启动es，注意观察启动日志。"></a>1、依次启动es，注意观察启动日志。</h5><pre><code>-- 进入es根目录，先控制台启动
-bin/elasticsearch
-
--- 无问题再切换为后台启动
-nohup bin/elasticsearch &gt;/dev/null 2&gt;&amp;1 &amp;</code></pre><h5 id="2、确认es是否启动"><a href="#2、确认es是否启动" class="headerlink" title="2、确认es是否启动"></a>2、确认es是否启动</h5><p>(1)、命令确认：</p>
-<pre><code>curl -X GET http://netip1:9200</code></pre><p>(2)、访问页面 <a href="http://netip1:9200" target="_blank" rel="noopener">http://netip1:9200</a> <br></p>
-<p>返回如下情况则表示安装成功：</p>
-<p><img src="/haze/2020/06/09/environment/elk-da-jian/elk/es-return.png" alt="build succes"><br></p>
-<h4 id="五、可能会出现严重错误导致无法启动"><a href="#五、可能会出现严重错误导致无法启动" class="headerlink" title="五、可能会出现严重错误导致无法启动"></a>五、可能会出现严重错误导致无法启动</h4><p>可能会出现如下错误，导致无法启动：</p>
-<p><img src="/haze/2020/06/09/environment/elk-da-jian/elk/es-error01.png" alt="build error"><br></p>
-<pre><code>-- 跳过filter
-bootstrap.memory_lock: false
-bootstrap.system_call_filter: false</code></pre><h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>这段将介绍简单的搭建kibana</p>
-<h4 id="一、环境准备-1"><a href="#一、环境准备-1" class="headerlink" title="一、环境准备"></a>一、环境准备</h4><h5 id="1、下载kibana的安装包，上传至服务器，或者在服务器直接使用命令下载。"><a href="#1、下载kibana的安装包，上传至服务器，或者在服务器直接使用命令下载。" class="headerlink" title="1、下载kibana的安装包，上传至服务器，或者在服务器直接使用命令下载。"></a>1、下载kibana的安装包，上传至服务器，或者在服务器直接使用命令下载。</h5><p>这里给出当前最新版本安装包<br><br><a href="https://www.elastic.co/cn/downloads/kibana" target="_blank" rel="noopener">点击下载kibana</a></p>
-<h5 id="2、需要一台服务器-虚拟机，这里就放在netip3"><a href="#2、需要一台服务器-虚拟机，这里就放在netip3" class="headerlink" title="2、需要一台服务器/虚拟机，这里就放在netip3"></a>2、需要一台服务器/虚拟机，这里就放在netip3</h5><h4 id="二、编辑kibana配置"><a href="#二、编辑kibana配置" class="headerlink" title="二、编辑kibana配置"></a>二、编辑kibana配置</h4><h5 id="1、解压文件并重命名"><a href="#1、解压文件并重命名" class="headerlink" title="1、解压文件并重命名"></a>1、解压文件并重命名</h5><pre><code>cd /opt/elk
-tar zvxf kibana-7.6.2-linux-x86_64.tar.gz
-mv kibana-7.6.2 kibana</code></pre><h5 id="2、-配置kibana文件"><a href="#2、-配置kibana文件" class="headerlink" title="2、 配置kibana文件"></a>2、 配置kibana文件</h5><pre><code>-- 配置kibana
-cd kibana
-vi config/kibana.yml</code></pre><h5 id="3、-配置内容如下"><a href="#3、-配置内容如下" class="headerlink" title="3、 配置内容如下"></a>3、 配置内容如下</h5><pre><code>server.port: 5601
-server.host: &quot;netip3&quot;
--- es集群
-elasticsearch.hosts: [&quot;http://netip1:9200&quot;，&quot;http://netip2:9200&quot;]</code></pre><h4 id="三、启动kibana"><a href="#三、启动kibana" class="headerlink" title="三、启动kibana"></a>三、启动kibana</h4><pre><code>nohup bin/kibana &gt;/dev/null 2&gt;&amp;1 &amp;</code></pre><p>kinaba不依赖于java环境，所以查询只能通过端口</p>
-<pre><code>netstat -tunlp|grep 5601</code></pre><p>确认启动成功访问kiban：<a href="http://netip3:5601" target="_blank" rel="noopener">http://netip3:5601</a></p>
-<h3 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h3><p>本节简单介绍logstash的配置启动</p>
-<h4 id="一、环境准备-2"><a href="#一、环境准备-2" class="headerlink" title="一、环境准备"></a>一、环境准备</h4><h5 id="1、logstash和es一样需要java环境，也是向下兼容的，jkd8即可"><a href="#1、logstash和es一样需要java环境，也是向下兼容的，jkd8即可" class="headerlink" title="1、logstash和es一样需要java环境，也是向下兼容的，jkd8即可."></a>1、logstash和es一样需要java环境，也是向下兼容的，jkd8即可.</h5><h5 id="2、准备服务器，至少1台，这里选取119"><a href="#2、准备服务器，至少1台，这里选取119" class="headerlink" title="2、准备服务器，至少1台，这里选取119"></a>2、准备服务器，至少1台，这里选取119</h5><h5 id="3、下载logstash"><a href="#3、下载logstash" class="headerlink" title="3、下载logstash"></a>3、下载logstash<br></h5><p><a href="https://www.elastic.co/cn/downloads/logstash" target="_blank" rel="noopener">点击下载logstash</a></p>
-<h4 id="二、配置编辑"><a href="#二、配置编辑" class="headerlink" title="二、配置编辑"></a>二、配置编辑</h4><h5 id="1、解压并重命名"><a href="#1、解压并重命名" class="headerlink" title="1、解压并重命名"></a>1、解压并重命名</h5><pre><code>tar zvxf logstash-7.6.2.tar.gz
-mv logstash-7.6.2 logstash</code></pre><h5 id="2、logstash的本身配置文件无需任何更改，新建一个自定义配置-dp-logstash-conf"><a href="#2、logstash的本身配置文件无需任何更改，新建一个自定义配置-dp-logstash-conf" class="headerlink" title="2、logstash的本身配置文件无需任何更改，新建一个自定义配置:dp-logstash.conf"></a>2、logstash的本身配置文件无需任何更改，新建一个自定义配置:dp-logstash.conf</h5><pre><code>cd logstash
-vi /config/dp-logstash.conf</code></pre><p>这里放入119的测试环境配置，暂时只有推送和拉取模块的，将两个模块的配置放在一起进行收集，如下：</p>
-<pre><code>input {
-  file {
-        path =&gt; &quot;/DATA/applog/dslog/datahanderinfo.log&quot;
-        type =&gt; &quot;obtain&quot;
-        codec =&gt; multiline {
-            pattern =&gt; &quot;^%{YEAR}&quot;
-            negate =&gt; true
-            what =&gt; &quot;previous&quot;
-        }
-    }
-  file {
-        path =&gt; &quot;/DATA/applog/dslog/pushloginfo.log&quot;
-        type =&gt; &quot;pushhttp&quot;
-        codec =&gt; multiline {
-            pattern =&gt; &quot;^%{YEAR}&quot;
-            negate =&gt; true
-            what =&gt; &quot;previous&quot;
-        }
-    }
-}
-
-filter {
-          if ([message] =~ &quot;collectd|SourceAddr|Priority|MsgType=|&lt;Subevent|result.isSuccess|没有获取到&quot;) {
-           drop {}
-          }
-
-          if ([type] == &quot;obtain&quot;){
-             mutate {
-                   split =&gt; { &quot;message&quot; =&gt; &quot;MsgContent=&quot; }
-                   add_field =&gt;   {&quot;msgcontent&quot; =&gt; &quot;%{[message][1]}&quot;}
-                   remove_field =&gt; [&quot;message&quot;]
-                   add_field =&gt;   {&quot;datatype&quot; =&gt; &quot;origindata&quot;}
-                   replace =&gt; { &quot;host&quot; =&gt; &quot;netip4&quot; }
-                 }
-          }
-          if ([type] == &quot;pushhttp&quot;){
-              mutate {
-                   split =&gt; { &quot;message&quot; =&gt; &quot;-run,&quot; }
-                   add_field =&gt;   {&quot;msgcontent&quot; =&gt; &quot;%{[message][1]}&quot;}
-                   remove_field =&gt; [&quot;message&quot;]
-                   replace =&gt; { &quot;host&quot; =&gt; &quot;netip4&quot; }
-                 }
-          }
-}
-
-output {
-    elasticsearch { hosts =&gt; [&quot;netip1:9200&quot;,&quot;netip2:9200&quot;]
-                    index =&gt; &quot;logstash-%{type}-%{+YYYY.MM.dd}&quot;
-}
-    stdout { codec=&gt; rubydebug }
-}</code></pre><h5 id="再附上一个防火墙系统日志的收集"><a href="#再附上一个防火墙系统日志的收集" class="headerlink" title="再附上一个防火墙系统日志的收集"></a>再附上一个防火墙系统日志的收集</h5><pre><code># 输入
-input{
-  udp{
-    host =&gt; &quot;netip5&quot;
-    port =&gt; 514
-    codec =&gt; line
-  }
-}
-
-# 过滤器
-filter {
-
-  # 拆分字段
-  kv {
-    source =&gt; &quot;message&quot;
-    include_keys =&gt; [&quot;src&quot;,&quot;dst&quot;,&quot;proto&quot;,&quot;sport&quot;,&quot;dport&quot;,&quot;inpkt&quot;,&quot;outpkt&quot;,&quot;sent&quot;,&quot;rcvd&quot;,&quot;duration&quot;,&quot;connid&quot;,&quot;parent&quot;,&quot;op&quot; ]
-  }
-
-  # 上下行流量转为Integer类型
-  mutate{
-    convert =&gt; [&quot;rcvd&quot;,&quot;integer&quot;]
-    convert =&gt; [&quot;sent&quot;,&quot;integer&quot;]
-  }
-
-  #删除无用字段,host固定为服务所在ip
-  mutate {
-    replace =&gt; { &quot;host&quot; =&gt; &quot;netip5&quot; }
-  }
-  #从源ip中获取楼层信息
-  grok {
-    match =&gt; {
-      &quot;src&quot; =&gt; &quot;101.26.(?&lt;floor&gt;\d)(0*).\d&quot;
-    }
-  }
-}
-
-# 输出
-output{
-  elasticsearch{
-    hosts =&gt; &quot;netip5:9200&quot;
-    index =&gt; &quot;netfire-%{+YYYY.MM.dd}&quot;
-    manage_template =&gt; false
-    template_name =&gt; &quot;netfire_template&quot;
-  }
-}</code></pre><h4 id="三、启动logstash"><a href="#三、启动logstash" class="headerlink" title="三、启动logstash"></a>三、启动logstash</h4><h5 id="1、-通过指定配置文件的方式启动logstash"><a href="#1、-通过指定配置文件的方式启动logstash" class="headerlink" title="1、 通过指定配置文件的方式启动logstash"></a>1、 通过指定配置文件的方式启动logstash</h5><pre><code>nohup bin/logstash -f config/dp-logstash.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><h4 id="详细的配置请参考官方文档"><a href="#详细的配置请参考官方文档" class="headerlink" title="详细的配置请参考官方文档"></a>详细的配置请参考官方文档</h4>
+## 若启动过程中出现报错，可以先清理缓存再启动
+hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、博客样式及组件调整" class="headerlink" title="3、博客样式及组件调整"></a>3、博客样式及组件调整</h4>
             </div>
             <hr/>
 
@@ -685,7 +543,7 @@ output{
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/06/09/environment/elk-da-jian/elk/">http://youknowhaze.github.io/haze/2020/06/09/environment/elk-da-jian/elk/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/06/06/blog/bo-ke-da-jian/">http://youknowhaze.github.io/haze/2020/06/06/blog/bo-ke-da-jian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -723,12 +581,8 @@ output{
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="/haze/tags/ELK/">
-                                    <span class="chip bg-color">ELK</span>
+                                <a href="/haze/tags/blog/">
+                                    <span class="chip bg-color">blog</span>
                                 </a>
                             
                         </div>
@@ -774,33 +628,40 @@ output{
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/haze/2020/06/09/fu-wu-qi/linux-chang-yong-ming-ling/">
+                <a href="/haze/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/19.jpg" class="responsive-img" alt="Linux 常用命令">
+                        <img src="/haze/medias/featureimages/3.jpg" class="responsive-img" alt="样式组件调整">
                         
-                        <span class="card-title">Linux 常用命令</span>
+                        <span class="card-title">样式组件调整</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、权限chown -R 用户名 文件名(文件夹名)     #更改文件所属用户
-chmod 777 路径+文件名（文件夹）      #文件（文件夹）赋权
-chmod +x test.txt                  #赋予执行权
+                            样式组件调整特性
+简单漂亮，文章内容美观易读
+
+Material Design 设计
+
+响应式设计，博客在桌面端、平板、手机等设备上均能很好的展现
+
+首页轮播文章及每天动态切换 Banner 图片
+
+瀑布流式的博客文章列表（文章无特色图片时
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-13
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/haze/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                    博客
                                 </a>
                             
                             
@@ -810,8 +671,8 @@ chmod +x test.txt                  #赋予执行权
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/haze/tags/blog/">
+                        <span class="chip bg-color">blog</span>
                     </a>
                     
                 </div>
@@ -822,55 +683,46 @@ chmod +x test.txt                  #赋予执行权
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/06/09/environment/tig-da-jian/tig/">
+                <a href="/haze/2020/06/06/blog/bo-ke-da-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/15.jpg" class="responsive-img" alt="TIG搭建">
+                        <img src="/haze/medias/featureimages/15.jpg" class="responsive-img" alt="Hexo+github的静态博客搭建">
                         
-                        <span class="card-title">TIG搭建</span>
+                        <span class="card-title">Hexo+github的静态博客搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            TIG监控TIG监控是一种硬件、业务数据监控组件，主要用于监控服务器状态及业务数据量、时间等信息。
-
-Influxdb:一种时序性数据库，主要用于存储数据
-
-Telegraf：收集数据组件，本实验中用于收集硬件、业务指标
-
-Grafana：
+                            从无到有的github博客搭建一、基于Hexo+github的静态博客搭建1、环境安装  因为我是windows系统，所以下面的操作都是基于windows环境而言的  （1）、Git Bash安装。我一直不太喜欢使用小乌龟，于是选择git 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                    encironment
+                            <a href="/haze/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
+                                    博客
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="/haze/tags/TIG/">
-                        <span class="chip bg-color">TIG</span>
+                    <a href="/haze/tags/blog/">
+                        <span class="chip bg-color">blog</span>
                     </a>
                     
                 </div>

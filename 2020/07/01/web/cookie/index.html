@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo+github的静态博客搭建, 烹雪煮茶">
+    <meta name="keywords" content="Cookie（缓存）, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo+github的静态博客搭建 | 烹雪煮茶</title>
+    <title>Cookie（缓存） | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo+github的静态博客搭建</h1>
+                    <h1 class="description center-align post-title">Cookie（缓存）</h1>
                 </div>
             </div>
         </div>
@@ -417,8 +417,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/blog/">
-                                <span class="chip bg-color">blog</span>
+                            <a href="/haze/tags/Cookie/">
+                                <span class="chip bg-color">Cookie</span>
                             </a>
                         
                     </div>
@@ -429,8 +429,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
-                                博客
+                            <a href="/haze/categories/Web/" class="post-category">
+                                Web
                             </a>
                         
                     </div>
@@ -442,7 +442,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-10
+                    2020-07-01
                 </div>
                 
 
@@ -458,67 +458,88 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="从无到有的github博客搭建"><a href="#从无到有的github博客搭建" class="headerlink" title="从无到有的github博客搭建"></a>从无到有的github博客搭建</h2><h3 id="一、基于Hexo-github的静态博客搭建"><a href="#一、基于Hexo-github的静态博客搭建" class="headerlink" title="一、基于Hexo+github的静态博客搭建"></a>一、基于Hexo+github的静态博客搭建</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><p>  因为我是windows系统，所以下面的操作都是基于windows环境而言的<br>  （1）、<strong>Git Bash安装</strong>。我一直不太喜欢使用小乌龟，于是选择git bash进行安装。安装步骤便不再赘述。  <a href="https://gitforwindows.org/" target="_blank" rel="noopener">下载地址</a></p>
-<p>  （2）、<strong>安装NodeJs</strong>。Hexo是基于nodeJS环境的静态博客，里面的npm工具很有用。同样，安装步骤不再赘述   <a href="https://nodejs.org/en/" target="_blank" rel="noopener">下载地址</a></p>
-<p>  （3）、<strong>安装hexo</strong>。看到这么多需要安装的东西，千万不要慌张，这都是开发的必备环境，是比较简单的一些安装操作。建议全局安装hexo，安装命令如下：</p>
-<pre><code>npm i -g hexo</code></pre><p>  （4）、需要拥有一个github账号，若没有，<a href="https://gitforwindows.org/" target="_blank" rel="noopener">去创建</a></p>
-<h4 id="2、创建博客"><a href="#2、创建博客" class="headerlink" title="2、创建博客"></a>2、创建博客</h4><p>  （1）、在github远程仓库创建一个项目，项目名为username.github.io（比如我的github用户名为youknowhaze，那么我的项目名就是youknowhaze.github.io），github会将该名称的项目发布至远程，进行免费托管。每个github账户仅支持这样一个命名项目的托管。</p>
-<p>  （2）、将项目clone至本地目录，进入项目根目录，执行初始化命令</p>
-<pre><code>hexo init</code></pre><p>  初始化后的项目结构如下：</p>
-<p><img src="/haze/2020/06/10/blog/bo-ke-da-jian/blog_init.png" alt="1"></p>
-<p>  简单解释一下这个结构</p>
+                <h2 id="Cookie（缓存）"><a href="#Cookie（缓存）" class="headerlink" title="Cookie（缓存）"></a>Cookie（缓存）</h2><p>代码将在Advanced-Study 项目进行练习</p>
+<h3 id="1-Cookie介绍"><a href="#1-Cookie介绍" class="headerlink" title="1.Cookie介绍"></a>1.Cookie介绍</h3><p>在了解这三个概念之前我们先要了解HTTP是无状态的Web服务器，什么是无状态呢？一次请求完成后，下一次请求完全不知道上一次请求发生了什么。如果在Web服务器中只是用来管理静态文件还好说，对方是谁并不重要，把文件从磁盘中读取出来发出去即可。但是随着网络的不断发展，比如电商中的购物车只有记住了用户的身份才能够执行接下来的一系列动作。所以此时就需要我们无状态的服务器记住一些事情。</p>
+<p>那么Web服务器是如何记住一些事情呢？既然Web服务器记不住东西，那么我们就在外部想办法记住，相当于服务器给每个客户端都贴上了一个小纸条。上面记录了服务器给我们返回的一些信息。然后服务器看到这张小纸条就知道我们是谁了。那么Cookie是谁产生的呢？Cookies是由服务器产生的。接下来我们描述一下Cookie产生的过程。浏览器第一次访问服务端时，服务器此时肯定不知道他的身份，所以创建一个独特的身份标识数据，格式为key=value，放入到Set-Cookie字段里，随着响应报文发给浏览器。</p>
+<ul>
+<li><p>浏览器看到有Set-Cookie字段以后就知道这是服务器给的身份标识，于是就保存起来，下次请求时会自动将此key=value值放入到Cookie字段中发给服务端。</p>
+</li>
+<li><p>服务端收到请求报文后，发现Cookie字段中有值，就能根据此值识别用户的身份然后提供个性化的服务。</p>
+</li>
+</ul>
+<h3 id="2-Cookie的使用"><a href="#2-Cookie的使用" class="headerlink" title="2.Cookie的使用"></a>2.Cookie的使用</h3><p>   接下来用代码演示一下，接口代码如下，cookie的key值设置为testUser</p>
+<pre><code>@RequestMapping(&quot;/testCookies&quot;)
+    public String cookiesRequest(HttpServletRequest request, HttpServletResponse response){
+
+        Cookie cookie = new Cookie(&quot;testUser&quot;,&quot;cookiesUser&quot;);
+        response.addCookie(cookie);
+
+        return &quot;cookie&quot;;
+    }</code></pre><p>   访问<a href="http://localhost:8082/testCookies" target="_blank" rel="noopener">http://localhost:8082/testCookies</a> 接口，来看一下接口请求和返回，可以看到请求中未带有我们需要的缓存中，返回中带有设定好的缓存key-value。</p>
+<p><img src="/haze/2020/07/01/web/cookie/cookie01.png" alt="请求不带缓存"></p>
+<p>   同样的请求地址和浏览器，当我们第二次发起接口调用请求时，会发现请求中带有上一次返回的cookie值</p>
+<p><img src="/haze/2020/07/01/web/cookie/cookie02.png" alt="请求带有缓存"></p>
+<p>   接下来我们换一个请求呢？是不是Cookie也会带过去呢？接下来我们输入路径<a href="http://localhost:8082" target="_blank" rel="noopener">http://localhost:8082</a> 请求。我们可以看到Cookie字段还是被带过去了。</p>
+<p><img src="/haze/2020/07/01/web/cookie/cookie03.png" alt="请求带有缓存"></p>
+<p>   那么浏览器的Cookie是存放在哪呢？如果是使用的是Chrome浏览器的话，那么可以按照下面步骤。</p>
+<ul>
+<li><p>在计算机打开Chrome</p>
+</li>
+<li><p>在右上角，一次点击更多图标-&gt;设置</p>
+</li>
+<li><p>在底部，点击高级</p>
+</li>
+<li><p>在隐私设置和安全性下方，点击网站设置</p>
+</li>
+<li><p>依次点击Cookie-&gt;查看所有Cookie和网站数据</p>
+</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th>模块/文件</th>
-<th>作用</th>
+<th align="center">属性名</th>
+<th align="left">描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>node_modules</td>
-<td>是依赖包</td>
+<td align="center">name</td>
+<td align="left">Cookie的名称，Cookie一旦创建，名称便不可更改</td>
 </tr>
 <tr>
-<td>public</td>
-<td>存放的是生成的页面</td>
+<td align="center">value</td>
+<td align="left">Cookie的值，如果值为Unicode字符，需要为字符编码。如果为二进制数据，则需要使用BASE64编码</td>
 </tr>
 <tr>
-<td>scaffolds</td>
-<td>命令生成文章等的模板</td>
+<td align="center">maxAge</td>
+<td align="left">Cookie失效的时间，单位秒。如果为整数，则该Cookie在maxAge秒后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为-1。</td>
 </tr>
 <tr>
-<td>source</td>
-<td>用命令创建的各种文章</td>
+<td align="center">secure</td>
+<td align="left">该Cookie是否仅被使用安全协议传输。安全协议。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false。</td>
 </tr>
 <tr>
-<td>themes</td>
-<td>主题</td>
+<td align="center">path</td>
+<td align="left">Cookie的使用路径。如果设置为“/sessionWeb/”，则只有contextPath为“/sessionWeb”的程序可以访问该Cookie。如果设置为“/”，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为“/”。</td>
 </tr>
 <tr>
-<td>_config.yml</td>
-<td>整个博客的配置</td>
+<td align="center">domain</td>
+<td align="left">可以访问该Cookie的域名。如果设置为“.google.com”，则所有以“google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.”。</td>
 </tr>
 <tr>
-<td>db.json</td>
-<td>source解析所得到的</td>
+<td align="center">comment</td>
+<td align="left">该Cookie的用处说明，浏览器显示Cookie信息的时候显示该说明。</td>
 </tr>
 <tr>
-<td>package.json</td>
-<td>项目所需模块项目的配置信息</td>
+<td align="center">version</td>
+<td align="left">Cookie使用的版本号。0表示遵循Netscape的Cookie规范，1表示遵循W3C的RFC 2109规范</td>
 </tr>
 </tbody></table>
-<p>  （3）、启动项目：</p>
-<pre><code>hexo g    # 构建项目，会在public下生成html页面
-hexo d    # 启动项目，启动后本地访问http://localhost:4000</code></pre><p>初始的博客页面有点丑，访问页面如下：</p>
-<p><img src="/haze/2020/06/10/blog/bo-ke-da-jian/blogpage_1.png" alt="1"></p>
-<p>  （4）、修改主题<br>  既然默认主题比较丑，那么我们就修改一个自己喜欢的主题，  <a href="https://hexo.io/themes/" target="_blank" rel="noopener">官方主题</a><br>  现在使用的博客模板为：  <a href="https://github.com/youknowhaze/incredible-blog" target="_blank" rel="noopener">hexo-theme-matery</a>  </p>
-<p>  首先修改_config.yml文件中的theme: landscape改为theme: hexo-theme-matery ，然后需要下载模板文件至themes目录下，可以通过clone的方式，也可以下载压缩包进行解压，如下：</p>
-<p><img src="/haze/2020/06/10/blog/bo-ke-da-jian/blog_themes.png" alt="1"></p>
-<p>  重新启动博客：</p>
-<pre><code>hexo s  # 启动博客
+<p><strong>实例路径和地址限制</strong></p>
+<p>设置为cookie.setPath(“/testCookies”)，接下来我们访问<a href="http://localhost:8082/testCookies" target="_blank" rel="noopener">http://localhost:8082/testCookies</a>,<br>我们可以看到请求中存在cookie，而访问非/testCookies地址，则没带有cookie。这就是Path控制的路径。</p>
+<p><strong>Domain</strong></p>
+<p>设置为cookie.setDomain(“localhost”)，接下来我们访问<a href="http://localhost:8082/testCookies" target="_blank" rel="noopener">http://localhost:8082/testCookies</a><br>我们发现是有Cookie的字段的，但是我们访问<a href="http://172.16.42.81:8082/testCookies，" target="_blank" rel="noopener">http://172.16.42.81:8082/testCookies，</a><br>可以看到没有Cookie的字段了。这就是Domain控制的域名发送Cookie。</p>
+<p>由于验证方式与前面一致，所以这里就不贴图了。</p>
 
-## 若启动过程中出现报错，可以先清理缓存再启动
-hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、博客样式及组件调整" class="headerlink" title="3、博客样式及组件调整"></a>3、博客样式及组件调整</h4>
             </div>
             <hr/>
 
@@ -543,7 +564,7 @@ hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/06/10/blog/bo-ke-da-jian/">http://youknowhaze.github.io/haze/2020/06/10/blog/bo-ke-da-jian/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/07/01/web/cookie/">http://youknowhaze.github.io/haze/2020/07/01/web/cookie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -581,8 +602,8 @@ hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、�
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/blog/">
-                                    <span class="chip bg-color">blog</span>
+                                <a href="/haze/tags/Cookie/">
+                                    <span class="chip bg-color">Cookie</span>
                                 </a>
                             
                         </div>
@@ -624,48 +645,47 @@ hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/haze/2020/06/10/blog/bo-ke-da-jian/">
+                <a href="/haze/2020/07/02/web/session/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/15.jpg" class="responsive-img" alt="Hexo+github的静态博客搭建">
+                        <img src="/haze/medias/featureimages/20.jpg" class="responsive-img" alt="session（会话）">
                         
-                        <span class="card-title">Hexo+github的静态博客搭建</span>
+                        <span class="card-title">session（会话）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            从无到有的github博客搭建一、基于Hexo+github的静态博客搭建1、环境安装  因为我是windows系统，所以下面的操作都是基于windows环境而言的  （1）、Git Bash安装。我一直不太喜欢使用小乌龟，于是选择git 
+                            session   参考自：https://blog.csdn.net/J080624/article/details/78562787   代码将在Advanced-Study 项目进行练习
+1.什么是sessionCookie是存储在客
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-02
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
-                                    博客
+                            <a href="/haze/categories/Web/" class="post-category">
+                                    Web
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/blog/">
-                        <span class="chip bg-color">blog</span>
+                    <a href="/haze/tags/session/">
+                        <span class="chip bg-color">session</span>
                     </a>
                     
                 </div>
@@ -679,40 +699,33 @@ hexo clean</code></pre><h4 id="3、博客样式及组件调整"><a href="#3、�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/06/10/blog/yang-shi-zu-jian-diao-zheng/">
+                <a href="/haze/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/3.jpg" class="responsive-img" alt="样式组件调整">
+                        <img src="/haze/medias/featureimages/19.jpg" class="responsive-img" alt="Linux 常用命令">
                         
-                        <span class="card-title">样式组件调整</span>
+                        <span class="card-title">Linux 常用命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            样式组件调整特性
-简单漂亮，文章内容美观易读
-
-Material Design 设计
-
-响应式设计，博客在桌面端、平板、手机等设备上均能很好的展现
-
-首页轮播文章及每天动态切换 Banner 图片
-
-瀑布流式的博客文章列表（文章无特色图片时
+                            一、权限chown -R 用户名 文件名(文件夹名)     #更改文件所属用户
+chmod 777 路径+文件名（文件夹）      #文件（文件夹）赋权
+chmod +x test.txt                  #赋予执行权
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/%E5%8D%9A%E5%AE%A2/" class="post-category">
-                                    博客
+                            <a href="/haze/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -722,8 +735,8 @@ Material Design 设计
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/blog/">
-                        <span class="chip bg-color">blog</span>
+                    <a href="/haze/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
