@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>docker&amp;redis</title>
+      <link href="/haze/2020/07/04/environment/redis/docker-redis/"/>
+      <url>/haze/2020/07/04/environment/redis/docker-redis/</url>
+      
+        <content type="html"><![CDATA[<h2 id="docker搭建redis主从及哨兵"><a href="#docker搭建redis主从及哨兵" class="headerlink" title="docker搭建redis主从及哨兵"></a>docker搭建redis主从及哨兵</h2><h3 id="1、前提准备"><a href="#1、前提准备" class="headerlink" title="1、前提准备"></a>1、前提准备</h3><p>docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）</p><h3 id="2、创建外部挂载目录"><a href="#2、创建外部挂载目录" class="headerlink" title="2、创建外部挂载目录"></a>2、创建外部挂载目录</h3><p>创建目录如下，每个目录下再创建data和conf目录用于外部挂载：<br><img src="/haze/2020/07/04/environment/redis/docker-redis/docker-redis01.png" alt="挂载目录"><br></p><h3 id="3、下载redis配置和哨兵配置"><a href="#3、下载redis配置和哨兵配置" class="headerlink" title="3、下载redis配置和哨兵配置"></a>3、下载redis配置和哨兵配置</h3><pre><code>wget http://download.redis.io/redis-stable/redis.confwget http://download.redis.io/redis-stable/sentinel.conf</code></pre><p>文件下载后拷贝改名，分别放至对应目录下</p><p>redis:（命名分别为：redis_6379.conf/redis_6371.conf/redis_6372.conf）<br>sentinel:（命名分别为：sentinel_1.conf/sentinel_2.conf/sentinel_3.conf）</p><h3 id="4、修改redis配置"><a href="#4、修改redis配置" class="headerlink" title="4、修改redis配置"></a>4、修改redis配置</h3><pre><code># 注释掉使得Redis服务器可以跨网络访问# bind 0.0.0.0# 设置密码requirepass &quot;123456&quot;# 指定主服务器，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置slaveof 192.168.11.128 6379# 主服务器密码，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置masterauth 123456# 选择性配置，若配置需确保文件目录存在logfile &quot;&quot;</code></pre><p><strong>配置文件需更改对应端口</strong></p><h3 id="5、启动一台redis"><a href="#5、启动一台redis" class="headerlink" title="5、启动一台redis"></a>5、启动一台redis</h3><pre><code>docker run -p 6372:6372--name redis-6372-v /opt/redis/redis03/conf/redis_6372.conf:/etc/redis/redis_6372.conf-v /opt/redis/redis03/data:/data-d redis redis-server /etc/redis/redis_6372.conf--appendonly yes    # 开启持久化</code></pre><p>启动之后使用命令查看</p><pre><code>docker ps</code></pre><p>未查找到运行中的redis容器，使用命令查看redis容器启动日志</p><pre><code>docker logs ID|less</code></pre><p>发现是logfile日志目录不存在，程序没有自动创建，这里我直接删除这个配置再启动</p><pre><code># 得到容器IDdocker ps -a# 移除容器docker rm ID#启动redis</code></pre><p>使用redis-manager工具连接试试，发现可以连接。再启动其余几台redis，同样进行验证</p><h3 id="6、更改redis哨兵配置"><a href="#6、更改redis哨兵配置" class="headerlink" title="6、更改redis哨兵配置"></a>6、更改redis哨兵配置</h3><pre><code># 禁止保护模式protected-mode no# 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。sentinel monitor mymaster 192.168.11.128 6379 2# sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码# sentinel auth-pass &lt;master-name&gt; &lt;password&gt;sentinel auth-pass mymaster 123456</code></pre><p><strong>这里需要注意的是，如果不使用默认的服务名mymaster，如更改为了sentinel-server，则需要将配置中所有涉及服务名的地方进行更改，如超时时间，且端口应配置为不一样</strong></p><h3 id="7、启动哨兵"><a href="#7、启动哨兵" class="headerlink" title="7、启动哨兵"></a>7、启动哨兵</h3><pre><code>docker run -p 26379:26379--name sentinel-26379-v /opt/redis/sentinel01/conf/sentinel_1.conf:/etc/redis/sentinel.conf-v /opt/redis/sentinel01/data:/data-d redis redis-sentinel /etc/redis/sentinel.conf</code></pre><p>启动后执行命令查看是否启动成功</p><pre><code>docker ps</code></pre><p>最后情况应该如下：<br><img src="/haze/2020/07/04/environment/redis/docker-redis/docker-redis02.png" alt="运行情况"><br></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> encironment </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linix &amp; redis</title>
+      <link href="/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/"/>
+      <url>/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</url>
+      
+        <content type="html"><![CDATA[<h2 id="redis主从及哨兵"><a href="#redis主从及哨兵" class="headerlink" title="redis主从及哨兵"></a>redis主从及哨兵</h2><p>比较简陋的搭建一个主从及哨兵</p><h3 id="1、创建目录-opt-app-redis-如下："><a href="#1、创建目录-opt-app-redis-如下：" class="headerlink" title="1、创建目录/opt/app/redis,如下："></a>1、创建目录/opt/app/redis,如下：</h3><pre><code>mkdir /opt/app/redis</code></pre><h3 id="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："><a href="#2、下载redis安装包至目录下，复制3份，各自重命名，并解压：" class="headerlink" title="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："></a>2、下载redis安装包至目录下，复制3份，各自重命名，并解压：</h3><pre><code>tar xvfz m.tar.gz</code></pre><h3 id="3、自定义配置redis-conf。"><a href="#3、自定义配置redis-conf。" class="headerlink" title="3、自定义配置redis.conf。"></a>3、自定义配置redis.conf。</h3><pre><code># 使得Redis服务器可以跨网络访问，也可以注释掉，否则可能无法访问端口bind 0.0.0.0# 设置密码requirepass &quot;123456&quot;# 指定主服务器，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置slaveof 192.168.11.128 6379# 主服务器密码，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置masterauth 123456</code></pre><p><strong>注意：若在同一台虚拟机上搭建，需要将端口号修改为不同的</strong></p><h3 id="4、启动redis"><a href="#4、启动redis" class="headerlink" title="4、启动redis"></a>4、启动redis</h3><pre><code>nohup /src/redis-server redis.conf &gt;/dev/null 2&gt;&amp;1 &amp;# 查看启动情况ps aux|grep redis</code></pre><p>这里可能找不到redis-server,原因是redis解压后没有构建</p><pre><code># 进入redis的src目录进行构建make install</code></pre><p>这里由于前置环境的原因，可能会报缺少gcc，安装即可</p><pre><code> yum -y install gcc-c++</code></pre><p>依次启动redis后，往主redis放数据，从redis会同步数据。</p><h3 id="5、修改哨兵配置"><a href="#5、修改哨兵配置" class="headerlink" title="5、修改哨兵配置"></a>5、修改哨兵配置</h3><pre><code># 禁止保护模式protected-mode no# 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。sentinel monitor mymaster 192.168.11.128 6379 2# sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码# sentinel auth-pass &lt;master-name&gt; &lt;password&gt;sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服务名，修改服务名时，需将配置中的所有mymaster替换为新服务名（如：sentinel-server）</p><h3 id="6、启动哨兵"><a href="#6、启动哨兵" class="headerlink" title="6、启动哨兵"></a>6、启动哨兵</h3><pre><code>nohup /src/sentinel-server sentinel.conf &gt;/dev/null 2&gt;&amp;1 &amp;</code></pre><p>代码中连接哨兵即可使用redis主从，且当主redis宕机，哨兵会自动切换至从redis</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> encironment </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>session（会话）</title>
       <link href="/haze/2020/07/02/web/session/"/>
       <url>/haze/2020/07/02/web/session/</url>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="session（会话）, 烹雪煮茶">
+    <meta name="keywords" content="Linix &amp; redis, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>session（会话） | 烹雪煮茶</title>
+    <title>Linix &amp; redis | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">session（会话）</h1>
+                    <h1 class="description center-align post-title">Linix &amp; redis</h1>
                 </div>
             </div>
         </div>
@@ -417,8 +417,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/session/">
-                                <span class="chip bg-color">session</span>
+                            <a href="/haze/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/haze/tags/redis/">
+                                <span class="chip bg-color">redis</span>
                             </a>
                         
                     </div>
@@ -429,8 +433,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/Web/" class="post-category">
-                                Web
+                            <a href="/haze/categories/encironment/" class="post-category">
+                                encironment
                             </a>
                         
                     </div>
@@ -442,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-02
+                    2020-07-03
                 </div>
                 
 
@@ -458,98 +462,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>   参考自：<a href="https://blog.csdn.net/J080624/article/details/78562787" target="_blank" rel="noopener">https://blog.csdn.net/J080624/article/details/78562787</a><br>   代码将在Advanced-Study 项目进行练习</p>
-<h3 id="1-什么是session"><a href="#1-什么是session" class="headerlink" title="1.什么是session"></a>1.什么是session</h3><p>Cookie是存储在客户端方，Session是存储在服务端方，客户端只存储SessionId。</p>
-<p>Session是另一种记录客户状态的机制，不同的是Cookie保存在客户端浏览器中，而Session保存在服务器上(内存或硬盘)。一般Session存储在服务器的内存中，tomcat的StandardManager类将session存储在内存中，也可以持久化到file，数据库，memcache，redis等。<br>客户端只保存sessionid到cookie中，而不会保存session，session销毁只能通过invalidate或超时(默认30分钟)，关掉浏览器并不会关闭session。</p>
-<p>客户端浏览器访问服务器的时候，服务器把客户端信息以类似于散列表的形式记录在服务器上，这就是Session。客户端浏览器再次访问时只需要从该Session中查找该客户的状态就可以了。</p>
-<p>服务端创建一个session前，会先判断客户端发起的请求中是否包含session标识（sessionId），若不包含，则为此用户创建一个session并生成一个与次session相关的sessionId返回给客户端。</p>
-<h3 id="2-session的使用及读取"><a href="#2-session的使用及读取" class="headerlink" title="2.session的使用及读取"></a>2.session的使用及读取</h3><p>   Session对应的类为javax.servlet.http.HttpSession类。</p>
-<p>   每个来访者对应一个Session对象，所有该客户的状态信息都保存在这个Session对象里。</p>
-<p>   Session对象是在客户端第一次请求服务器的时候创建的。</p>
-<p>   Session也是一种key-value的属性对，通过getAttribute(Stringkey)和setAttribute(String key，Objectvalue)方法读写客户状态信息。</p>
-<p>   Servlet里通过request.getSession()方法获取该客户的Session。</p>
-<pre><code>// 创建session
-HttpSession session = request.getSession();
-//设置属性
-session.setAttribute(&quot;name&quot;,&quot;tom&quot;);
-//读取属性
-session.getAttribute(&quot;name&quot;);
-//移除属性
-session.removeAttribute(&quot;name&quot;);
-//设置有效期，单位为秒，-1代表永不过期
-session.setMaxInactiveInterval(1000);
-//使其失效
-session.invalidate();
-</code></pre><p>   request还可以使用getSession(boolean create)来获取Session。</p>
-<pre><code>getSession(true)//先创建再返回
-getSession(false)//返回null
-getSession()//先创建再返回</code></pre><p>   <strong>这里写两个接口来测试session</strong></p>
-<pre><code>@RequestMapping(&quot;/testSession&quot;)
-public String sessionRequest(HttpSession session){
-    session.setAttribute(&quot;testSession&quot;,&quot;this is a session&quot;);
-    return &quot;session&quot;;
-}
-
-@RequestMapping(&quot;/getSession&quot;)
-public String getSession(HttpSession session){
-    Object sessionValue = session.getAttribute(&quot;testSession&quot;);
-    return String.valueOf(sessionValue);
-}</code></pre><h4 id="1-、第一次请求，不携带session信息，服务端生成session，会在返回中带有sessionId。"><a href="#1-、第一次请求，不携带session信息，服务端生成session，会在返回中带有sessionId。" class="headerlink" title="(1)、第一次请求，不携带session信息，服务端生成session，会在返回中带有sessionId。"></a>(1)、第一次请求，不携带session信息，服务端生成session，会在返回中带有sessionId。</h4><p><img src="/haze/2020/07/02/web/session/session01.png" alt="第一次请求"></p>
-<h4 id="2-、第二次请求，携带sessionId，返回中不再带有session相关信息"><a href="#2-、第二次请求，携带sessionId，返回中不再带有session相关信息" class="headerlink" title="(2)、第二次请求，携带sessionId，返回中不再带有session相关信息"></a>(2)、第二次请求，携带sessionId，返回中不再带有session相关信息</h4><p><img src="/haze/2020/07/02/web/session/session02.png" alt="第二次请求"></p>
-<h4 id="2-、第三次请求，带有sessionId，调用接口查询session中的信息"><a href="#2-、第三次请求，带有sessionId，调用接口查询session中的信息" class="headerlink" title="(2)、第三次请求，带有sessionId，调用接口查询session中的信息"></a>(2)、第三次请求，带有sessionId，调用接口查询session中的信息</h4><p><img src="/haze/2020/07/02/web/session/session03.png" alt="第三次请求"></p>
-<h3 id="3-session的生命周期"><a href="#3-session的生命周期" class="headerlink" title="3.session的生命周期"></a>3.session的生命周期</h3><p><strong>Session在用户第一次访问服务器的时候自动创建</strong>。</p>
-<p>   需要注意只有访问JSP、Servlet等程序时才会创建Session，只访问HTML、IMAGE等静态资源并不会创建Session。如果尚未生成Session，也可以使用request.getSession(true)强制生成Session。</p>
-<p><strong>做如下解释说明</strong></p>
-<ol>
-<li><p>session是服务器建立的，但服务器不会主动建立。当一个请求过来时，服务器并不会建立一个session,而是要这样：request.getSession();当我们用程序通知服务器时它才会建立一个会话。</p>
-</li>
-<li><p>在jsp文件中有一个默认的属性 &lt;%@ page session=“true” %&gt;,翻译成java后就是： session = pageContext.getSession();</p>
-</li>
-<li><p>所以当我们访问一个jsp文件的时候，如果没有去更改这个默认值，那也会建立一个会话，这也是大多数人会认为自动创建session的原因了，其实还是相当于我们主动通知服务器去创建。</p>
-</li>
-<li><p>综上所述：Tomcat这类服务器不会自动的创建session,只有当我们主动通知它时，才会创建会话</p>
-</li>
-</ol>
-<p>   Session生成后，只要用户继续访问，服务器就会更新Session的最后访问时间，并维护该Session。用户每访问服务器一次，无论是否读写Session，服务器都认为该用户的Session“活跃（active）”了一次。</p>
-<p>   由于会有越来越多的用户访问服务器，因此Session也会越来越多。为防止内存溢出，服务器会把长时间内没有活跃的Session从内存删除。这个时间就是Session的超时时间。如果超过了超时时间没访问过服务器，Session就自动失效了。</p>
-<p>   Session的超时时间为maxInactiveInterval属性<br>   默认有效期为30分钟，30分钟内没有”活跃”则失效。如果”活跃”则重新计算生命周期。</p>
-<pre><code>//默认 time 1800
-int time = session.getMaxInactiveInterval();
-session.setMaxInactiveInterval(Integer.MAX_VALUE);</code></pre><p>   Session的超时时间也可以在web.xml中修改。另外，通过调用Session的invalidate()方法可以使Session失效。</p>
-<p>invalidate()是指清空session对象里的东西，并不指清除这个session对象本身。所以，要判断一个session里面是否存在自己想要的东西（这个session是否有效），是不能用isNew()的，应该用如下类似代码：</p>
-<pre><code>UserInfo userInfo=(UserInfo)session.getAttribute(”USERINFO”);
-if (userInfo!=null){
-    //...
-}</code></pre><p>Session需要使用Cookie作为识别标志。HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，它的值为该Session的id（也就是HttpSession.getId()的返回值）。Session依据该Cookie来识别是否为同一用户。</p>
-<p>该Cookie为服务器自动生成的，它的maxAge属性一般为–1，表示仅当前浏览器内有效，并且不同的浏览器的窗口间不共享(同一浏览器共享)，关闭浏览器就会失效。</p>
-<p>同一机器的两个不同类型的浏览器的窗口访问服务器时，会生成两个不同的Session。但是由浏览器窗口内的链接、脚本等打开的新窗口除外。这类子窗口会共享父窗口的Cookie，因此会共享一个Session。</p>
-<h3 id="4-URL重写"><a href="#4-URL重写" class="headerlink" title="4.URL重写"></a>4.URL重写</h3><p>如果客户端浏览器将Cookie功能禁用，或者不支持Cookie怎么办？例如，绝大多数的手机浏览器都不支持Cookie。</p>
-<p>Java Web提供了另一种解决方案：URL地址重写。</p>
-<pre><code>&lt;a href=&quot;&lt;%=response.encodeUrl(url)%&gt;&quot;&gt;&lt;/a&gt;</code></pre><p>URL地址重写的原理是将该用户Session的id信息重写到URL地址中。服务器能够解析重写后的URL获取Session的id。</p>
-<p>这样即使客户端不支持Cookie，也可以使用Session来记录用户状态。</p>
-<p>encodeurl()方法在使用时，会首先判断Session是否启用，如果未启用，直接返回url。 然后判断客户端是否启用Cookie，如果未启用，则将参数url中加入SessionID信息，然后返回修改的URL；如果启用，直接返回参数url。</p>
-<p><strong>注意：Tomcat判断客户端浏览器是否支持Cookie的依据是请求中是否含有Cookie。</strong></p>
-<p>尽管客户端可能会支持Cookie，但是由于第一次请求时不会携带任何Cookie（因为并无任何Cookie可以携带），URL地址重写后的地址中仍然会带有jsessionid。</p>
-<p>当第二次访问时服务器已经在浏览器中写入Cookie了，因此URL地址重写后的地址中就不会带有jsessionid了。</p>
-<h3 id="5-session中禁止使用cookie"><a href="#5-session中禁止使用cookie" class="headerlink" title="5.session中禁止使用cookie"></a>5.session中禁止使用cookie</h3><p>既然WAP上大部分的客户浏览器都不支持Cookie，索性禁止Session使用Cookie，统一使用URL地址重写会更好一些。Java Web规范支持通过配置的方式禁用Cookie。</p>
-<p>打开项目sessionWeb的WebRoot目录下的META-INF文件夹（跟WEB-INF文件夹同级，如果没有则创建），打开context.xml（如果没有则创建），编辑内容如下：</p>
-<pre><code>/META-INF/context.xml
-&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;
-&lt;Context path=&quot;/sessionWeb&quot;cookies=&quot;false&quot;&gt;
-&lt;/Context&gt;</code></pre><p>或者修改Tomcat全局的conf/context.xml，修改内容如下：</p>
-<pre><code>&lt;!-- The contents of this file will be loaded for eachweb application --&gt;
-&lt;Context cookies=&quot;false&quot;&gt;
-    &lt;!-- ... 中间代码略 --&gt;
-&lt;/Context&gt;</code></pre><p>部署后TOMCAT便不会自动生成名JSESSIONID的Cookie，Session也不会以Cookie为识别标志，而仅仅以重写后的URL地址为识别标志了。</p>
-<p><strong>注意：该配置只是禁止Session使用Cookie作为识别标志，并不能阻止其他的Cookie读写。也就是说服务器不会自动维护名为JSESSIONID的Cookie了，但是程序中仍然可以读写其他的Cookie。</strong></p>
-<h3 id="6-sessionId"><a href="#6-sessionId" class="headerlink" title="6.sessionId"></a>6.sessionId</h3><p>sessionid是一个会话的key，浏览器第一次访问服务器会在服务器端生成一个session，有一个sessionid和它对应。tomcat生成的sessionid叫做jsessionid。</p>
-<p>session在访问tomcat服务器HttpServletRequest的getSession(true)的时候创建，tomcat的ManagerBase类提供创建sessionid的方法：随机数+时间+jvmid。</p>
-<p>其存储在服务器的内存中，tomcat的StandardManager类将session存储在内存中，也可以持久化到file，数据库，memcache，redis等。客户端只保存sessionid到cookie中，而不会保存session，session销毁只能通过invalidate或超时，关掉浏览器并不会关闭session。</p>
-<p>session不会因为浏览器的关闭而删除。但是存有session ID的cookie的默认过期时间是会话级别。也就是用户关闭了浏览器，那么存储在客户端的session ID便会丢失，但是存储在服务器端的session数据并不会被立即删除。从客户端即浏览器看来，好像session被删除了一样（因为我们丢失了session ID，找不到原来的session数据了）。</p>
-<h3 id="7-Session-Cookie"><a href="#7-Session-Cookie" class="headerlink" title="7.Session Cookie"></a>7.Session Cookie</h3><p>session通过SessionId来区分不同的客户，session是以cookie或url重写为基础的。默认使用cookie来实现(如果浏览器支持的话)，系统会创造一个名为JESSIONID的输出cookie，这称之为session cookie。以区别persistent cookie(也就是我们通常所说的cookie)。</p>
-<p>session cookie是储存在浏览器内存的，并非写到硬盘上，通常看不到JESSIONID。但是当把浏览器的cookie禁用后，web服务器会采用URL重写的方式传递session id。这是地址栏将会看到。</p>
-<p>session cookie只针对某一次会话而言，会话结束，session cookie也就跟着消失了。关闭浏览器只会使浏览器内存里的session cookie消失，但不会时服务器端的session对象消失。同样也不会使已经保存到硬盘的持久化cookie消失。</p>
-<p>但是一旦session cookie消失，没有了session id，服务器端的原先对应的session对象也就无从分辨，相当于”失效”。</p>
+                <h2 id="redis主从及哨兵"><a href="#redis主从及哨兵" class="headerlink" title="redis主从及哨兵"></a>redis主从及哨兵</h2><p>比较简陋的搭建一个主从及哨兵</p>
+<h3 id="1、创建目录-opt-app-redis-如下："><a href="#1、创建目录-opt-app-redis-如下：" class="headerlink" title="1、创建目录/opt/app/redis,如下："></a>1、创建目录/opt/app/redis,如下：</h3><pre><code>mkdir /opt/app/redis</code></pre><h3 id="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："><a href="#2、下载redis安装包至目录下，复制3份，各自重命名，并解压：" class="headerlink" title="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："></a>2、下载redis安装包至目录下，复制3份，各自重命名，并解压：</h3><pre><code>tar xvfz m.tar.gz</code></pre><h3 id="3、自定义配置redis-conf。"><a href="#3、自定义配置redis-conf。" class="headerlink" title="3、自定义配置redis.conf。"></a>3、自定义配置redis.conf。</h3><pre><code># 使得Redis服务器可以跨网络访问，也可以注释掉，否则可能无法访问端口
+bind 0.0.0.0
+# 设置密码
+requirepass &quot;123456&quot;
+# 指定主服务器，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
+slaveof 192.168.11.128 6379
+# 主服务器密码，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
+masterauth 123456</code></pre><p><strong>注意：若在同一台虚拟机上搭建，需要将端口号修改为不同的</strong></p>
+<h3 id="4、启动redis"><a href="#4、启动redis" class="headerlink" title="4、启动redis"></a>4、启动redis</h3><pre><code>nohup /src/redis-server redis.conf &gt;/dev/null 2&gt;&amp;1 &amp;
+# 查看启动情况
+ps aux|grep redis</code></pre><p>这里可能找不到redis-server,原因是redis解压后没有构建</p>
+<pre><code># 进入redis的src目录进行构建
+make install</code></pre><p>这里由于前置环境的原因，可能会报缺少gcc，安装即可</p>
+<pre><code> yum -y install gcc-c++</code></pre><p>依次启动redis后，往主redis放数据，从redis会同步数据。</p>
+<h3 id="5、修改哨兵配置"><a href="#5、修改哨兵配置" class="headerlink" title="5、修改哨兵配置"></a>5、修改哨兵配置</h3><pre><code># 禁止保护模式
+protected-mode no
+# 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。
+sentinel monitor mymaster 192.168.11.128 6379 2
+# sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码
+# sentinel auth-pass &lt;master-name&gt; &lt;password&gt;
+sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服务名，修改服务名时，需将配置中的所有mymaster替换为新服务名（如：sentinel-server）</p>
+<h3 id="6、启动哨兵"><a href="#6、启动哨兵" class="headerlink" title="6、启动哨兵"></a>6、启动哨兵</h3><pre><code>nohup /src/sentinel-server sentinel.conf &gt;/dev/null 2&gt;&amp;1 &amp;</code></pre><p>代码中连接哨兵即可使用redis主从，且当主redis宕机，哨兵会自动切换至从redis</p>
 
             </div>
             <hr/>
@@ -575,7 +510,7 @@ if (userInfo!=null){
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/02/web/session/">http://youknowhaze.github.io/haze/2020/07/02/web/session/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/">http://youknowhaze.github.io/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -613,8 +548,12 @@ if (userInfo!=null){
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/session/">
-                                    <span class="chip bg-color">session</span>
+                                <a href="/haze/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                                <a href="/haze/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
                                 </a>
                             
                         </div>
@@ -660,25 +599,26 @@ if (userInfo!=null){
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/">
+                <a href="/haze/2020/07/04/environment/redis/docker-redis/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/7.jpg" class="responsive-img" alt="Linix &amp; redis">
+                        <img src="/haze/medias/featureimages/3.jpg" class="responsive-img" alt="docker&amp;redis">
                         
-                        <span class="card-title">Linix &amp; redis</span>
+                        <span class="card-title">docker&amp;redis</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            redis主从及哨兵比较简陋的搭建一个主从及哨兵
-1、创建目录/opt/app/redis,如下：mkdir /opt/app/redis2、下载redis安装包至目录下，复制3份，各自重命名，并解压：tar xvfz m.tar.gz3、
+                            docker搭建redis主从及哨兵1、前提准备docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）
+2、创建外部挂载目录创建目录如下，每个目录下再创建data和conf目录用于外部挂载：
+3、下载redis配置和
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-03
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-04
                         </span>
                         <span class="publish-author">
                             
@@ -695,8 +635,8 @@ if (userInfo!=null){
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/haze/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                     <a href="/haze/tags/redis/">
@@ -714,25 +654,25 @@ if (userInfo!=null){
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/07/01/web/cookie/">
+                <a href="/haze/2020/07/02/web/session/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/8.jpg" class="responsive-img" alt="Cookie（缓存）">
+                        <img src="/haze/medias/featureimages/20.jpg" class="responsive-img" alt="session（会话）">
                         
-                        <span class="card-title">Cookie（缓存）</span>
+                        <span class="card-title">session（会话）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Cookie（缓存）代码将在Advanced-Study 项目进行练习
-1.Cookie介绍在了解这三个概念之前我们先要了解HTTP是无状态的Web服务器，什么是无状态呢？一次请求完成后，下一次请求完全不知道上一次请求发生了什么。如果在We
+                            session   参考自：https://blog.csdn.net/J080624/article/details/78562787   代码将在Advanced-Study 项目进行练习
+1.什么是sessionCookie是存储在客
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-02
                             </span>
                         <span class="publish-author">
                             
@@ -749,8 +689,8 @@ if (userInfo!=null){
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/Cookie/">
-                        <span class="chip bg-color">Cookie</span>
+                    <a href="/haze/tags/session/">
+                        <span class="chip bg-color">session</span>
                     </a>
                     
                 </div>
