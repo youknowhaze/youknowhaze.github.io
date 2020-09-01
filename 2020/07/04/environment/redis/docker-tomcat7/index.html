@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Linix &amp; redis, 烹雪煮茶">
+    <meta name="keywords" content="docker &amp; tomcat, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Linix &amp; redis | 烹雪煮茶</title>
+    <title>docker &amp; tomcat | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Linix &amp; redis</h1>
+                    <h1 class="description center-align post-title">docker &amp; tomcat</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +417,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/haze/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
                             </a>
                         
-                            <a href="/haze/tags/redis/">
-                                <span class="chip bg-color">redis</span>
+                            <a href="/haze/tags/tomcat/">
+                                <span class="chip bg-color">tomcat</span>
                             </a>
                         
                     </div>
@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-03
+                    2020-07-04
                 </div>
                 
 
@@ -462,30 +462,46 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="redis主从及哨兵"><a href="#redis主从及哨兵" class="headerlink" title="redis主从及哨兵"></a>redis主从及哨兵</h2><p>比较简陋的搭建一个主从及哨兵</p>
-<h3 id="1、创建目录-opt-app-redis-如下："><a href="#1、创建目录-opt-app-redis-如下：" class="headerlink" title="1、创建目录/opt/app/redis,如下："></a>1、创建目录/opt/app/redis,如下：</h3><pre><code>mkdir /opt/app/redis</code></pre><h3 id="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："><a href="#2、下载redis安装包至目录下，复制3份，各自重命名，并解压：" class="headerlink" title="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："></a>2、下载redis安装包至目录下，复制3份，各自重命名，并解压：</h3><pre><code>tar xvfz m.tar.gz</code></pre><h3 id="3、自定义配置redis-conf。"><a href="#3、自定义配置redis-conf。" class="headerlink" title="3、自定义配置redis.conf。"></a>3、自定义配置redis.conf。</h3><pre><code># 使得Redis服务器可以跨网络访问，也可以注释掉，否则可能无法访问端口
-bind 0.0.0.0
-# 设置密码
-requirepass &quot;123456&quot;
-# 指定主服务器，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
-slaveof 192.168.11.128 6379
-# 主服务器密码，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
-masterauth 123456</code></pre><p><strong>注意：若在同一台虚拟机上搭建，需要将端口号修改为不同的</strong></p>
-<h3 id="4、启动redis"><a href="#4、启动redis" class="headerlink" title="4、启动redis"></a>4、启动redis</h3><pre><code>nohup /src/redis-server redis.conf &gt;/dev/null 2&gt;&amp;1 &amp;
-# 查看启动情况
-ps aux|grep redis</code></pre><p>这里可能找不到redis-server,原因是redis解压后没有构建</p>
-<pre><code># 进入redis的src目录进行构建
-make install</code></pre><p>这里由于前置环境的原因，可能会报缺少gcc，安装即可</p>
-<pre><code> yum -y install gcc-c++</code></pre><p>依次启动redis后，往主redis放数据，从redis会同步数据。</p>
-<h3 id="5、修改哨兵配置"><a href="#5、修改哨兵配置" class="headerlink" title="5、修改哨兵配置"></a>5、修改哨兵配置</h3><pre><code># 禁止保护模式
-protected-mode no
-# 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。
-sentinel monitor mymaster 192.168.11.128 6379 2
-# sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码
-# sentinel auth-pass &lt;master-name&gt; &lt;password&gt;
-sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服务名，修改服务名时，需将配置中的所有mymaster替换为新服务名（如：sentinel-server）</p>
-<h3 id="6、启动哨兵"><a href="#6、启动哨兵" class="headerlink" title="6、启动哨兵"></a>6、启动哨兵</h3><pre><code>nohup /src/sentinel-server sentinel.conf &gt;/dev/null 2&gt;&amp;1 &amp;</code></pre><p>代码中连接哨兵即可使用redis主从，且当主redis宕机，哨兵会自动切换至从redis</p>
+                <h2 id="Docker-tomcat7"><a href="#Docker-tomcat7" class="headerlink" title="Docker+tomcat7"></a>Docker+tomcat7</h2><h3 id="一、DockerFile"><a href="#一、DockerFile" class="headerlink" title="一、DockerFile"></a>一、DockerFile</h3><pre><code>############################################
+# version : birdben/tomcat7:v1
+# desc : 当前版本安装的tomcat7
+############################################
+# 设置继承自我们创建的 jdk7 镜像
+FROM birdben/jdk7:v1
 
+# 下面是一些创建者的基本信息
+MAINTAINER birdben (191654006@163.com)
+
+# 设置环境变量，所有操作都是非交互式的
+ENV DEBIAN_FRONTEND noninteractive
+
+# 添加 supervisord 的配置文件，并复制配置文件到对应目录下面。（supervisord.conf文件和Dockerfile文件在同一路径）
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# 设置 tomcat 的环境变量，若读者有其他的环境变量需要设置，也可以在这里添加。
+ENV CATALINA_HOME /software/tomcat7
+
+# 复制 apache-tomcat-7.0.55 文件到镜像中（apache-tomcat-7.0.55 文件夹要和Dockerfile文件在同一路径）
+ADD apache-tomcat-7.0.55 /software/tomcat7
+
+# 容器需要开放Tomcat 8080端口
+EXPOSE 8080
+
+# 执行supervisord来同时执行多个命令，使用 supervisord 的可执行路径启动服务。
+CMD [&quot;/usr/bin/supervisord&quot;]
+</code></pre><h3 id="二、run-sh"><a href="#二、run-sh" class="headerlink" title="二、run.sh"></a>二、run.sh</h3><pre><code>docker run -p 9999:22 -p 8080:8080 -t -i birdben/tomcat7:v1</code></pre><h3 id="三、supervisord-conf"><a href="#三、supervisord-conf" class="headerlink" title="三、supervisord.conf"></a>三、supervisord.conf</h3><pre><code># 配置文件包含目录和进程
+# 第一段 supervsord 配置软件本身，使用 nodaemon 参数来运行。
+# 第二段包含要控制的 2 个服务。每一段包含一个服务的目录和启动这个服务的命令。
+
+[supervisord]
+nodaemon=true
+
+[program:sshd]
+command=/usr/sbin/sshd -D
+
+[program:tomcat]
+command=/bin/bash -c &quot;exec ${CATALINA_HOME}/bin/catalina.sh run&quot;
+</code></pre>
             </div>
             <hr/>
 
@@ -510,7 +526,7 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/">http://youknowhaze.github.io/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/07/04/environment/redis/docker-tomcat7/">http://youknowhaze.github.io/haze/2020/07/04/environment/redis/docker-tomcat7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -548,12 +564,12 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/haze/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
                                 </a>
                             
-                                <a href="/haze/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
+                                <a href="/haze/tags/tomcat/">
+                                    <span class="chip bg-color">tomcat</span>
                                 </a>
                             
                         </div>
@@ -599,21 +615,21 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/haze/2020/07/04/environment/redis/docker-tomcat7/">
+                <a href="/haze/2020/07/04/environment/redis/docker-redis/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/6.jpg" class="responsive-img" alt="docker &amp; tomcat">
+                        <img src="/haze/medias/featureimages/17.jpg" class="responsive-img" alt="docker &amp; redis">
                         
-                        <span class="card-title">docker &amp; tomcat</span>
+                        <span class="card-title">docker &amp; redis</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Docker+tomcat7一、DockerFile############################################
-# version : birdben/tomcat7:v1
-# desc : 当前版本安装的to
+                            docker搭建redis主从及哨兵1、前提准备docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）
+2、创建外部挂载目录创建目录如下，每个目录下再创建data和conf目录用于外部挂载：
+3、下载redis配置和
                         
                     </div>
                     <div class="publish-info">
@@ -639,8 +655,8 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                         <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/haze/tags/tomcat/">
-                        <span class="chip bg-color">tomcat</span>
+                    <a href="/haze/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>
@@ -654,32 +670,32 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/07/02/web/session/">
+                <a href="/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/20.jpg" class="responsive-img" alt="session（会话）">
+                        <img src="/haze/medias/featureimages/7.jpg" class="responsive-img" alt="Linix &amp; redis">
                         
-                        <span class="card-title">session（会话）</span>
+                        <span class="card-title">Linix &amp; redis</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            session   参考自：https://blog.csdn.net/J080624/article/details/78562787   代码将在Advanced-Study 项目进行练习
-1.什么是sessionCookie是存储在客
+                            redis主从及哨兵比较简陋的搭建一个主从及哨兵
+1、创建目录/opt/app/redis,如下：mkdir /opt/app/redis2、下载redis安装包至目录下，复制3份，各自重命名，并解压：tar xvfz m.tar.gz3、
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-03
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/Web/" class="post-category">
-                                    Web
+                            <a href="/haze/categories/encironment/" class="post-category">
+                                    encironment
                                 </a>
                             
                             
@@ -689,8 +705,12 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/session/">
-                        <span class="chip bg-color">session</span>
+                    <a href="/haze/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/haze/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>

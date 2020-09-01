@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Linix &amp; redis, 烹雪煮茶">
+    <meta name="keywords" content="初识KAFKA, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Linix &amp; redis | 烹雪煮茶</title>
+    <title>初识KAFKA | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Linix &amp; redis</h1>
+                    <h1 class="description center-align post-title">初识KAFKA</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +417,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
-                            <a href="/haze/tags/redis/">
-                                <span class="chip bg-color">redis</span>
+                            <a href="/haze/tags/kafka/">
+                                <span class="chip bg-color">kafka</span>
                             </a>
                         
                     </div>
@@ -433,8 +429,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                encironment
+                            <a href="/haze/categories/kafka/" class="post-category">
+                                kafka
                             </a>
                         
                     </div>
@@ -446,7 +442,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-03
+                    2020-07-05
                 </div>
                 
 
@@ -462,30 +458,125 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="redis主从及哨兵"><a href="#redis主从及哨兵" class="headerlink" title="redis主从及哨兵"></a>redis主从及哨兵</h2><p>比较简陋的搭建一个主从及哨兵</p>
-<h3 id="1、创建目录-opt-app-redis-如下："><a href="#1、创建目录-opt-app-redis-如下：" class="headerlink" title="1、创建目录/opt/app/redis,如下："></a>1、创建目录/opt/app/redis,如下：</h3><pre><code>mkdir /opt/app/redis</code></pre><h3 id="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："><a href="#2、下载redis安装包至目录下，复制3份，各自重命名，并解压：" class="headerlink" title="2、下载redis安装包至目录下，复制3份，各自重命名，并解压："></a>2、下载redis安装包至目录下，复制3份，各自重命名，并解压：</h3><pre><code>tar xvfz m.tar.gz</code></pre><h3 id="3、自定义配置redis-conf。"><a href="#3、自定义配置redis-conf。" class="headerlink" title="3、自定义配置redis.conf。"></a>3、自定义配置redis.conf。</h3><pre><code># 使得Redis服务器可以跨网络访问，也可以注释掉，否则可能无法访问端口
-bind 0.0.0.0
-# 设置密码
-requirepass &quot;123456&quot;
-# 指定主服务器，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
-slaveof 192.168.11.128 6379
-# 主服务器密码，注意：有关slaveof的配置只是配置从服务器，主服务器不需要配置
-masterauth 123456</code></pre><p><strong>注意：若在同一台虚拟机上搭建，需要将端口号修改为不同的</strong></p>
-<h3 id="4、启动redis"><a href="#4、启动redis" class="headerlink" title="4、启动redis"></a>4、启动redis</h3><pre><code>nohup /src/redis-server redis.conf &gt;/dev/null 2&gt;&amp;1 &amp;
-# 查看启动情况
-ps aux|grep redis</code></pre><p>这里可能找不到redis-server,原因是redis解压后没有构建</p>
-<pre><code># 进入redis的src目录进行构建
-make install</code></pre><p>这里由于前置环境的原因，可能会报缺少gcc，安装即可</p>
-<pre><code> yum -y install gcc-c++</code></pre><p>依次启动redis后，往主redis放数据，从redis会同步数据。</p>
-<h3 id="5、修改哨兵配置"><a href="#5、修改哨兵配置" class="headerlink" title="5、修改哨兵配置"></a>5、修改哨兵配置</h3><pre><code># 禁止保护模式
-protected-mode no
-# 配置监听的主服务器，这里sentinel monitor代表监控，mymaster代表服务器的名称，可以自定义，192.168.11.128代表监控的主服务器，6379代表端口，2代表只有两个或两个以上的哨兵认为主服务器不可用的时候，才会进行failover操作。
-sentinel monitor mymaster 192.168.11.128 6379 2
-# sentinel author-pass定义服务的密码，mymaster是服务名称，123456是Redis服务器密码
-# sentinel auth-pass &lt;master-name&gt; &lt;password&gt;
-sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服务名，修改服务名时，需将配置中的所有mymaster替换为新服务名（如：sentinel-server）</p>
-<h3 id="6、启动哨兵"><a href="#6、启动哨兵" class="headerlink" title="6、启动哨兵"></a>6、启动哨兵</h3><pre><code>nohup /src/sentinel-server sentinel.conf &gt;/dev/null 2&gt;&amp;1 &amp;</code></pre><p>代码中连接哨兵即可使用redis主从，且当主redis宕机，哨兵会自动切换至从redis</p>
+                <h3 id="初识KAFKA"><a href="#初识KAFKA" class="headerlink" title="初识KAFKA"></a>初识KAFKA</h3><h4 id="一、-kafka基本概念介绍"><a href="#一、-kafka基本概念介绍" class="headerlink" title="一、 kafka基本概念介绍"></a>一、 kafka基本概念介绍</h4><h5 id="1、kafka扮演的角色"><a href="#1、kafka扮演的角色" class="headerlink" title="1、kafka扮演的角色"></a>1、kafka扮演的角色</h5><p>  <strong>消息系统</strong>：系统解耦、冗余存储、流量削峰、缓冲、异步通信、扩展性、可恢复性等<br>  <strong>存储系统</strong>：将数据消息持久化保存到磁盘<br>  <strong>流式处理平台</strong>：提供完整的流式处理类库，比如窗口、连接、交换和聚合等操作。</p>
+<h5 id="2、kafka的专业术语"><a href="#2、kafka的专业术语" class="headerlink" title="2、kafka的专业术语"></a>2、kafka的专业术语</h5><p> <strong>Producer</strong>：生产者，消息发送方，负责将消息发送到kafka队列中</p>
+<p> <strong>Consumer</strong>：消费者，消息接收方，负责接收kafka队列中的数据并进行相应的业务逻辑处理</p>
+<p> <strong>Broker</strong>：服务代理节点，一般情况下一个broker可以看做是一个kafka服务器</p>
+<h5 id="3、主题（topic）、分区（Partition）及副本-Replica"><a href="#3、主题（topic）、分区（Partition）及副本-Replica" class="headerlink" title="3、主题（topic）、分区（Partition）及副本(Replica)"></a>3、主题（topic）、分区（Partition）及副本(Replica)</h5><p><strong>(1)、</strong> 主题是一个逻辑上的概念，分为多个分区，一个分区只属于单个主题。同一主题下的不同分区消息是不同的。一个分区分为多个副本（大于等于1个）</p>
+<p><strong>(2)、</strong> 一条消息被发送到broker之前，会根据分区规则选择存储到哪个具体的分区。如果分区设置合理，消息会被均匀的分配到不同的分区中。kafka为分区引入了副本机制，增加副本数量可以提升容灾能力。同一分区的副本存储的相同消息，但是同一时刻副本内的消息不一定都是一样的（follwer副本的消息更新一般会稍微滞后于leader），副本间是一主多从关系，leader负责读写请求，follwer只负责与leader的消息进行同步。</p>
+<p><strong>(3)、</strong> 分区中所有副本统称为<strong>AR</strong>。所有与leader副本保持一定程度同步的副本（包括leader）组成<strong>ISR</strong>。与leader信息同步程度滞后太多的副本称为<strong>OSR</strong>。ISR和OSR是AR的一个子集，AR = OSR + ISR。当副本滞后leader太多，该副本会被leader从ISR中剔除。</p>
+<p>*<em>(4)、HW *</em> 标识了一个特别的偏移量，消费者只能拉取到这个值之前的消息（比如消费者能消费到的数据是0到5，那么HW的值就为6），HW的值取决于follwer副本与leader副本的同步情况，HW的值为同步的最小offset加1（若leader的值为15，follwer1位12，follwer2为7，则HW的值为8）。若分区队列中消息数量为0到8，则LEO=9，他标识当前日志文件中下一条待写入消息的offset。分区ISR集合中的每个副本都会维护自身的LEO。</p>
+<h4 id="二、-kafka的安装与配置"><a href="#二、-kafka的安装与配置" class="headerlink" title="二、 kafka的安装与配置"></a>二、 kafka的安装与配置</h4><p>详情见另外文档（地址待贴出）</p>
+<h4 id="三、kafka脚本生产与消费"><a href="#三、kafka脚本生产与消费" class="headerlink" title="三、kafka脚本生产与消费"></a>三、kafka脚本生产与消费</h4><p>#####1、创建主题</p>
+<pre><code># 进入kafka的根目录下，使用bin目录下的kafka-topics.sh脚本创建主题
 
+bin/kafka-topics.sh --zookeeper localhost:2181/kafka --create --topic topic-demo --replication-factor 3 --partitions 4
+
+
+--zookeeper           指定了kafka所连接的ZK服务地址
+--topic               指定了要创建的主题名称
+--replication-factor  指定了副本因子
+--create              创建主题的动作命令</code></pre><p>#####2、查看主题信息</p>
+<pre><code># 通过 --describe展示主题的具体信息
+bin/kafka-topics.sh --zookeeper localhost:2181/kafka --describe --topic topic-demo</code></pre><h4 id="3、订阅主题"><a href="#3、订阅主题" class="headerlink" title="3、订阅主题"></a>3、订阅主题</h4><p>  创建主题后通过kafka提供的两个脚本来检查是否可以正常地发送和消费数据</p>
+<pre><code># 使用kafka-console-consumer.sh来订阅主题
+
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9200 --topic topic-demo
+
+
+--bootstrap-server    指定了连接的kafka集群地址
+--topic               指定了消费者订阅的主题</code></pre><p>目前该主题暂无信息写入，所以脚本无法消费数据，再打开另一个终端，在kafka根目录下执行消息发送脚本，发送一条Hello Kafka!的信息</p>
+<pre><code># 使用kafka-console-producer.sh
+
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic topic-demo
+&gt;Hello kafka!
+&gt;
+
+
+--broker-list      指定了连接kafka集群的地址
+--topic            指定了发送消息时的主题
+第二行&gt;后面的信息为发送至kafka主题中的信息</code></pre><p>回到消费kafka的窗口，可以看到刚刚被发送至kafka的信息被获取到</p>
+<h4 id="四、java客户端kafka的发送与消费"><a href="#四、java客户端kafka的发送与消费" class="headerlink" title="四、java客户端kafka的发送与消费"></a>四、java客户端kafka的发送与消费</h4><h5 id="1、kafka的java客户端需要的maven依赖如下"><a href="#1、kafka的java客户端需要的maven依赖如下" class="headerlink" title="1、kafka的java客户端需要的maven依赖如下"></a>1、kafka的java客户端需要的maven依赖如下</h5><pre><code>&lt;dependency&gt;
+   &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+   &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
+   &lt;version&gt;2.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre><h5 id="2、生产者客户端代码"><a href="#2、生产者客户端代码" class="headerlink" title="2、生产者客户端代码"></a>2、生产者客户端代码</h5><pre><code>import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+
+public class ProducerFastStart{
+
+    public static final String brokerList = &quot;localhost:9092&quot;;
+
+    public static final String topic = &quot;topic-demo&quot;;
+
+    public static String sendMsg = &quot;this is kafka test message&quot;;
+
+    public static void main(String[] args) {
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                StringSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                StringSerializer.class.getName());
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                brokerList);
+        KafkaProducer&lt;String,String&gt; producer
+                = new KafkaProducer&lt;String, String&gt;(properties);
+        ProducerRecord&lt;String,String&gt; record
+                = new ProducerRecord&lt;&gt;(topic,sendMsg);
+
+        try {
+            producer.send(record);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            producer.close();
+        }
+    }
+
+}</code></pre><h5 id="3、消费者客户端代码"><a href="#3、消费者客户端代码" class="headerlink" title="3、消费者客户端代码"></a>3、消费者客户端代码</h5><pre><code>import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Properties;
+
+public class KafkaConsumerTest {
+
+    public static final String brokerList = &quot;localhost:9092&quot;;
+
+    public static final String topic = &quot;topic-demo&quot;;
+
+    public static final String groupId = &quot;group.demo&quot;;
+
+    public static void main(String[] args) {
+        Properties properties = new Properties();
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG,groupId);
+
+        // 创建一个kafka消费者客户端实例
+        KafkaConsumer&lt;String,String&gt; consumer = new KafkaConsumer&lt;String, String&gt;(properties);
+        // 订阅主题
+        consumer.subscribe(Collections.singletonList(topic));
+
+        while (true){
+            ConsumerRecords&lt;String,String&gt; records = consumer.poll(Duration.ofMillis(1000));
+            for (ConsumerRecord&lt;String,String&gt; record:records){
+                System.out.println(record.value());
+            }
+        }
+    }
+
+
+}</code></pre>
             </div>
             <hr/>
 
@@ -510,7 +601,7 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/">http://youknowhaze.github.io/haze/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/chu-shi-kafka/">http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/chu-shi-kafka/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -548,12 +639,8 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="/haze/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
+                                <a href="/haze/tags/kafka/">
+                                    <span class="chip bg-color">kafka</span>
                                 </a>
                             
                         </div>
@@ -599,27 +686,82 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/haze/2020/07/04/environment/redis/docker-tomcat7/">
+                <a href="/haze/2020/07/05/environment/redis/redis-cao-zuo/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/6.jpg" class="responsive-img" alt="docker &amp; tomcat">
+                        <img src="/haze/medias/featureimages/19.jpg" class="responsive-img" alt="java &amp; redis">
                         
-                        <span class="card-title">docker &amp; tomcat</span>
+                        <span class="card-title">java &amp; redis</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Docker+tomcat7一、DockerFile############################################
-# version : birdben/tomcat7:v1
-# desc : 当前版本安装的to
+                            Redis 常见操作一、运维常见命令1、启动redis
+# 进入redis根目录
+nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis-sent
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/haze/categories/command/" class="post-category">
+                                    command
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/haze/tags/redis/">
+                        <span class="chip bg-color">redis</span>
+                    </a>
+                    
+                    <a href="/haze/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/haze/2020/07/04/environment/redis/docker-redis/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/haze/medias/featureimages/17.jpg" class="responsive-img" alt="docker &amp; redis">
+                        
+                        <span class="card-title">docker &amp; redis</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            docker搭建redis主从及哨兵1、前提准备docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）
+2、创建外部挂载目录创建目录如下，每个目录下再创建data和conf目录用于外部挂载：
+3、下载redis配置和
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -639,58 +781,8 @@ sentinel auth-pass mymaster 123456</code></pre><p>若不用默认的mymaster服�
                         <span class="chip bg-color">Docker</span>
                     </a>
                     
-                    <a href="/haze/tags/tomcat/">
-                        <span class="chip bg-color">tomcat</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/haze/2020/07/02/web/session/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/haze/medias/featureimages/20.jpg" class="responsive-img" alt="session（会话）">
-                        
-                        <span class="card-title">session（会话）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            session   参考自：https://blog.csdn.net/J080624/article/details/78562787   代码将在Advanced-Study 项目进行练习
-1.什么是sessionCookie是存储在客
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/haze/categories/Web/" class="post-category">
-                                    Web
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/haze/tags/session/">
-                        <span class="chip bg-color">session</span>
+                    <a href="/haze/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>

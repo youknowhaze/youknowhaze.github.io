@@ -6,7 +6,7 @@
   <link href="/haze/atom.xml" rel="self"/>
   
   <link href="http://youknowhaze.github.io/"/>
-  <updated>2020-09-01T10:46:32.421Z</updated>
+  <updated>2020-09-01T11:01:26.361Z</updated>
   <id>http://youknowhaze.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>environment/redis/Docker-tomcat7</title>
-    <link href="http://youknowhaze.github.io/2020/09/01/environment/redis/docker-tomcat7/"/>
-    <id>http://youknowhaze.github.io/2020/09/01/environment/redis/docker-tomcat7/</id>
-    <published>2020-09-01T10:46:32.421Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <title>Kafka生产者详解</title>
+    <link href="http://youknowhaze.github.io/2020/07/05/environment/kafka/kafka-sheng-chan-zhe-xiang-jie/"/>
+    <id>http://youknowhaze.github.io/2020/07/05/environment/kafka/kafka-sheng-chan-zhe-xiang-jie/</id>
+    <published>2020-07-05T00:00:00.000Z</published>
+    <updated>2020-09-01T11:01:26.361Z</updated>
     
     <summary type="html">
     
@@ -29,13 +29,17 @@
       
         
         
-          &lt;h2 id=&quot;Docker-tomcat7&quot;&gt;&lt;a href=&quot;#Docker-tomcat7&quot; class=&quot;headerlink&quot; title=&quot;Docker+tomcat7&quot;&gt;&lt;/a&gt;Docker+tomcat7&lt;/h2&gt;&lt;h3 id=&quot;一、DockerFile&quot;&gt;&lt;a
+          &lt;h3 id=&quot;Kafka生产者详解&quot;&gt;&lt;a href=&quot;#Kafka生产者详解&quot; class=&quot;headerlink&quot; title=&quot;Kafka生产者详解&quot;&gt;&lt;/a&gt;Kafka生产者详解&lt;/h3&gt;&lt;h4 id=&quot;一、客户端开发&quot;&gt;&lt;a href=&quot;#一、客户端开发&quot;
         
       
     
     </summary>
     
     
+      <category term="kafka" scheme="http://youknowhaze.github.io/categories/kafka/"/>
+    
+    
+      <category term="kafka" scheme="http://youknowhaze.github.io/tags/kafka/"/>
     
   </entry>
   
@@ -44,7 +48,7 @@
     <link href="http://youknowhaze.github.io/2020/07/05/environment/redis/redis-cao-zuo/"/>
     <id>http://youknowhaze.github.io/2020/07/05/environment/redis/redis-cao-zuo/</id>
     <published>2020-07-05T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <updated>2020-09-01T11:01:26.361Z</updated>
     
     <summary type="html">
     
@@ -69,11 +73,38 @@
   </entry>
   
   <entry>
+    <title>初识KAFKA</title>
+    <link href="http://youknowhaze.github.io/2020/07/05/environment/kafka/chu-shi-kafka/"/>
+    <id>http://youknowhaze.github.io/2020/07/05/environment/kafka/chu-shi-kafka/</id>
+    <published>2020-07-05T00:00:00.000Z</published>
+    <updated>2020-09-01T11:01:26.361Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;初识KAFKA&quot;&gt;&lt;a href=&quot;#初识KAFKA&quot; class=&quot;headerlink&quot; title=&quot;初识KAFKA&quot;&gt;&lt;/a&gt;初识KAFKA&lt;/h3&gt;&lt;h4 id=&quot;一、-kafka基本概念介绍&quot;&gt;&lt;a href=&quot;#一、-kafka基本概念介绍&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="kafka" scheme="http://youknowhaze.github.io/categories/kafka/"/>
+    
+    
+      <category term="kafka" scheme="http://youknowhaze.github.io/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
     <title>docker &amp; redis</title>
     <link href="http://youknowhaze.github.io/2020/07/04/environment/redis/docker-redis/"/>
     <id>http://youknowhaze.github.io/2020/07/04/environment/redis/docker-redis/</id>
     <published>2020-07-04T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <updated>2020-09-01T11:01:26.361Z</updated>
     
     <summary type="html">
     
@@ -98,11 +129,40 @@
   </entry>
   
   <entry>
+    <title>docker &amp; tomcat</title>
+    <link href="http://youknowhaze.github.io/2020/07/04/environment/redis/docker-tomcat7/"/>
+    <id>http://youknowhaze.github.io/2020/07/04/environment/redis/docker-tomcat7/</id>
+    <published>2020-07-04T00:00:00.000Z</published>
+    <updated>2020-09-01T11:01:26.361Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Docker-tomcat7&quot;&gt;&lt;a href=&quot;#Docker-tomcat7&quot; class=&quot;headerlink&quot; title=&quot;Docker+tomcat7&quot;&gt;&lt;/a&gt;Docker+tomcat7&lt;/h2&gt;&lt;h3 id=&quot;一、DockerFile&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="encironment" scheme="http://youknowhaze.github.io/categories/encironment/"/>
+    
+    
+      <category term="Docker" scheme="http://youknowhaze.github.io/tags/Docker/"/>
+    
+      <category term="tomcat" scheme="http://youknowhaze.github.io/tags/tomcat/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linix &amp; redis</title>
     <link href="http://youknowhaze.github.io/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/"/>
     <id>http://youknowhaze.github.io/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</id>
     <published>2020-07-03T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.425Z</updated>
+    <updated>2020-09-01T11:01:26.361Z</updated>
     
     <summary type="html">
     
@@ -132,7 +192,7 @@
     <link href="http://youknowhaze.github.io/2020/07/02/web/session/"/>
     <id>http://youknowhaze.github.io/2020/07/02/web/session/</id>
     <published>2020-07-02T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.425Z</updated>
+    <updated>2020-09-01T11:01:26.361Z</updated>
     
     <summary type="html">
     
@@ -159,7 +219,7 @@
     <link href="http://youknowhaze.github.io/2020/07/01/web/cookie/"/>
     <id>http://youknowhaze.github.io/2020/07/01/web/cookie/</id>
     <published>2020-07-01T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.425Z</updated>
+    <updated>2020-09-01T11:01:26.361Z</updated>
     
     <summary type="html">
     
@@ -187,7 +247,7 @@
     <link href="http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/"/>
     <id>http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/</id>
     <published>2020-06-29T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.425Z</updated>
+    <updated>2020-09-01T11:01:26.365Z</updated>
     
     <summary type="html">
     
@@ -215,7 +275,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/"/>
     <id>http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/</id>
     <published>2020-06-26T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <updated>2020-09-01T11:01:26.357Z</updated>
     
     <summary type="html">
     
@@ -244,7 +304,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/"/>
     <id>http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/</id>
     <published>2020-06-22T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <updated>2020-09-01T11:01:26.357Z</updated>
     
     <summary type="html">
     
@@ -273,7 +333,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/"/>
     <id>http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/</id>
     <published>2020-06-18T00:00:00.000Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <updated>2020-09-01T11:01:26.357Z</updated>
     
     <summary type="html">
     
@@ -302,7 +362,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/"/>
     <id>http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/</id>
     <published>2020-06-13T18:23:38.000Z</published>
-    <updated>2020-09-01T10:46:32.421Z</updated>
+    <updated>2020-09-01T11:01:26.357Z</updated>
     
     <summary type="html">
     
@@ -329,7 +389,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/"/>
     <id>http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/</id>
     <published>2020-06-06T18:23:38.000Z</published>
-    <updated>2020-09-01T10:46:32.417Z</updated>
+    <updated>2020-09-01T11:01:26.357Z</updated>
     
     <summary type="html">
     
