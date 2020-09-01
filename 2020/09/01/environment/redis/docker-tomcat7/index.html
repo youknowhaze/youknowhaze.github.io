@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java &amp; redis, 烹雪煮茶">
+    <meta name="keywords" content="environment/redis/Docker-tomcat7, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java &amp; redis | 烹雪煮茶</title>
+    <title>environment/redis/Docker-tomcat7 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java &amp; redis</h1>
+                    <h1 class="description center-align post-title">environment/redis/Docker-tomcat7</h1>
                 </div>
             </div>
         </div>
@@ -415,29 +415,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/haze/tags/redis/">
-                                <span class="chip bg-color">redis</span>
-                            </a>
-                        
-                            <a href="/haze/tags/java/">
-                                <span class="chip bg-color">java</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/haze/categories/command/" class="post-category">
-                                command
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -446,7 +429,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-05
+                    2020-09-01
                 </div>
                 
 
@@ -462,77 +445,46 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Redis-常见操作"><a href="#Redis-常见操作" class="headerlink" title="Redis 常见操作"></a>Redis 常见操作</h2><h3 id="一、运维常见命令"><a href="#一、运维常见命令" class="headerlink" title="一、运维常见命令"></a>一、运维常见命令</h3><p><strong>1、启动redis</strong></p>
-<pre><code># 进入redis根目录
-nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p><strong>2、启动redis-sentinel 哨兵</strong></p>
-<pre><code># 进入redis根目录
-nohup src/redis-sentinel sentinel.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p>*<em>3、停止redis  *</em></p>
-<pre><code>redis-cli shutdown</code></pre><p><strong>4、选择数据库</strong></p>
-<pre><code>//默认连接的数据库所有是0,默认数据库数是16个。返回1表示成功，0失败
-select db-index</code></pre><p><strong>5、清空数据库</strong></p>
-<pre><code>flushdb    //删除当前选择数据库中的所有 key。生产上已经禁止。
-flushall   //删除所有的数据库。生产上已经禁止。</code></pre><p><strong>6、模拟宕机</strong></p>
-<pre><code>redis-cli debug segfault</code></pre><p><strong>7、模拟hang</strong></p>
-<pre><code>redis-cli -p 6379 DEBUG sleep 30</code></pre><p><strong>8、重命名命令</strong></p>
-<pre><code>rename-command
-// 例如：rename-command FLUSHALL &quot;&quot;。必须重启。</code></pre><p><strong>9、设置密码</strong></p>
-<pre><code>config set requirepass [passw0rd]</code></pre><p><strong>10、验证密码</strong></p>
-<pre><code>auth passw0rd</code></pre><p><strong>11、查看日志</strong></p>
-<pre><code>日志位置在/redis/log下，redis.log为redis主日志，sentinel.log为sentinel哨兵日志。</code></pre><h3 id="二、开发常见命令"><a href="#二、开发常见命令" class="headerlink" title="二、开发常见命令"></a>二、开发常见命令</h3><p>自注：key值为队列名</p>
-<p><strong>1、在名称为key的队列尾添加一个值为value的元素</strong></p>
-<pre><code>rpush(key, value)</code></pre><p><strong>2、在名称为key的队列头添加一个值为value的 元素</strong></p>
-<pre><code>lpush(key, value)</code></pre><p><strong>3、返回名称为key的队列的长度</strong></p>
-<pre><code>llen(key)</code></pre><p><strong>4、返回名称为key的队列中start至end之间的元素</strong></p>
-<pre><code>lrange(key, start, end)</code></pre><p><strong>5、截取名称为key的队列</strong></p>
-<pre><code>ltrim(key, start, end)</code></pre><p><strong>6、返回名称为key的队列中index位置的元素</strong></p>
-<pre><code>lindex(key, index)</code></pre><p><strong>7、给名称为key的队列中index位置的元素赋值</strong></p>
-<pre><code>lset(key, index, value)</code></pre><p><strong>8、删除count个key的队列中值为value的元素</strong></p>
-<pre><code>lrem(key, count, value)</code></pre><p><strong>9、返回并删除名称为key的队列中的首元素</strong></p>
-<pre><code>lpop(key)</code></pre><p><strong>10、返回并删除名称为key的队列中的尾元素</strong></p>
-<pre><code>rpop(key)</code></pre><p><strong>11、lpop命令的block版本</strong></p>
-<pre><code>blpop(key1, key2,… key N, timeout)</code></pre><p><strong>12、rpop的block版本</strong></p>
-<pre><code>brpop(key1, key2,… key N, timeout)</code></pre><p><strong>13、返回并删除名称为srckey的队列的尾元素，并将该元素添加到名称为dstkey的list的头部</strong></p>
-<pre><code>rpoplpush(srckey, dstkey)</code></pre><p><strong>14、删除某个队列</strong></p>
-<pre><code>del key</code></pre><p><strong>15、清空redis</strong></p>
-<pre><code>flushdb</code></pre><h3 id="三、java-连接redis"><a href="#三、java-连接redis" class="headerlink" title="三、java 连接redis"></a>三、java 连接redis</h3><p><strong>1、引入redis的依赖：</strong></p>
-<pre><code>&lt;dependency&gt;
-      &lt;groupId&gt;redis.clients&lt;/groupId&gt;
-      &lt;artifactId&gt;jedis&lt;/artifactId&gt;
-      &lt;version&gt;2.5.0&lt;/version&gt;
-&lt;/dependency&gt;</code></pre><p><strong>2、连接池</strong></p>
-<pre><code>// 用hash方式保存至redis
-public boolean saveToRedis(String key,String event,String value){
-        try {
-            Jedis jedis = getJedisPool().getResource();
-            jedis.hset(key,event,value);
-        }catch (Exception ex){
-            DpLogger.GETDATALOG.error(&quot;redis存储异常..&quot;,ex);
-        }
-        return true;
-    }
+                <h2 id="Docker-tomcat7"><a href="#Docker-tomcat7" class="headerlink" title="Docker+tomcat7"></a>Docker+tomcat7</h2><h3 id="一、DockerFile"><a href="#一、DockerFile" class="headerlink" title="一、DockerFile"></a>一、DockerFile</h3><pre><code>############################################
+# version : birdben/tomcat7:v1
+# desc : 当前版本安装的tomcat7
+############################################
+# 设置继承自我们创建的 jdk7 镜像
+FROM birdben/jdk7:v1
 
-// redis哨兵连接池，redis是类似的
-private JedisSentinelPool getJedisPool(){
-        if (jedisPool == null){
-            lock1.lock();
-            try {
-                JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-                jedisPoolConfig.setMaxIdle(30);
-                // 哨兵连接127.0.0.1:26379,127.0.0.1:26378,127.0.0.1:26377
-                Set&lt;String&gt; sentinelSet = redisConfiguration.getSentinelHost().stream().collect(Collectors.toSet());
-                // redisConfiguration.getSentinelService()为服务名
-                JedisSentinelPool pool = new JedisSentinelPool(redisConfiguration.getSentinelService(),
-                        sentinelSet, jedisPoolConfig, redisConfiguration.getSentinelPwd());
+# 下面是一些创建者的基本信息
+MAINTAINER birdben (191654006@163.com)
 
-                return pool;
-            }catch (Exception ex){
-                DpLogger.GETDATALOG.error(&quot;创建redis连接失败..&quot;,ex);
-            }finally {
-                lock1.unlock();
-            }
-        }
-        return jedisPool;
-    }</code></pre>
+# 设置环境变量，所有操作都是非交互式的
+ENV DEBIAN_FRONTEND noninteractive
+
+# 添加 supervisord 的配置文件，并复制配置文件到对应目录下面。（supervisord.conf文件和Dockerfile文件在同一路径）
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# 设置 tomcat 的环境变量，若读者有其他的环境变量需要设置，也可以在这里添加。
+ENV CATALINA_HOME /software/tomcat7
+
+# 复制 apache-tomcat-7.0.55 文件到镜像中（apache-tomcat-7.0.55 文件夹要和Dockerfile文件在同一路径）
+ADD apache-tomcat-7.0.55 /software/tomcat7
+
+# 容器需要开放Tomcat 8080端口
+EXPOSE 8080
+
+# 执行supervisord来同时执行多个命令，使用 supervisord 的可执行路径启动服务。
+CMD [&quot;/usr/bin/supervisord&quot;]
+</code></pre><h3 id="二、run-sh"><a href="#二、run-sh" class="headerlink" title="二、run.sh"></a>二、run.sh</h3><pre><code>docker run -p 9999:22 -p 8080:8080 -t -i birdben/tomcat7:v1</code></pre><h3 id="三、supervisord-conf"><a href="#三、supervisord-conf" class="headerlink" title="三、supervisord.conf"></a>三、supervisord.conf</h3><pre><code># 配置文件包含目录和进程
+# 第一段 supervsord 配置软件本身，使用 nodaemon 参数来运行。
+# 第二段包含要控制的 2 个服务。每一段包含一个服务的目录和启动这个服务的命令。
+
+[supervisord]
+nodaemon=true
+
+[program:sshd]
+command=/usr/sbin/sshd -D
+
+[program:tomcat]
+command=/bin/bash -c &quot;exec ${CATALINA_HOME}/bin/catalina.sh run&quot;
+</code></pre>
             </div>
             <hr/>
 
@@ -557,7 +509,7 @@ private JedisSentinelPool getJedisPool(){
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/redis/redis-cao-zuo/">http://youknowhaze.github.io/haze/2020/07/05/environment/redis/redis-cao-zuo/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/09/01/environment/redis/docker-tomcat7/">http://youknowhaze.github.io/haze/2020/09/01/environment/redis/docker-tomcat7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -594,15 +546,7 @@ private JedisSentinelPool getJedisPool(){
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/haze/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
-                                </a>
-                            
-                                <a href="/haze/tags/java/">
-                                    <span class="chip bg-color">java</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -642,9 +586,10 @@ private JedisSentinelPool getJedisPool(){
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/haze/2020/09/01/environment/redis/docker-tomcat7/">
                     <div class="card-image">
@@ -664,9 +609,9 @@ private JedisSentinelPool getJedisPool(){
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -675,6 +620,7 @@ private JedisSentinelPool getJedisPool(){
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -685,33 +631,33 @@ private JedisSentinelPool getJedisPool(){
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/07/04/environment/redis/docker-redis/">
+                <a href="/haze/2020/07/05/environment/redis/redis-cao-zuo/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/17.jpg" class="responsive-img" alt="docker &amp; redis">
+                        <img src="/haze/medias/featureimages/19.jpg" class="responsive-img" alt="java &amp; redis">
                         
-                        <span class="card-title">docker &amp; redis</span>
+                        <span class="card-title">java &amp; redis</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            docker搭建redis主从及哨兵1、前提准备docker环境（这里我只使用了一台docker服务器，通过端口区别实现集群）
-2、创建外部挂载目录创建目录如下，每个目录下再创建data和conf目录用于外部挂载：
-3、下载redis配置和
+                            Redis 常见操作一、运维常见命令1、启动redis
+# 进入redis根目录
+nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis-sent
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/encironment/" class="post-category">
-                                    encironment
+                            <a href="/haze/categories/command/" class="post-category">
+                                    command
                                 </a>
                             
                             
@@ -721,12 +667,12 @@ private JedisSentinelPool getJedisPool(){
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
-                    </a>
-                    
                     <a href="/haze/tags/redis/">
                         <span class="chip bg-color">redis</span>
+                    </a>
+                    
+                    <a href="/haze/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
