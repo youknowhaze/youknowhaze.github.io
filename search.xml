@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Kafka消费者详解</title>
+      <link href="/haze/2020/09/07/environment/kafka/kafkaconsumer/"/>
+      <url>/haze/2020/09/07/environment/kafka/kafkaconsumer/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Kafka-消费者"><a href="#Kafka-消费者" class="headerlink" title="Kafka 消费者"></a>Kafka 消费者</h3><h4 id="一、消费者与消费者组"><a href="#一、消费者与消费者组" class="headerlink" title="一、消费者与消费者组"></a>一、消费者与消费者组</h4><p>   消费者（ Consumer ）负责订阅 Kafka 中的主题（ Topic ），并且从订阅的主题上拉取消息与其他一些消息中间件不同的是：在 Kafka 的消费理念中还有一层消费组（ Consumer Group)的概念，每个消费者都有一个对应的消费组。当消息发布到主题后，只会被投递给订阅它的每个消费组中的一个消费者。</p><p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer01.png" alt="多个消费者组"></p><p>   如上图所示，主题存在四个分区（p0/p1/p2/p3），有两个消费者组A和B，A中的四个消费者每人消费了一个分区，而B中的消费者每人消费了2个分区，换而言之，kafka中的一个分区只允许被一个消费者消费。</p><p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer02.png" alt="消费者组中只有一个消费者"></p><p>   再如上图中，一个消费者组中只含有一个消费者，则这个消费者将消费所有的分区数据。组中此时新增一个消费者，则此时新增加的消费者会被分配尽可能平均的分区进行消费，如下图所示：</p><p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer03.png" alt="消费者组中新增一个消费者"></p><p>   对消费者组依次增加消费者数量，直到超过分区数为止，如下图所示，当消费者数量超过分区数时，会有部分消费者无法消费分区数据，因为一个分区只能背一个消费者消费。</p><p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer04.png" alt="消费者组中新增一个消费者"></p><p>   以上分配逻辑都是基于默认的分区分配策略进行分析的，可以通过消费者客户端参数<br>partition.assignment.strategy 来设置消费者与订阅主题之间的分区分配策略。</p><h4 id="二、消费者客户端开发"><a href="#二、消费者客户端开发" class="headerlink" title="二、消费者客户端开发"></a>二、消费者客户端开发</h4><pre><code>public class KafkaConsumerAnalysis {    public static final String brokerList = &quot;localhost:9092&quot;;    public static final String topic = &quot;topic-demo&quot;;    public static final String groupid = &quot;group.demo&quot;;    public static final AtomicBoolean isRunning =new AtomicBoolean(true);    public static Properties initConfig() {        Properties props = new Properties();        props.put(&quot;key.deserializer&quot;,                &quot;org.apache.kafka.common.seriali zation.StringDeserializer&quot;);        props.put(&quot;value.deserializer&quot;,                &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);        props.put(&quot;bootstrap.servers&quot;, brokerList);        props.put(&quot;group.id&quot;, groupid);        props.put(&quot;client.id&quot; ,&quot;consumer.client.id.demo&quot;);        return props;    }    public static void main (String [] args) {        Properties props = initConfig();        KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);        consumer.subscribe(Arrays.asList(topic));        try {            while (isRunning.get()) {                ConsumerRecords&lt;String, String&gt; records =                        consumer.poll(Duration.ofMillis(1000));                for (ConsumerRecord&lt;String, String&gt; record : records) {                    System.out.println(&quot;topic = &quot; + record.topic() + &quot;,partition = &quot; + record.partition() + &quot;,offset = &quot; + record.offset());                    System.out.println(&quot;key = &quot; + record.key() + &quot;, value = &quot; + record.value());                }            }        }catch (Exception ex){            ex.printStackTrace();        }finally {            consumer.close();        }    } }</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> kafka </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> kafka </tag>
+            
+            <tag> consumer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Kafka生产者详解</title>
       <link href="/haze/2020/07/05/environment/kafka/kafkaproducer/"/>
       <url>/haze/2020/07/05/environment/kafka/kafkaproducer/</url>
@@ -21,6 +48,8 @@
         <tags>
             
             <tag> kafka </tag>
+            
+            <tag> producer </tag>
             
         </tags>
       

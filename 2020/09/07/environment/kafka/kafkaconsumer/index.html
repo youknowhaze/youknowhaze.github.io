@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java &amp; redis, 烹雪煮茶">
+    <meta name="keywords" content="Kafka消费者详解, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java &amp; redis | 烹雪煮茶</title>
+    <title>Kafka消费者详解 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java &amp; redis</h1>
+                    <h1 class="description center-align post-title">Kafka消费者详解</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +417,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/redis/">
-                                <span class="chip bg-color">redis</span>
+                            <a href="/haze/tags/kafka/">
+                                <span class="chip bg-color">kafka</span>
                             </a>
                         
-                            <a href="/haze/tags/java/">
-                                <span class="chip bg-color">java</span>
+                            <a href="/haze/tags/consumer/">
+                                <span class="chip bg-color">consumer</span>
                             </a>
                         
                     </div>
@@ -433,8 +433,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/command/" class="post-category">
-                                command
+                            <a href="/haze/categories/kafka/" class="post-category">
+                                kafka
                             </a>
                         
                     </div>
@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-05
+                    2020-09-07
                 </div>
                 
 
@@ -462,77 +462,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Redis-常见操作"><a href="#Redis-常见操作" class="headerlink" title="Redis 常见操作"></a>Redis 常见操作</h2><h3 id="一、运维常见命令"><a href="#一、运维常见命令" class="headerlink" title="一、运维常见命令"></a>一、运维常见命令</h3><p><strong>1、启动redis</strong></p>
-<pre><code># 进入redis根目录
-nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p><strong>2、启动redis-sentinel 哨兵</strong></p>
-<pre><code># 进入redis根目录
-nohup src/redis-sentinel sentinel.conf &gt;start.log 2&gt;&amp;1 &amp;</code></pre><p>*<em>3、停止redis  *</em></p>
-<pre><code>redis-cli shutdown</code></pre><p><strong>4、选择数据库</strong></p>
-<pre><code>//默认连接的数据库所有是0,默认数据库数是16个。返回1表示成功，0失败
-select db-index</code></pre><p><strong>5、清空数据库</strong></p>
-<pre><code>flushdb    //删除当前选择数据库中的所有 key。生产上已经禁止。
-flushall   //删除所有的数据库。生产上已经禁止。</code></pre><p><strong>6、模拟宕机</strong></p>
-<pre><code>redis-cli debug segfault</code></pre><p><strong>7、模拟hang</strong></p>
-<pre><code>redis-cli -p 6379 DEBUG sleep 30</code></pre><p><strong>8、重命名命令</strong></p>
-<pre><code>rename-command
-// 例如：rename-command FLUSHALL &quot;&quot;。必须重启。</code></pre><p><strong>9、设置密码</strong></p>
-<pre><code>config set requirepass [passw0rd]</code></pre><p><strong>10、验证密码</strong></p>
-<pre><code>auth passw0rd</code></pre><p><strong>11、查看日志</strong></p>
-<pre><code>日志位置在/redis/log下，redis.log为redis主日志，sentinel.log为sentinel哨兵日志。</code></pre><h3 id="二、开发常见命令"><a href="#二、开发常见命令" class="headerlink" title="二、开发常见命令"></a>二、开发常见命令</h3><p>自注：key值为队列名</p>
-<p><strong>1、在名称为key的队列尾添加一个值为value的元素</strong></p>
-<pre><code>rpush(key, value)</code></pre><p><strong>2、在名称为key的队列头添加一个值为value的 元素</strong></p>
-<pre><code>lpush(key, value)</code></pre><p><strong>3、返回名称为key的队列的长度</strong></p>
-<pre><code>llen(key)</code></pre><p><strong>4、返回名称为key的队列中start至end之间的元素</strong></p>
-<pre><code>lrange(key, start, end)</code></pre><p><strong>5、截取名称为key的队列</strong></p>
-<pre><code>ltrim(key, start, end)</code></pre><p><strong>6、返回名称为key的队列中index位置的元素</strong></p>
-<pre><code>lindex(key, index)</code></pre><p><strong>7、给名称为key的队列中index位置的元素赋值</strong></p>
-<pre><code>lset(key, index, value)</code></pre><p><strong>8、删除count个key的队列中值为value的元素</strong></p>
-<pre><code>lrem(key, count, value)</code></pre><p><strong>9、返回并删除名称为key的队列中的首元素</strong></p>
-<pre><code>lpop(key)</code></pre><p><strong>10、返回并删除名称为key的队列中的尾元素</strong></p>
-<pre><code>rpop(key)</code></pre><p><strong>11、lpop命令的block版本</strong></p>
-<pre><code>blpop(key1, key2,… key N, timeout)</code></pre><p><strong>12、rpop的block版本</strong></p>
-<pre><code>brpop(key1, key2,… key N, timeout)</code></pre><p><strong>13、返回并删除名称为srckey的队列的尾元素，并将该元素添加到名称为dstkey的list的头部</strong></p>
-<pre><code>rpoplpush(srckey, dstkey)</code></pre><p><strong>14、删除某个队列</strong></p>
-<pre><code>del key</code></pre><p><strong>15、清空redis</strong></p>
-<pre><code>flushdb</code></pre><h3 id="三、java-连接redis"><a href="#三、java-连接redis" class="headerlink" title="三、java 连接redis"></a>三、java 连接redis</h3><p><strong>1、引入redis的依赖：</strong></p>
-<pre><code>&lt;dependency&gt;
-      &lt;groupId&gt;redis.clients&lt;/groupId&gt;
-      &lt;artifactId&gt;jedis&lt;/artifactId&gt;
-      &lt;version&gt;2.5.0&lt;/version&gt;
-&lt;/dependency&gt;</code></pre><p><strong>2、连接池</strong></p>
-<pre><code>// 用hash方式保存至redis
-public boolean saveToRedis(String key,String event,String value){
-        try {
-            Jedis jedis = getJedisPool().getResource();
-            jedis.hset(key,event,value);
-        }catch (Exception ex){
-            DpLogger.GETDATALOG.error(&quot;redis存储异常..&quot;,ex);
-        }
-        return true;
+                <h3 id="Kafka-消费者"><a href="#Kafka-消费者" class="headerlink" title="Kafka 消费者"></a>Kafka 消费者</h3><h4 id="一、消费者与消费者组"><a href="#一、消费者与消费者组" class="headerlink" title="一、消费者与消费者组"></a>一、消费者与消费者组</h4><p>   消费者（ Consumer ）负责订阅 Kafka 中的主题（ Topic ），并且从订阅的主题上拉取消息与其他一些消息中间件不同的是：在 Kafka 的消费理念中还有一层消费组（ Consumer Group)的概念，每个消费者都有一个对应的消费组。当消息发布到主题后，只会被投递给订阅它的每个消费组中的一个消费者。</p>
+<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer01.png" alt="多个消费者组"></p>
+<p>   如上图所示，主题存在四个分区（p0/p1/p2/p3），有两个消费者组A和B，A中的四个消费者每人消费了一个分区，而B中的消费者每人消费了2个分区，换而言之，kafka中的一个分区只允许被一个消费者消费。</p>
+<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer02.png" alt="消费者组中只有一个消费者"></p>
+<p>   再如上图中，一个消费者组中只含有一个消费者，则这个消费者将消费所有的分区数据。组中此时新增一个消费者，则此时新增加的消费者会被分配尽可能平均的分区进行消费，如下图所示：</p>
+<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer03.png" alt="消费者组中新增一个消费者"></p>
+<p>   对消费者组依次增加消费者数量，直到超过分区数为止，如下图所示，当消费者数量超过分区数时，会有部分消费者无法消费分区数据，因为一个分区只能背一个消费者消费。</p>
+<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer04.png" alt="消费者组中新增一个消费者"></p>
+<p>   以上分配逻辑都是基于默认的分区分配策略进行分析的，可以通过消费者客户端参数<br>partition.assignment.strategy 来设置消费者与订阅主题之间的分区分配策略。</p>
+<h4 id="二、消费者客户端开发"><a href="#二、消费者客户端开发" class="headerlink" title="二、消费者客户端开发"></a>二、消费者客户端开发</h4><pre><code>public class KafkaConsumerAnalysis {
+
+    public static final String brokerList = &quot;localhost:9092&quot;;
+    public static final String topic = &quot;topic-demo&quot;;
+    public static final String groupid = &quot;group.demo&quot;;
+
+    public static final AtomicBoolean isRunning =new AtomicBoolean(true);
+
+    public static Properties initConfig() {
+        Properties props = new Properties();
+        props.put(&quot;key.deserializer&quot;,
+                &quot;org.apache.kafka.common.seriali zation.StringDeserializer&quot;);
+        props.put(&quot;value.deserializer&quot;,
+                &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);
+        props.put(&quot;bootstrap.servers&quot;, brokerList);
+        props.put(&quot;group.id&quot;, groupid);
+        props.put(&quot;client.id&quot; ,&quot;consumer.client.id.demo&quot;);
+        return props;
     }
 
-// redis哨兵连接池，redis是类似的
-private JedisSentinelPool getJedisPool(){
-        if (jedisPool == null){
-            lock1.lock();
-            try {
-                JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-                jedisPoolConfig.setMaxIdle(30);
-                // 哨兵连接127.0.0.1:26379,127.0.0.1:26378,127.0.0.1:26377
-                Set&lt;String&gt; sentinelSet = redisConfiguration.getSentinelHost().stream().collect(Collectors.toSet());
-                // redisConfiguration.getSentinelService()为服务名
-                JedisSentinelPool pool = new JedisSentinelPool(redisConfiguration.getSentinelService(),
-                        sentinelSet, jedisPoolConfig, redisConfiguration.getSentinelPwd());
+    public static void main (String [] args) {
+        Properties props = initConfig();
+        KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);
+        consumer.subscribe(Arrays.asList(topic));
+        try {
+            while (isRunning.get()) {
+                ConsumerRecords&lt;String, String&gt; records =
+                        consumer.poll(Duration.ofMillis(1000));
+                for (ConsumerRecord&lt;String, String&gt; record : records) {
+                    System.out.println(&quot;topic = &quot; + record.topic() + &quot;,partition = &quot; + record.partition() + &quot;,offset = &quot; + record.offset());
+                    System.out.println(&quot;key = &quot; + record.key() + &quot;, value = &quot; + record.value());
 
-                return pool;
-            }catch (Exception ex){
-                DpLogger.GETDATALOG.error(&quot;创建redis连接失败..&quot;,ex);
-            }finally {
-                lock1.unlock();
+                }
             }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            consumer.close();
         }
-        return jedisPool;
-    }</code></pre>
+    }
+ }</code></pre>
             </div>
             <hr/>
 
@@ -557,7 +536,7 @@ private JedisSentinelPool getJedisPool(){
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/redis/redis-cao-zuo/">http://youknowhaze.github.io/haze/2020/07/05/environment/redis/redis-cao-zuo/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/09/07/environment/kafka/kafkaconsumer/">http://youknowhaze.github.io/haze/2020/09/07/environment/kafka/kafkaconsumer/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -595,12 +574,12 @@ private JedisSentinelPool getJedisPool(){
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
+                                <a href="/haze/tags/kafka/">
+                                    <span class="chip bg-color">kafka</span>
                                 </a>
                             
-                                <a href="/haze/tags/java/">
-                                    <span class="chip bg-color">java</span>
+                                <a href="/haze/tags/consumer/">
+                                    <span class="chip bg-color">consumer</span>
                                 </a>
                             
                         </div>
@@ -642,9 +621,64 @@ private JedisSentinelPool getJedisPool(){
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/haze/2020/09/07/environment/kafka/kafkaconsumer/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/haze/medias/featureimages/11.jpg" class="responsive-img" alt="Kafka消费者详解">
+                        
+                        <span class="card-title">Kafka消费者详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Kafka 消费者一、消费者与消费者组   消费者（ Consumer ）负责订阅 Kafka 中的主题（ Topic ），并且从订阅的主题上拉取消息与其他一些消息中间件不同的是：在 Kafka 的消费理念中还有一层消费组（ Consume
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/haze/categories/kafka/" class="post-category">
+                                    kafka
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/haze/tags/kafka/">
+                        <span class="chip bg-color">kafka</span>
+                    </a>
+                    
+                    <a href="/haze/tags/consumer/">
+                        <span class="chip bg-color">consumer</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/haze/2020/07/05/environment/kafka/kafkaproducer/">
                     <div class="card-image">
@@ -661,59 +695,6 @@ private JedisSentinelPool getJedisPool(){
                             Kafka生产者详解一、客户端开发1、客户端代码示例上节对生产者客户端做了基本演示，这节对其进行修改后做具体分析
 import java.util.Properties;
 import org.apache.kafka.clients.pr
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/haze/categories/kafka/" class="post-category">
-                                    kafka
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/haze/tags/kafka/">
-                        <span class="chip bg-color">kafka</span>
-                    </a>
-                    
-                    <a href="/haze/tags/producer/">
-                        <span class="chip bg-color">producer</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/haze/2020/07/05/environment/kafka/chu-shi-kafka/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/haze/medias/featureimages/5.jpg" class="responsive-img" alt="初识KAFKA">
-                        
-                        <span class="card-title">初识KAFKA</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            初识KAFKA一、 kafka基本概念介绍1、kafka扮演的角色  消息系统：系统解耦、冗余存储、流量削峰、缓冲、异步通信、扩展性、可恢复性等  存储系统：将数据消息持久化保存到磁盘  流式处理平台：提供完整的流式处理类库，比如窗口、连接
                         
                     </div>
                     <div class="publish-info">
@@ -737,6 +718,10 @@ import org.apache.kafka.clients.pr
                     
                     <a href="/haze/tags/kafka/">
                         <span class="chip bg-color">kafka</span>
+                    </a>
+                    
+                    <a href="/haze/tags/producer/">
+                        <span class="chip bg-color">producer</span>
                     </a>
                     
                 </div>
