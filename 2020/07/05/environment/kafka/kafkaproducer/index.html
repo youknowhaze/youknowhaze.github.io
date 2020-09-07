@@ -569,12 +569,193 @@ producer.send(record2, callback2);</code></pre><p>   对于同一个分区而言
     producer.close();
 }</code></pre><p>  close()方法会阻塞等待之前所有的发送请求完成后再关闭KafakProducer。除此之外KafakProducer还提供了一个带超时时间的close()方法。如下：</p>
 <pre><code>public void close(long timeout, TimeUnit timeUnit);</code></pre><p>   如果调用了带超时时间timeout的close()方法，那么只会在等待timeout时间内来完成尚未处理完成的请求处理，然后强行退出，实际使用中，一般使用无参方法。</p>
-<h4 id="四、序列化"><a href="#四、序列化" class="headerlink" title="四、序列化"></a>四、序列化</h4><p>   生产者需要使用序列化器吧对象转换为字节数组才能通过网络发送给Kafka。前面的代码中序列化器使用了客户端自带的<strong>StringSerializer</strong>,除了用于String类型的序列化器，还有ByteArray、ByteBuffer、Bytes、Double、Integer、Long这几种类型，他们都实现了<strong>org.apache.kafka.common.serialization.Serializer</strong>接口，此接口有三个方法，分别是：</p>
+<h4 id="四、序列化"><a href="#四、序列化" class="headerlink" title="四、序列化"></a>四、序列化</h4><h5 id="1、默认序列化器"><a href="#1、默认序列化器" class="headerlink" title="1、默认序列化器"></a>1、默认序列化器</h5><p>   生产者需要使用序列化器吧对象转换为字节数组才能通过网络发送给Kafka。前面的代码中序列化器使用了客户端自带的<strong>StringSerializer</strong>,除了用于String类型的序列化器，还有ByteArray、ByteBuffer、Bytes、Double、Integer、Long这几种类型，他们都实现了<strong>org.apache.kafka.common.serialization.Serializer</strong>接口，此接口有三个方法，分别是：</p>
 <pre><code>public void configure(Map&lt;String,?&gt; config,boolean isKey);
 
 public byte[] serialize(String topic,T data);
 
-public void close();</code></pre><p>   config() 方法用来配置当前类，serialize()方法用来执行序列化操作。close()方法用来执行当前序列化器，一般情况下close()是一个空方法</p>
+public void close();</code></pre><p> configure() 方法用来配置当前类，在创建KafkaProducer的时候被调用，serialize()方法用来执行序列化操作。close()方法用来执行当前序列化器，一般情况下close()是一个空方法 ，如果实现了这个方法就需要保证这个方法的幂等性，因为这个方法会被KafkaProducer调用多次。</p>
+<h5 id="2、自定义序列化器"><a href="#2、自定义序列化器" class="headerlink" title="2、自定义序列化器"></a>2、自定义序列化器</h5><p>   假设我们要发送的消息是一个Company对象，对象的属性含有name和address，具体如下（这里使用了lombok插件）：</p>
+<pre><code>import lombok.*;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Company {
+    private String name;
+    private String address;
+}</code></pre><p>  再来看一下Company对应的序列化器，CompanySerializer，如下所示：</p>
+<pre><code>public class CompanySerializer implements Serializer&lt;Company&gt; {
+    @Override
+    public void configure(Map&lt;String, ?&gt; configs, boolean isKey) {
+
+    }
+
+    @Override
+    public byte[] serialize(String s, Company company) {
+        if (company == null){
+            return null;
+        }
+        byte[] name,address;
+        try {
+            if (company.getName() != null){
+                name = company.getName().getBytes(&quot;UTF-8&quot;);
+            }else {
+                name = new byte[0];
+            }
+
+            if (company.getAddress() != null){
+                address = company.getAddress().getBytes(&quot;UTF-8&quot;);
+            }else {
+                address = new byte[0];
+            }
+            ByteBuffer buffer = ByteBuffer.allocate(4+4+name.length+address.length);
+            buffer.putInt(name.length);
+            buffer.put(name);
+            buffer.putInt(address.length);
+            buffer.put(address);
+            return buffer.array();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return new byte[0];
+    }
+
+    @Override
+    public byte[] serialize(String topic, Headers headers, Company data) {
+        return new byte[0];
+    }
+
+    @Override
+    public void close() {
+
+    }
+}</code></pre><p>上面的这个自定义序列化器很简单，configure()和close()方法都为空。对应的类反序列化器将在<strong>消费者详解</strong>章节讲到，那么如何使用这个自定义的序列化器呢，下面做个简单的演示。</p>
+<pre><code>Properties properties = new Properties();
+properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
+
+properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,CompanySerializer.class.getName());
+
+properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerList);
+
+KafkaProducer&lt;String,Company&gt; kafkaProducer = new KafkaProducer&lt;String, Company&gt;(properties);
+
+Company company = Company.builder().name(&quot;hiddenkafka&quot;).address(&quot;China&quot;).build();
+
+ProducerRecord&lt;String,Company&gt; producerRecord
+            = new ProducerRecord&lt;String,Company&gt;(topic,company);
+
+producer.send(producerRecord).get();</code></pre><h4 id="五、分区器"><a href="#五、分区器" class="headerlink" title="五、分区器"></a>五、分区器</h4><p>   消息通过send()方法发送broker的过程中，有可能需要经过拦截器、序列化器、分区器的一系列操作之后才不能被真正的发往kafka，消息经过序列化之后就需要确认发往的分区，，如果消息ProducerRecord中指定了partition字段，就不需要分区器的作用，因为partition即是指定发往的分区。若没有指定分区则需要依赖分区器，根据key这个字段来计算分区的值。</p>
+<p>   kafka中默认分区器是org.apache.kafka.clients.producer.internals.DefaultPartitioner,它实现了org.apache.kafka.clients.producer.Partitioner接口，这个接口中定义了如下两个方法：</p>
+<pre><code>public int partition(String topic,Object key,byte[] keyBytes,Object value,byte[] valueByte,Cluster cluster);
+
+public void close();</code></pre><p>   其中partition()方法用来计算分区号，方法中的参数分别为主题、键、序列化后的键、值、序列化后的值，以及集群的元数据信息。close()方法是空方法。</p>
+<p>   partition()方法定义了主要的分区逻辑，如果key不为null，默认分区器会对key进行哈希（采用MurmurHash2算法，具备高运算性能及低碰撞率），最终根据得到的哈希值来计算分区号，拥有相同key的消息会被写入同一个分区，如果key为null，消息会以轮询的方式发往主题的各个可用分区。</p>
+<p>   <strong>注意：如果key不为null，那么计算得到的分区号可以是所有分区中的任意一个，，如果key为null且有可用分区时，那么计算得到的分区号仅为可用分区中的任意一个，注意两者之间的差别。</strong></p>
+<p>   在不改变主题分区数量的情况下，key与分区之间的映射关系是保持不变的，不过主题中一旦增加分区就无法保证了。除了可以使用默认分区器之外还能通过实现Partitioner接口来自定义分区器。如下:</p>
+<pre><code>public class DemoPartitioner implements Partitioner {
+
+    private final AtomicInteger counter = new AtomicInteger(0);
+
+    @Override
+    public int partition(String s, Object o, byte[] bytes, Object o1, byte[] bytes1, Cluster cluster) {
+        List&lt;PartitionInfo&gt; partitionInfos = cluster.partitionsForTopic(s);
+        int num = partitionInfos.size();
+        if (bytes == null){
+            return  counter.getAndIncrement() % num;
+        }else {
+            return Utils.toPositive(Utils.murmur2(bytes)) % num;
+        }
+    }
+    @Override
+    public void close() {}
+    @Override
+    public void configure(Map&lt;String, ?&gt; map) {}
+}</code></pre><p>   实现自定义的分区器后，需要通过配置参数<strong>partitioner.class</strong> 来显式指定这个分区器，如下：</p>
+<pre><code>properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,
+                DemoPartitioner.class.getName());</code></pre><h4 id="六、生产者拦截器"><a href="#六、生产者拦截器" class="headerlink" title="六、生产者拦截器"></a>六、生产者拦截器</h4><p>   kafka一共有两种拦截器，生产者拦截器和消费者拦截器。生产者拦截器既可以用来在消息发送前做一些准备工作，比如按照某个规则过滤不符合要求的消息、修改消息内容等，也可以用来在发哦送回调逻辑前做一些定制化的需求，比如进行统计等。</p>
+<p>   生产者拦截器主要是自定义实现<strong>org.apache.kafka.clients.producer.ProduerInterceptor</strong>接口，接口中包含三个方法：</p>
+<pre><code>public ProducerRecord&lt;K,V&gt; onSend(ProducerRecord&lt;K,V&gt; record);
+
+public void onAcknowledgement(RecordMetadata metadata,Exception exception);
+
+public void close();</code></pre><p>   KafkaProducer在将消息序列化和计算分区之前会调用生产者的拦截器onSend()方法，来对消息进行定制化操作。一般不要对ProducerRecord的topic、key和partition等消息做修改，比如修改key会对分区计算机broker端日志压缩产生影响。</p>
+<p>kafkaProducer会在消息被应答之前或者消息发送失败时调用生产者拦截器的onAcknowledgement()方法，优先于用户调用的callback之前调用，这个方法运行在producer的I/O线程中，所以这个方法逻辑越简单越好，否则会影响消息的发送速度。</p>
+<p>   close()方法主要用于在关闭拦截器时执行的一些资源的清理工作。这三个方法中抛出的异常都会被记录到日志中，但不会再向上传递。</p>
+<pre><code>public class ProducerInterceptorPrefix implements ProducerInterceptor&lt;String,String&gt; {
+
+    private volatile long sendSuccess = 0;
+    private volatile long sendFailure = 0;
+
+    @Override
+    public ProducerRecord&lt;String, String&gt; onSend(ProducerRecord&lt;String, String&gt; producerRecord) {
+
+        String modifiedValue = &quot;prefix1-&quot;+producerRecord.value();
+
+        return new ProducerRecord&lt;&gt;(producerRecord.topic(),
+                producerRecord.partition(),producerRecord.timestamp(),
+                producerRecord.key(),modifiedValue,producerRecord.headers());
+    }
+
+    @Override
+    public void onAcknowledgement(RecordMetadata recordMetadata, Exception e) {
+        if (e == null){
+            sendSuccess ++;
+        }else {
+            sendFailure ++;
+        }
+    }
+
+    @Override
+    public void close() {
+        double successRatio = (double)sendSuccess/(sendFailure+sendSuccess);
+        System.out.println(&quot;[Info]发送成功率=&quot;+String.format(&quot;%f&quot;,successRatio*100)+&quot;%&quot;);
+    }
+
+    @Override
+    public void configure(Map&lt;String, ?&gt; map) { }
+}</code></pre><p>   实现自定义的<strong>ProducerInterceptorPrefix</strong> 之后，需要在kafkaProducer配置参数 <strong>interceptor.classes</strong> 中指定这个拦截器，此参数默认值为” “，如下：</p>
+<pre><code>properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,
+                ProducerInterceptorPrefix.class.getName());</code></pre><p>发送10条内容为 <strong>kafka test message</strong> 的信息，会发现消费了的信息都变成了 <strong>prefix1-kafka test message</strong>,kafka 中不仅可以指定一个拦截器，还可以指定多个拦截器行成一个拦截链，拦截链的执行顺序会按照参数（<strong>interceptor.classes</strong>）的配置顺序来执行,多个拦截器用逗号隔开。若存在另一个名为 <strong>ProducerInterceptorPrefixPlus</strong> 的拦截器，onSend()方法【配置如下：</p>
+<pre><code> @Override
+    public ProducerRecord&lt;String, String&gt; onSend(ProducerRecord&lt;String, String&gt; producerRecord) {
+
+        String modifiedValue = &quot;prefix2-&quot;+producerRecord.value();
+
+        return new ProducerRecord&lt;&gt;(producerRecord.topic(),
+                producerRecord.partition(),producerRecord.timestamp(),
+                producerRecord.key(),modifiedValue,producerRecord.headers());
+    }</code></pre><p>   配置生产者拦截器 拦截链：</p>
+<pre><code>properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,
+                ProducerInterceptorPrefix.class.getName() +&quot;,&quot;+
+                ProducerInterceptorPrefixPlus.class.getName());</code></pre><p>   那么最终发送的消息为：<strong>prefix2-prefix1-kafka test message</strong><br>   <strong>注意：若拦截器间存在依赖关系，即当前拦截器依赖于上一个拦截器的执行结果，则会存在问题，比如上一个拦截器出现异常，导致执行失败的情况。</strong></p>
+<h4 id="七、生产者整体架构简述"><a href="#七、生产者整体架构简述" class="headerlink" title="七、生产者整体架构简述"></a>七、生产者整体架构简述</h4><p><img src="/haze/2020/07/05/environment/kafka/kafkaproducer/producer01.png" alt="生产者客户端整体架构"></p>
+<p>   整个生产者客户端由2个线程协调运行，分别为主线程和sender线程（发送线程）。在主线程中由 afkaProducer 创建消息，然后通过可能的拦截器、序列化器和分区器的作用之后缓存到消息累加器（ RecordAccumulator ，也称为消息收集器〉中。 Sender 线程负责从RecordAccumulator 获取消息并将其发送到 Kafka</p>
+<p>   RecrdAccumulator主要用来缓存消息以便 Sender 线程可以批量发送，进 减少网络传输的资源消耗以提升性能 RecordAccumulator 缓存的大 小可以通过生产者客户端参数buffer memory 配置，默认值为 33554432B ，即 32MB 如果生产者发送消息的速度超过发送到服务器的速度 ，则会导致生产者空间不足，这个时候 KafkaProducer的 send（） 方法调用要么被阻塞，要么抛出异常，这个取决于参数 max block ms 的配置，此参数的默认值为 60000,即60秒。</p>
+<p>   <strong>注意ProducerBatch不是ProducerRecord，ProducerBatch中包含一至多个ProducerRecord</strong></p>
+<h4 id="八、重要的生产者参数"><a href="#八、重要的生产者参数" class="headerlink" title="八、重要的生产者参数"></a>八、重要的生产者参数</h4><h5 id="1、acks"><a href="#1、acks" class="headerlink" title="1、acks"></a>1、acks</h5><p>   这个参数用来指定分区中必须要有多少个副本收到这条消息，之后生产者才会认为这条消息是成功写入的。 acks 是生产者客户端中一个非常重要的参数 ，它涉及消息的可靠性和吞吐量之间的权衡。acks有三种设定值（均为字符串格式）</p>
+<h6 id="acks-1"><a href="#acks-1" class="headerlink" title="acks = 1"></a>acks = 1</h6><p>   默认值即为1，生产者消息发送成功后，只要分区的 <strong>leader副本</strong> 消息写入成功，就会给kafaka生产者返回一个成功响应。如果消息发送过程中leader副本挂了或者处于重新选举leader的过程中，则会返回发送错误的响应结果。若在其余副本同步leader副本之前leader崩溃，则还是会存在丢数的情况。这种设置是均衡吞吐量和可靠性的折中方案。</p>
+<h6 id="acks-0"><a href="#acks-0" class="headerlink" title="acks = 0"></a>acks = 0</h6><p>   生产者发送kafka之后无需等待kafka回复，若消息发送过程中出现异常导致消息发送失败也无从得知，但在其它配置相同的情况 <strong>acks = 0</strong> 可以达到最大的吞吐量。</p>
+<h6 id="acks-1-acks-all"><a href="#acks-1-acks-all" class="headerlink" title="acks = -1 / acks = all"></a>acks = -1 / acks = all</h6><p>   生产者在发送消息之后，需要等待所有的ISR副本都成功写入消息后才会返回成功给客户端。在其它环境配置相同的情况下，该配置能达到最高可靠性。但这不是绝对的，当一个分区只有一个副本时，此设置和asks=1的情况是一样的。要获取更高的消息可靠性需要配合 <strong>min.insync.replicas</strong> 等参数的联动。</p>
+<p><strong>注意 acks 参数配置的值是一个字符串类型，而不是整数类型</strong>，如下：</p>
+<pre><code>properties put(&quot;acks&quot;，&quot;1&quot;）；
+# 或者
+properties.put(ProducerConfig.ACKS_CONFIG,&quot;0&quot;）；
+
+# 若为properties put(&quot;acks&quot;，1）；则会报错，因为值的类型应该为String。
+</code></pre><p><img src="/haze/2020/07/05/environment/kafka/kafkaproducer/producer_error01.png" alt="acks参数设置错误"></p>
+<h5 id="2、max-request-size"><a href="#2、max-request-size" class="headerlink" title="2、max.request.size"></a>2、max.request.size</h5><p>   这个参数用来限制生产者客户端能发送的消息的最大值，默认值为 1048576B ，即 1MB.不建议读者盲目地增大这个参数的配置值,因为这个参数还涉及一些其它参数的联动。比如 broker 端的message.max bytes 参数。比如将 broker 端的 message max.bytes 参数配置为 10 ，而max.request size参数配置为20, 那么当我们 发送一条大小为 15B 的消息时，生产者客户端就会报出如下的异常</p>
+<p><img src="/haze/2020/07/05/environment/kafka/kafkaproducer/producer_error02.png" alt="acks参数设置错误"></p>
+<h5 id="3、retries-retry-backoff-ms"><a href="#3、retries-retry-backoff-ms" class="headerlink" title="3、retries retry.backoff.ms"></a>3、retries retry.backoff.ms</h5><p>   retries 参数用来配置生产者重试的次数，默认值为0，即在发生异常的时候不进行任何重试动作.<br>   重试还和另一个参数 retry.backoff.ms 有关，这个参数的默认值为 100 它用来设定两次重试之间的时间间隔，避免无效的频繁重试。<br>   Kafka 可以保证同一个分区中的消息是有序的。如果生产者按照一定的顺序发送消息，那么这些消息也会顺序地写入分区，进而消费者也可以按照同样的顺序消费它们.</p>
+<h5 id="4、compression-type"><a href="#4、compression-type" class="headerlink" title="4、compression.type"></a>4、compression.type</h5><p>   这个参数用来指定消息的压缩方式，默认值为“none ”，即默认情况下，消息不会被压缩。该参数还可以配置为gzip、snappy 和z4 对消息进行压缩可以极大地减少网络传输量、降低网络I/O ，从而提高整体的性能 。</p>
+<h5 id="5、connections-max-idle-ms"><a href="#5、connections-max-idle-ms" class="headerlink" title="5、connections.max.idle. ms"></a>5、connections.max.idle. ms</h5><p>   这个参数用来指定在多久之后关闭限制的连接，默认值是 540000（ ms） ，即9分钟。</p>
+<h5 id="6、-linger-ms"><a href="#6、-linger-ms" class="headerlink" title="6、 linger.ms"></a>6、 linger.ms</h5><p>   这个参数用来指定生产者发送 ProducerBatch 之前等待更多消息（ ProducerRecord ）加入Producer Batch 时间，默认值为0。</p>
+<h5 id="7、-receive-buffe-bytes"><a href="#7、-receive-buffe-bytes" class="headerlink" title="7、 receive.buffe.bytes"></a>7、 receive.buffe.bytes</h5><p>   这个参数用来设置 Socket 接收消息缓冲区（ SO_RECBUF ）的大小，默认值为 32768(B))，即32KB。如果设置为 -1 ，则使用操作系统的默认值。如果 Producer与Kafka 处于不同的机房<br>则可以适地调大这个参数值</p>
+<h5 id="8、send-buffer-bytes"><a href="#8、send-buffer-bytes" class="headerlink" title="8、send.buffer.bytes"></a>8、send.buffer.bytes</h5><p>   这个参数用来设置 Socket 发送消息缓冲区（CSO_SNDBUF）的大 ，默认值 131072（B）,即128KB 。与 receive.buffer.bytes 参数一样 如果设置为 -1，则使用操作系统的默认值。</p>
+<h5 id="9、request-timeout-ms"><a href="#9、request-timeout-ms" class="headerlink" title="9、request.timeout.ms"></a>9、request.timeout.ms</h5><p>   这个参数用来配置 Producer 等待请求响应的 长时间，默认值为 30000 （ms ）。请求超时之后可以选择进行重试。注意这个参数需要比broker 端参数 replica.lag.time.max.ms值要大，这样可以减少因客户端重试而引起的消息重复的概率。</p>
 
             </div>
             <hr/>
@@ -600,7 +781,7 @@ public void close();</code></pre><p>   config() 方法用来配置当前类，se
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/kafka-sheng-chan-zhe-xiang-jie/">http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/kafka-sheng-chan-zhe-xiang-jie/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/kafkaproducer/">http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/kafkaproducer/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -686,7 +867,7 @@ public void close();</code></pre><p>   config() 方法用来配置当前类，se
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/haze/2020/07/05/environment/kafka/kafka-sheng-chan-zhe-xiang-jie/">
+                <a href="/haze/2020/07/05/environment/kafka/kafkaproducer/">
                     <div class="card-image">
                         
                         
