@@ -5,6 +5,7 @@ categories:
  - kafka
 tags:
  - kafka
+ - producer
 ---
 
 ### Kafka生产者详解
