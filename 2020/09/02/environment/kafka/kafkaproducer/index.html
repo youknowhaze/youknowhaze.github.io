@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-05
+                    2020-09-02
                 </div>
                 
 
@@ -736,7 +736,7 @@ public void close();</code></pre><p>   KafkaProducer在将消息序列化和计�
 <pre><code>properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,
                 ProducerInterceptorPrefix.class.getName() +&quot;,&quot;+
                 ProducerInterceptorPrefixPlus.class.getName());</code></pre><p>   那么最终发送的消息为：<strong>prefix2-prefix1-kafka test message</strong><br>   <strong>注意：若拦截器间存在依赖关系，即当前拦截器依赖于上一个拦截器的执行结果，则会存在问题，比如上一个拦截器出现异常，导致执行失败的情况。</strong></p>
-<h4 id="七、生产者整体架构简述"><a href="#七、生产者整体架构简述" class="headerlink" title="七、生产者整体架构简述"></a>七、生产者整体架构简述</h4><p><img src="/haze/2020/07/05/environment/kafka/kafkaproducer/producer01.png" alt="生产者客户端整体架构"></p>
+<h4 id="七、生产者整体架构简述"><a href="#七、生产者整体架构简述" class="headerlink" title="七、生产者整体架构简述"></a>七、生产者整体架构简述</h4><p><img src="/haze/2020/09/02/environment/kafka/kafkaproducer/producer01.png" alt="生产者客户端整体架构"></p>
 <p>   整个生产者客户端由2个线程协调运行，分别为主线程和sender线程（发送线程）。在主线程中由 afkaProducer 创建消息，然后通过可能的拦截器、序列化器和分区器的作用之后缓存到消息累加器（ RecordAccumulator ，也称为消息收集器〉中。 Sender 线程负责从RecordAccumulator 获取消息并将其发送到 Kafka</p>
 <p>   RecrdAccumulator主要用来缓存消息以便 Sender 线程可以批量发送，进 减少网络传输的资源消耗以提升性能 RecordAccumulator 缓存的大 小可以通过生产者客户端参数buffer memory 配置，默认值为 33554432B ，即 32MB 如果生产者发送消息的速度超过发送到服务器的速度 ，则会导致生产者空间不足，这个时候 KafkaProducer的 send（） 方法调用要么被阻塞，要么抛出异常，这个取决于参数 max block ms 的配置，此参数的默认值为 60000,即60秒。</p>
 <p>   <strong>注意ProducerBatch不是ProducerRecord，ProducerBatch中包含一至多个ProducerRecord</strong></p>
@@ -750,9 +750,9 @@ public void close();</code></pre><p>   KafkaProducer在将消息序列化和计�
 properties.put(ProducerConfig.ACKS_CONFIG,&quot;0&quot;）；
 
 # 若为properties put(&quot;acks&quot;，1）；则会报错，因为值的类型应该为String。
-</code></pre><p><img src="/haze/2020/07/05/environment/kafka/kafkaproducer/producer_error01.png" alt="acks参数设置错误"></p>
+</code></pre><p><img src="/haze/2020/09/02/environment/kafka/kafkaproducer/producer_error01.png" alt="acks参数设置错误"></p>
 <h5 id="2、max-request-size"><a href="#2、max-request-size" class="headerlink" title="2、max.request.size"></a>2、max.request.size</h5><p>   这个参数用来限制生产者客户端能发送的消息的最大值，默认值为 1048576B ，即 1MB.不建议读者盲目地增大这个参数的配置值,因为这个参数还涉及一些其它参数的联动。比如 broker 端的message.max bytes 参数。比如将 broker 端的 message max.bytes 参数配置为 10 ，而max.request size参数配置为20, 那么当我们 发送一条大小为 15B 的消息时，生产者客户端就会报出如下的异常</p>
-<p><img src="/haze/2020/07/05/environment/kafka/kafkaproducer/producer_error02.png" alt="acks参数设置错误"></p>
+<p><img src="/haze/2020/09/02/environment/kafka/kafkaproducer/producer_error02.png" alt="acks参数设置错误"></p>
 <h5 id="3、retries-retry-backoff-ms"><a href="#3、retries-retry-backoff-ms" class="headerlink" title="3、retries retry.backoff.ms"></a>3、retries retry.backoff.ms</h5><p>   retries 参数用来配置生产者重试的次数，默认值为0，即在发生异常的时候不进行任何重试动作.<br>   重试还和另一个参数 retry.backoff.ms 有关，这个参数的默认值为 100 它用来设定两次重试之间的时间间隔，避免无效的频繁重试。<br>   Kafka 可以保证同一个分区中的消息是有序的。如果生产者按照一定的顺序发送消息，那么这些消息也会顺序地写入分区，进而消费者也可以按照同样的顺序消费它们.</p>
 <h5 id="4、compression-type"><a href="#4、compression-type" class="headerlink" title="4、compression.type"></a>4、compression.type</h5><p>   这个参数用来指定消息的压缩方式，默认值为“none ”，即默认情况下，消息不会被压缩。该参数还可以配置为gzip、snappy 和z4 对消息进行压缩可以极大地减少网络传输量、降低网络I/O ，从而提高整体的性能 。</p>
 <h5 id="5、connections-max-idle-ms"><a href="#5、connections-max-idle-ms" class="headerlink" title="5、connections.max.idle. ms"></a>5、connections.max.idle. ms</h5><p>   这个参数用来指定在多久之后关闭限制的连接，默认值是 540000（ ms） ，即9分钟。</p>
@@ -785,7 +785,7 @@ properties.put(ProducerConfig.ACKS_CONFIG,&quot;0&quot;）；
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/kafkaproducer/">http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/kafkaproducer/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/09/02/environment/kafka/kafkaproducer/">http://youknowhaze.github.io/haze/2020/09/02/environment/kafka/kafkaproducer/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -927,7 +927,7 @@ properties.put(ProducerConfig.ACKS_CONFIG,&quot;0&quot;）；
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/07/05/environment/kafka/chu-shi-kafka/">
+                <a href="/haze/2020/08/26/environment/kafka/chu-shi-kafka/">
                     <div class="card-image">
                         
                         
@@ -944,7 +944,7 @@ properties.put(ProducerConfig.ACKS_CONFIG,&quot;0&quot;）；
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-26
                             </span>
                         <span class="publish-author">
                             

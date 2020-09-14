@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kafka消费者详解, 烹雪煮茶">
+    <meta name="keywords" content="验证码组件, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kafka消费者详解 | 烹雪煮茶</title>
+    <title>验证码组件 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kafka消费者详解</h1>
+                    <h1 class="description center-align post-title">验证码组件</h1>
                 </div>
             </div>
         </div>
@@ -417,12 +417,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/kafka/">
-                                <span class="chip bg-color">kafka</span>
+                            <a href="/haze/tags/java/">
+                                <span class="chip bg-color">java</span>
                             </a>
                         
-                            <a href="/haze/tags/consumer/">
-                                <span class="chip bg-color">consumer</span>
+                            <a href="/haze/tags/vue/">
+                                <span class="chip bg-color">vue</span>
+                            </a>
+                        
+                            <a href="/haze/tags/%E5%8A%A0%E5%AF%86/">
+                                <span class="chip bg-color">加密</span>
                             </a>
                         
                     </div>
@@ -433,8 +437,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/kafka/" class="post-category">
-                                kafka
+                            <a href="/haze/categories/Web/" class="post-category">
+                                Web
                             </a>
                         
                     </div>
@@ -446,7 +450,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-09-07
+                    2020-09-12
                 </div>
                 
 
@@ -462,192 +466,156 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Kafka-消费者"><a href="#Kafka-消费者" class="headerlink" title="Kafka 消费者"></a>Kafka 消费者</h3><h4 id="一、消费者与消费者组"><a href="#一、消费者与消费者组" class="headerlink" title="一、消费者与消费者组"></a>一、消费者与消费者组</h4><p>   消费者（ Consumer ）负责订阅 Kafka 中的主题（ Topic ），并且从订阅的主题上拉取消息与其他一些消息中间件不同的是：在 Kafka 的消费理念中还有一层消费组（ Consumer Group)的概念，每个消费者都有一个对应的消费组。当消息发布到主题后，只会被投递给订阅它的每个消费组中的一个消费者。</p>
-<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer01.png" alt="多个消费者组"></p>
-<p>   如上图所示，主题存在四个分区（p0/p1/p2/p3），有两个消费者组A和B，A中的四个消费者每人消费了一个分区，而B中的消费者每人消费了2个分区，换而言之，kafka中的一个分区只允许被一个消费者消费。</p>
-<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer02.png" alt="消费者组中只有一个消费者"></p>
-<p>   再如上图中，一个消费者组中只含有一个消费者，则这个消费者将消费所有的分区数据。组中此时新增一个消费者，则此时新增加的消费者会被分配尽可能平均的分区进行消费，如下图所示：</p>
-<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer03.png" alt="消费者组中新增一个消费者"></p>
-<p>   对消费者组依次增加消费者数量，直到超过分区数为止，如下图所示，当消费者数量超过分区数时，会有部分消费者无法消费分区数据，因为一个分区只能背一个消费者消费。</p>
-<p><img src="/haze/2020/09/07/environment/kafka/kafkaconsumer/consumer04.png" alt="消费者组中新增一个消费者"></p>
-<p>   以上分配逻辑都是基于默认的分区分配策略进行分析的，可以通过消费者客户端参数<br>partition.assignment.strategy 来设置消费者与订阅主题之间的分区分配策略。</p>
-<h4 id="二、消费者客户端开发"><a href="#二、消费者客户端开发" class="headerlink" title="二、消费者客户端开发"></a>二、消费者客户端开发</h4><pre><code>public class KafkaConsumerAnalysis {
+                <h2 id="vue-springboot前后端加密传输"><a href="#vue-springboot前后端加密传输" class="headerlink" title="vue+springboot前后端加密传输"></a>vue+springboot前后端加密传输</h2><h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><p>   项目有一个自己的管理系统，因为仅内网访问，且使用人员只有自己项目组的开发、测试及产品人员，所以怎么简单怎么做的，比较简单。这次因为安全责任从北京迁移至项目开发人员所在地，全公司的所有项目组项目进行安全测试，主要是各个组的管理系统及工具系统。其中就存在一个用户名密码加密传输的问题，从这个问题能映射出其他的数据传输安全问题，故修改之，这里举两个简单的例子（自己项目使用的AES256-CBC加密，这里举例base64和AES128）。</p>
+<h3 id="二、base64加密"><a href="#二、base64加密" class="headerlink" title="二、base64加密"></a>二、base64加密</h3><h4 id="1、前端部分"><a href="#1、前端部分" class="headerlink" title="1、前端部分"></a>1、前端部分</h4><p>   首先需要安装base64加密的前端组件，vue根目录下执行如下命令：</p>
+<pre><code>cnpm install --save js-base64</code></pre><p>   然后在所需要的项目页面中引入base64组件，如下：</p>
+<pre><code>let Base64 = require(&#39;js-base64&#39;).Base64;</code></pre><p>   在需要进行加解密的地方直接引用方法即可，如下：</p>
+<pre><code># 加密
+Base64.encode(&#39;this_is_a_demo_message&#39;);
 
-    public static final String brokerList = &quot;localhost:9092&quot;;
-    public static final String topic = &quot;topic-demo&quot;;
-    public static final String groupid = &quot;group.demo&quot;;
+# 解密
+Base64.decode(&#39;ZGFua29nYWk=&#39;);</code></pre><h4 id="2、后端部分"><a href="#2、后端部分" class="headerlink" title="2、后端部分"></a>2、后端部分</h4><p>   后端部分使用就比较简单了，直接使用即可</p>
+<pre><code># 注意引入的base64包
+import java.util.Base64;
 
-    public static final AtomicBoolean isRunning =new AtomicBoolean(true);
+# 解密方法
+String newPwd = new String(Base64.getDecoder().decode(password));
 
-    public static Properties initConfig() {
-        Properties props = new Properties();
-        props.put(&quot;key.deserializer&quot;,
-                &quot;org.apache.kafka.common.seriali zation.StringDeserializer&quot;);
-        props.put(&quot;value.deserializer&quot;,
-                &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);
-        props.put(&quot;bootstrap.servers&quot;, brokerList);
-        props.put(&quot;group.id&quot;, groupid);
-        props.put(&quot;client.id&quot; ,&quot;consumer.client.id.demo&quot;);
-        return props;
+# 加密方法
+String newPwd = new String(Base64.getEncoder().encode(password.getBytes()));
+</code></pre><h3 id="三、AES-128加密"><a href="#三、AES-128加密" class="headerlink" title="三、AES 128加密"></a>三、AES 128加密</h3><h4 id="1、前端部分-1"><a href="#1、前端部分-1" class="headerlink" title="1、前端部分"></a>1、前端部分</h4><p>   需要先安装AES加密所需要的组件</p>
+<pre><code>npm install crypto-js --save</code></pre><p>   在util文件夹下创建一个新的js文件，命名为 <strong>aesutil.js</strong> , js代码内容如下：</p>
+<pre><code>import CryptoJS from &#39;crypto-js/crypto-js&#39;
+
+// 默认的 KEY 与 iv ，可以和后端商议好，只要统一的给16位字符串即可
+const KEY = CryptoJS.enc.Utf8.parse(&quot;incredibe#Is100%NB&quot;);
+const IV = CryptoJS.enc.Utf8.parse(&#39;auyejDek134Afw95&#39;);
+
+// AES加密
+export function Encrypt(word, keyStr, ivStr) {
+    let key = KEY
+    let iv = IV
+    if (keyStr) {
+        key = CryptoJS.enc.Utf8.parse(keyStr);
+        iv = CryptoJS.enc.Utf8.parse(ivStr);
     }
+    let srcs = CryptoJS.enc.Utf8.parse(word);
+    var encrypted = CryptoJS.AES.encrypt(srcs, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.ZeroPadding
+    });
+    return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+}
 
-    public static void main (String [] args) {
-        Properties props = initConfig();
-        KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);
-        consumer.subscribe(Arrays.asList(topic));
+// AES 解密
+export function Decrypt(word, keyStr, ivStr) {
+    let key  = KEY
+    let iv = IV
+    if (keyStr) {
+        key = CryptoJS.enc.Utf8.parse(keyStr);
+        iv = CryptoJS.enc.Utf8.parse(ivStr);
+    }
+    let base64 = CryptoJS.enc.Base64.parse(word);
+    let src = CryptoJS.enc.Base64.stringify(base64);
+    var decrypt = CryptoJS.AES.decrypt(src, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.ZeroPadding
+    });
+    var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+    return decryptedStr.toString();
+}</code></pre><p>   在需要使用的页面引入两个方法，如下：</p>
+<pre><code>import {Encrypt,Decrypt} from &#39;../utils/aes.js&#39;;</code></pre><p>   使用方法十分简单，直接调用方法即可，因为里面判断了参数是否为true，所以若不需要指定另外的key和vi，则只需要传递待加密/解密的字符即可。</p>
+<pre><code># 加密
+Encrypt(password)
+# 解密
+Decrypt(password)</code></pre><h4 id="2、java部分"><a href="#2、java部分" class="headerlink" title="2、java部分"></a>2、java部分</h4><p>   创建用于加解密的工具类，注意key和vi与前端保持一致，在需要加解密的地方直接使用即可</p>
+<pre><code>import org.apache.commons.codec.binary.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+public class InteractiveAESUtil {
+    //使用AES-128-CBC加密模式，key需要为16位,key和iv可以相同！
+    private static final String KEY = &quot;incredibe#Is100%NB&quot;;
+    private static final String IV = &quot;auyejDek134Afw95&quot;;
+
+    /**
+     * 加密方法
+     * @param data  要加密的数据
+     * @param key 加密key
+     * @param iv 加密iv
+     * @return 加密的结果
+     * @throws Exception
+     */
+    private static String encrypt(String data, String key, String iv){
         try {
-            while (isRunning.get()) {
-                ConsumerRecords&lt;String, String&gt; records =
-                        consumer.poll(Duration.ofMillis(1000));
-                for (ConsumerRecord&lt;String, String&gt; record : records) {
-                    System.out.println(&quot;topic = &quot; + record.topic() + &quot;,partition = &quot; + record.partition() + &quot;,offset = &quot; + record.offset());
-                    System.out.println(&quot;key = &quot; + record.key() + &quot;, value = &quot; + record.value());
-
-                }
+            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/NoPadding&quot;);//&quot;算法/模式/补码方式&quot;NoPadding PkcsPadding
+            int blockSize = cipher.getBlockSize();
+            byte[] dataBytes = data.getBytes();
+            int plaintextLength = dataBytes.length;
+            if (plaintextLength % blockSize != 0) {
+                plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
             }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }finally {
-            consumer.close();
-        }
-    }
- }</code></pre><h4 id="三、必要的参数配置"><a href="#三、必要的参数配置" class="headerlink" title="三、必要的参数配置"></a>三、必要的参数配置</h4><h5 id="1、bootstrap-servers"><a href="#1、bootstrap-servers" class="headerlink" title="1、bootstrap.servers"></a>1、bootstrap.servers</h5><p>   用来指定连接 Kafka 集群所需的 broker 地址清单，具体内容形式为hostl:portl,host2 post ，可以设置一个或多个地址，中间用逗号隔开。</p>
-<h5 id="2、group-id"><a href="#2、group-id" class="headerlink" title="2、group.id"></a>2、group.id</h5><p>   消费者组默认为空，若为空启动KafkaConsumer，则会抛出<strong>InvalidGroupldException</strong>异常</p>
-<h5 id="3、key-deserializer-和-value-deserializer"><a href="#3、key-deserializer-和-value-deserializer" class="headerlink" title="3、key.deserializer 和 value.deserializer"></a>3、key.deserializer 和 value.deserializer</h5><p>   分别指定key和value的反序列化器，与生产者客户端的key.serializer 和 value.serializer 对应。这里必须填写反序列化器类的全限定名，如：org.apache.kafka.common.serialization.StringDeserializer。单单只指定StringDeserializer是错误的。</p>
-<h5 id="4、client-id"><a href="#4、client-id" class="headerlink" title="4、client.id"></a>4、client.id</h5><p>   KafkaConsumer对应的客户端id，默认为空，若不进行设置，则KafkaConsumer会自动生成一个非空字符串，内容形式如 “consumer-1”、“consumer-2”，即 <strong>“consumer-”</strong> 与数字的拼接。</p>
-<h5 id="5、ConsumerConfig"><a href="#5、ConsumerConfig" class="headerlink" title="5、ConsumerConfig"></a>5、ConsumerConfig</h5><p>   由于KafkaConsumer的配置参数很容易写错，故与生产者客户端一样引入了配置参数类 <strong>ConsumerConfig</strong>，如修改初始化配置方法如下：</p>
-<pre><code>
-public static Properties initConfig() {
-        Properties props = new Properties();
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                     StringDeserializer.class.getName());
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                    StringDeserializer.class.getName());
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG,groupid);
-        props.put(ConsumerConfig.CLIENT_ID_CONFIG,&quot;consumer.client.id.demo&quot;);
-        return props;
-        KafkaConsumer&lt;String,String&gt; consumer= new KafkaConsumer&lt;&gt; (props );
-    }</code></pre><h4 id="四、订阅主题与分区"><a href="#四、订阅主题与分区" class="headerlink" title="四、订阅主题与分区"></a>四、订阅主题与分区</h4><p>   一个消费者可以订阅一个或多个主题，支持以集合的形式订阅多个主题，也支持以正则表达式的形式订阅特定的主题及特定分区的订阅。三种订阅方式分别代表了三种不同的订阅状态：集合订阅（AUTO_TOPICS）、正则订阅（AUTO_PATTERN）和指定分区订阅（USER_ASSIGNED）,若没有订阅则订阅状态为NONE。这三种订阅状态是互斥的，一个消费者只能使用一种订阅方式，若使用多个则会爆出IllegalStateException异常。</p>
-<pre><code>java.lang.IllegalStateException:Subscription to topics partitions and pattern are mutually exclusive.</code></pre><h5 id="1、集合订阅"><a href="#1、集合订阅" class="headerlink" title="1、集合订阅"></a>1、集合订阅</h5><p>如果消费者前后三次订阅了不同的主题，那么以最后一次订阅为准，如下代码所示，最后生效的订阅主题为 <strong>topic2</strong></p>
-<pre><code>consumer.subscribe(Arrays.asList(topic10，topic11));
-consumer.subscribe(Arrays.asList(topic1));
-consumer.subscribe(Arrays.asList(topic2));</code></pre><h5 id="2、正则表达式订阅"><a href="#2、正则表达式订阅" class="headerlink" title="2、正则表达式订阅"></a>2、正则表达式订阅</h5><p>如果消费者采用正则表达式的方式订阅了主题，则当新建一个主题，且这个主题符合消费者的正则订阅时，消费者将可以消费到新增的主题中的内容，正则订阅方式如下：</p>
-<pre><code>consumer.subscribe (Pattern.compile(&quot;topicdemo_*&quot;));</code></pre><h5 id="3、主题特定分区订阅"><a href="#3、主题特定分区订阅" class="headerlink" title="3、主题特定分区订阅"></a>3、主题特定分区订阅</h5><pre><code>public void assign(Collection&lt;TopicPartition&gt; partitions);
-
-// 说明一下TopicPartition类，含有partition和topic两个属性，分别为分区和主题</code></pre><p>现在模拟订阅topic-demo主题的0分区，如下代码所示：</p>
-<pre><code>// 这里也是以集合订阅形式订阅的
-consumer.assign(Arrays.asList(new TopicPartition(”topic-demo”,0))) ;</code></pre><p>但是，若是我们不知道kafka的服务器端配置，怎么知道主题有多少个分区呢？KafkaConsumer提供了partitionsFor()方法用来查询特定主题的元数据信息。</p>
-<pre><code>// 这里返回的list集合大小，主题有多少分区，集合大小就为多少
-public List&lt;PartitionInfo&gt; partitionsFor(String topic);
-
-//Partitionlnfo 为主题的分区元数据信息。结构如下：
-public class Partitioninfo {
-    private final String topic ;      //主题名称
-    private final int partition ;     //分区编号
-    private final Node leader;        //leader 副本所在的位置
-    private final Node[] replicas;    //分区的 AR集合
-    private final Node[] inSyncReplicas;    // ISR集合
-    private final Node[] offlineReplicas;   // OSR 集合
-    ／／这里省略了构造函数、属性提取 toStr ng 等方法
-}</code></pre><p>这里使用指定订阅方式来量topic-demo主题的所有分区进行订阅，代码如下：</p>
-<pre><code>List&lt;TopicPartition&gt; topicPartitionList = new ArrayList&lt;&gt;();
-// 得到主题的各个分区元数据信息
-List&lt;PartitionInfo&gt; partitionInfoList = consumer.partitionsFor(&quot;topic-demo&quot;);
-// 得到需要订阅的集合
-partitionInfoList.stream().forEach(partitionInfo -&gt; {
-            topicPartitionList.add(
-                    new TopicPartition(partitionInfo.topic(),partitionInfo.partition()));
-        });
-// 进行指定分区的集合订阅
-consumer.assign(topicPartitionList);</code></pre><h5 id="4、取消订阅"><a href="#4、取消订阅" class="headerlink" title="4、取消订阅"></a>4、取消订阅</h5><p>有订阅就有取消订阅，与订阅相似，取消订阅的方式也支持集合取消和正则取消，当然也支持指定分区订阅取消，通过unsubscribe()方法实现取消订阅。示例如下：</p>
-<pre><code>// 我的理解是取消已订阅的所有主题/分区，不需要指定参数，是无参方法
-consumer.unsubscribe();</code></pre><p>取消订阅后，若不订阅任何主题或分区便执行消费程序，则会抛出IllegalStateException异常，通过subscribe() 方法订阅主题具有消费者自动再均衡的功能 ，在朵儿消费者的情况下可以根据分区分配策略来自动分配各个消费者与分区的关系。当消费组内的消费者增加或减少时，分区分配关系会自动调整，以实现消费负载均衡及故障自动转移。 而通过assign()方法订阅分区时， 是不具备消费者自动均衡的功能的。</p>
-<h4 id="五、反序列化"><a href="#五、反序列化" class="headerlink" title="五、反序列化"></a>五、反序列化</h4><h5 id="1、反序列化器介绍"><a href="#1、反序列化器介绍" class="headerlink" title="1、反序列化器介绍"></a>1、反序列化器介绍</h5><p>KafkaProducer通过实现Serializer接口 实现自定义序列化器的操作，为了能够将数据成功反序列化，KafkaConsumer可以通过实现Deserializer 反序列化接口来自定义反序列化器，与自定义的序列化器进行对应。与Serializer相似的是，Deserializer也有三个方法，如下：</p>
-<pre><code>// 配置当前类
-public void configure(Map&lt;String, ?&gt; cofigs,boolean isKey) :
-// 用来执行反序列化。如果 data为null，那么处理的时候直接返回 null 而不是抛出一个异常。
-public byte[] serialize(String topic,T data);
-//  用来关闭当前序列化器。
-public void close();</code></pre><p>kafka 自带的反序列化器 <strong>StringDeserializer</strong> 实现如下：</p>
-<pre><code>public class StringDeserializer implements Deserializer&lt;String&gt; {
-        private String encoding =&quot;UTF8&quot;;
-        @Override
-        public void configure(Map&lt;String, ?&gt; configs, boolean isKey) {
-            String propertyName = isKey ? &quot;key.deserializer.encoding&quot;:
-                    &quot;value.deserializer.encoding&quot;;
-            Object encodingValue = configs.get(propertyName) ;
-            if (encodingValue == null)
-            encodingValue = configs.get (&quot;deserializer.encoding&quot;);
-            if (encodingValue != null &amp;&amp; encodingValue instanceof String)
-            encoding = (String) encodingValue ;
-        }
-
-        @Override
-        public String deserialize(String topic, byte [] data){
-                try {
-                    if (data == null)
-                        return null;
-                    else
-                        return new String(data, encoding);
-                } catch (UnsupportedEncodingException e){
-                    throw new SerializationException(&quot;Error when&quot;
-                            + &quot; deserializing byte[] to string due to &quot; +
-                &quot;unsupported encoding &quot;+encoding);
-                }
-        }
-
-        @Override
-        public void close () {}
-}</code></pre><p>configure()方法中有三个参数，<strong>key.deserializer.encoding</strong>、<strong>value.deserializer.encoding</strong> 和 <strong>deserializer.encoding</strong> 用来配置反序列化的编码类型，这三个参数都是用户自定义的参数类型</p>
-<h5 id="2、自定义反序列化器的代码实现"><a href="#2、自定义反序列化器的代码实现" class="headerlink" title="2、自定义反序列化器的代码实现"></a>2、自定义反序列化器的代码实现</h5><p>前面章节说到了生产者的自定义序列化器，这里演示一下与之对应的反序列化器，代码如下：</p>
-<pre><code>public class CompanyDeserializer implements Deserializer&lt;Company&gt; {
-    @Override
-    public void configure(Map&lt;String, ?&gt; configs, boolean isKey) { }
-
-    @Override
-    public Company deserialize(String s, byte[] bytes) {
-        if (bytes == null) {
+            byte[] plaintext = new byte[plaintextLength];
+            System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
+            SecretKeySpec keyspec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+            IvParameterSpec ivspec = new IvParameterSpec(iv.getBytes());
+            cipher.init(Cipher.ENCRYPT_MODE, keyspec, ivspec);
+            byte[] encrypted = cipher.doFinal(plaintext);
+            return new Base64().encodeToString(encrypted);
+        } catch (Exception e) {
+            DpasLogger.COMMON.error(&quot;前后端交互aes加密异常&quot;, e);
             return null;
         }
+    }
 
-        if (bytes.length &lt; 8) {
-            throw new SerializationException(&quot;Size of data received&quot;);
-        }
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);
-        int nameLen, addressLen;
-        String name, address;
-
-        nameLen = buffer.getInt();
-        byte[] nameBytes = new byte[nameLen];
-        buffer.get(nameBytes);
-        addressLen = buffer.getInt();
-
-        byte[] addressBytes = new byte[addressLen];
-        buffer.get(addressBytes);
-
+    /**
+     * 解密方法
+     * @param data 要解密的数据
+     * @param key  解密key
+     * @param iv 解密iv
+     * @return 解密的结果
+     * @throws Exception
+     */
+    private static String desEncrypt(String data, String key, String iv){
         try {
-            name = new String(nameBytes, &quot;UTF-8&quot;);
-            address = new String(addressBytes, &quot;UTF-8&quot;);
-        } catch (UnsupportedEncodingException e) {
-            throw new SerializationException(&quot;Error occur when deserializing1&quot;);
+            byte[] encrypted1 = new Base64().decode(data);
+            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/NoPadding&quot;);
+            SecretKeySpec keyspec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+            IvParameterSpec ivspec = new IvParameterSpec(iv.getBytes());
+            cipher.init(Cipher.DECRYPT_MODE, keyspec, ivspec);
+            byte[] original = cipher.doFinal(encrypted1);
+            String originalString = new String(original);
+            return originalString;
+        } catch (Exception e) {
+            DpasLogger.COMMON.error(&quot;前后端交互aes解密异常&quot;, e);
+            return null;
         }
-        return new Company(name, address);
     }
 
-    @Override
-    public Company deserialize(String topic, Headers headers, byte[] data) {
-        return null;
+    /**
+     * 使用默认的key和iv加密
+     * @param data
+     * @return
+     * @throws Exception
+     */
+    public static String encrypt(String data){
+        return encrypt(data, KEY, IV);
     }
 
-    @Override
-    public void close() {}
-}</code></pre><p>使用配置如下：</p>
-<pre><code>props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                CompanyDeserializer.class.getName());</code></pre><p><strong>注意：若无特殊需要，不建议使用自定义的序列化器和反序列化器，因为这样会增加消费者和生产者之间的耦合度，还要面对序列化和反序列化的兼容性</strong></p>
-<h4 id="六、消息消费"><a href="#六、消息消费" class="headerlink" title="六、消息消费"></a>六、消息消费</h4><p>   kafka中消息的消费是基于拉模式的，消息的消费一般有两种模式：推模式和拉模式，推模式是服务端将消息主动推送给消费者，拉模式是消费者向服务端发起请求获取数据。kafka中的消息消费就是一个不断轮询的过程，消费者通过重复的调通poll()方法，得到主题分区中的数据，poll()方法定义如下：</p>
-<pre><code>// timeout为超时时间参数，在消费者的缓冲区里没有可用数据时会发生阻塞
-public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
+    /**
+     * 使用默认的key和iv解密
+     * @param data
+     * @return
+     * @throws Exception
+     */
+    public static String desEncrypt(String data){
+        return desEncrypt(data, KEY, IV);
+    }
+
+}</code></pre>
             </div>
             <hr/>
 
@@ -672,7 +640,7 @@ public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/09/07/environment/kafka/kafkaconsumer/">http://youknowhaze.github.io/haze/2020/09/07/environment/kafka/kafkaconsumer/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/09/12/web/vueandspringboot/vue-encode/">http://youknowhaze.github.io/haze/2020/09/12/web/vueandspringboot/vue-encode/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -710,12 +678,16 @@ public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/kafka/">
-                                    <span class="chip bg-color">kafka</span>
+                                <a href="/haze/tags/java/">
+                                    <span class="chip bg-color">java</span>
                                 </a>
                             
-                                <a href="/haze/tags/consumer/">
-                                    <span class="chip bg-color">consumer</span>
+                                <a href="/haze/tags/vue/">
+                                    <span class="chip bg-color">vue</span>
+                                </a>
+                            
+                                <a href="/haze/tags/%E5%8A%A0%E5%AF%86/">
+                                    <span class="chip bg-color">加密</span>
                                 </a>
                             
                         </div>
@@ -761,7 +733,7 @@ public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/haze/2020/09/12/web/vueandspringboot/vue-encode/">
+                <a href="/haze/2020/09/14/web/vueandspringboot/verificationcode/">
                     <div class="card-image">
                         
                         
@@ -773,12 +745,13 @@ public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            vue+springboot前后端加密传输一、背景   项目有一个自己的管理系统，因为仅内网访问，且使用人员只有自己项目组的开发、测试及产品人员，所以怎么简单怎么做的，比较简单。这次因为安全责任从北京迁移至项目开发人员所在地，全公司的所有项
+                            验证码组件一、Vue前端组件1、新建js文件，命名为 verifyCode.jsfunction GVerify (options) { // 创建一个图形验证码对象，接收options对象为参数
+    this.options = { 
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-12
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
                         </span>
                         <span class="publish-author">
                             
@@ -795,16 +768,12 @@ public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
                     <a href="/haze/tags/vue/">
                         <span class="chip bg-color">vue</span>
                     </a>
                     
-                    <a href="/haze/tags/%E5%8A%A0%E5%AF%86/">
-                        <span class="chip bg-color">加密</span>
+                    <a href="/haze/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%84%E4%BB%B6/">
+                        <span class="chip bg-color">验证码组件</span>
                     </a>
                     
                 </div>
@@ -818,26 +787,24 @@ public ConsumerRecords&lt;K, V&gt; poll(f nal long timeout)</code></pre>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/09/02/environment/kafka/kafkaproducer/">
+                <a href="/haze/2020/09/07/environment/kafka/kafkaconsumer/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/12.jpg" class="responsive-img" alt="Kafka生产者详解">
+                        <img src="/haze/medias/featureimages/11.jpg" class="responsive-img" alt="Kafka消费者详解">
                         
-                        <span class="card-title">Kafka生产者详解</span>
+                        <span class="card-title">Kafka消费者详解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kafka生产者详解一、客户端开发1、客户端代码示例上节对生产者客户端做了基本演示，这节对其进行修改后做具体分析
-import java.util.Properties;
-import org.apache.kafka.clients.pr
+                            Kafka 消费者一、消费者与消费者组   消费者（ Consumer ）负责订阅 Kafka 中的主题（ Topic ），并且从订阅的主题上拉取消息与其他一些消息中间件不同的是：在 Kafka 的消费理念中还有一层消费组（ Consume
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-07
                             </span>
                         <span class="publish-author">
                             
@@ -858,8 +825,8 @@ import org.apache.kafka.clients.pr
                         <span class="chip bg-color">kafka</span>
                     </a>
                     
-                    <a href="/haze/tags/producer/">
-                        <span class="chip bg-color">producer</span>
+                    <a href="/haze/tags/consumer/">
+                        <span class="chip bg-color">consumer</span>
                     </a>
                     
                 </div>

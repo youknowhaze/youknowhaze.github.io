@@ -6,7 +6,7 @@
   <link href="/haze/atom.xml" rel="self"/>
   
   <link href="http://youknowhaze.github.io/"/>
-  <updated>2020-09-10T10:21:37.768Z</updated>
+  <updated>2020-09-14T09:58:17.484Z</updated>
   <id>http://youknowhaze.github.io/</id>
   
   <author>
@@ -17,11 +17,71 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>验证码组件</title>
+    <link href="http://youknowhaze.github.io/2020/09/14/web/vueandspringboot/verificationcode/"/>
+    <id>http://youknowhaze.github.io/2020/09/14/web/vueandspringboot/verificationcode/</id>
+    <published>2020-09-14T00:00:00.000Z</published>
+    <updated>2020-09-14T09:58:17.484Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;验证码组件&quot;&gt;&lt;a href=&quot;#验证码组件&quot; class=&quot;headerlink&quot; title=&quot;验证码组件&quot;&gt;&lt;/a&gt;验证码组件&lt;/h2&gt;&lt;h3 id=&quot;一、Vue前端组件&quot;&gt;&lt;a href=&quot;#一、Vue前端组件&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Web" scheme="http://youknowhaze.github.io/categories/Web/"/>
+    
+    
+      <category term="vue" scheme="http://youknowhaze.github.io/tags/vue/"/>
+    
+      <category term="验证码组件" scheme="http://youknowhaze.github.io/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%84%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>验证码组件</title>
+    <link href="http://youknowhaze.github.io/2020/09/12/web/vueandspringboot/vue-encode/"/>
+    <id>http://youknowhaze.github.io/2020/09/12/web/vueandspringboot/vue-encode/</id>
+    <published>2020-09-12T00:00:00.000Z</published>
+    <updated>2020-09-14T09:58:17.484Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;vue-springboot前后端加密传输&quot;&gt;&lt;a href=&quot;#vue-springboot前后端加密传输&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Web" scheme="http://youknowhaze.github.io/categories/Web/"/>
+    
+    
+      <category term="java" scheme="http://youknowhaze.github.io/tags/java/"/>
+    
+      <category term="vue" scheme="http://youknowhaze.github.io/tags/vue/"/>
+    
+      <category term="加密" scheme="http://youknowhaze.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kafka消费者详解</title>
     <link href="http://youknowhaze.github.io/2020/09/07/environment/kafka/kafkaconsumer/"/>
     <id>http://youknowhaze.github.io/2020/09/07/environment/kafka/kafkaconsumer/</id>
     <published>2020-09-07T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.768Z</updated>
+    <updated>2020-09-14T09:58:17.476Z</updated>
     
     <summary type="html">
     
@@ -47,10 +107,10 @@
   
   <entry>
     <title>Kafka生产者详解</title>
-    <link href="http://youknowhaze.github.io/2020/07/05/environment/kafka/kafkaproducer/"/>
-    <id>http://youknowhaze.github.io/2020/07/05/environment/kafka/kafkaproducer/</id>
-    <published>2020-07-05T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.772Z</updated>
+    <link href="http://youknowhaze.github.io/2020/09/02/environment/kafka/kafkaproducer/"/>
+    <id>http://youknowhaze.github.io/2020/09/02/environment/kafka/kafkaproducer/</id>
+    <published>2020-09-02T00:00:00.000Z</published>
+    <updated>2020-09-14T09:58:17.480Z</updated>
     
     <summary type="html">
     
@@ -76,10 +136,10 @@
   
   <entry>
     <title>初识KAFKA</title>
-    <link href="http://youknowhaze.github.io/2020/07/05/environment/kafka/chu-shi-kafka/"/>
-    <id>http://youknowhaze.github.io/2020/07/05/environment/kafka/chu-shi-kafka/</id>
-    <published>2020-07-05T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.776Z</updated>
+    <link href="http://youknowhaze.github.io/2020/08/26/environment/kafka/chu-shi-kafka/"/>
+    <id>http://youknowhaze.github.io/2020/08/26/environment/kafka/chu-shi-kafka/</id>
+    <published>2020-08-26T00:00:00.000Z</published>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -106,7 +166,7 @@
     <link href="http://youknowhaze.github.io/2020/07/05/environment/redis/redis-cao-zuo/"/>
     <id>http://youknowhaze.github.io/2020/07/05/environment/redis/redis-cao-zuo/</id>
     <published>2020-07-05T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.776Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -135,7 +195,7 @@
     <link href="http://youknowhaze.github.io/2020/07/04/environment/redis/docker-redis/"/>
     <id>http://youknowhaze.github.io/2020/07/04/environment/redis/docker-redis/</id>
     <published>2020-07-04T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.776Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -164,7 +224,7 @@
     <link href="http://youknowhaze.github.io/2020/07/04/environment/redis/docker-tomcat7/"/>
     <id>http://youknowhaze.github.io/2020/07/04/environment/redis/docker-tomcat7/</id>
     <published>2020-07-04T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.776Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -193,7 +253,7 @@
     <link href="http://youknowhaze.github.io/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/"/>
     <id>http://youknowhaze.github.io/2020/07/03/environment/redis/redis-zhu-cong-ji-shao-bing/</id>
     <published>2020-07-03T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.776Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -223,7 +283,7 @@
     <link href="http://youknowhaze.github.io/2020/07/02/web/session/"/>
     <id>http://youknowhaze.github.io/2020/07/02/web/session/</id>
     <published>2020-07-02T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.780Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -250,7 +310,7 @@
     <link href="http://youknowhaze.github.io/2020/07/01/web/cookie/"/>
     <id>http://youknowhaze.github.io/2020/07/01/web/cookie/</id>
     <published>2020-07-01T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.776Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -278,7 +338,7 @@
     <link href="http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/"/>
     <id>http://youknowhaze.github.io/2020/06/29/fu-wu-qi/linux-chang-yong-ming-ling/</id>
     <published>2020-06-29T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.780Z</updated>
+    <updated>2020-09-14T09:58:17.484Z</updated>
     
     <summary type="html">
     
@@ -306,7 +366,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/"/>
     <id>http://youknowhaze.github.io/2020/06/26/environment/tig-da-jian/tig/</id>
     <published>2020-06-26T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.768Z</updated>
+    <updated>2020-09-14T09:58:17.472Z</updated>
     
     <summary type="html">
     
@@ -335,7 +395,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/"/>
     <id>http://youknowhaze.github.io/2020/06/22/environment/elk-da-jian/elk/</id>
     <published>2020-06-22T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.764Z</updated>
+    <updated>2020-09-14T09:58:17.472Z</updated>
     
     <summary type="html">
     
@@ -364,7 +424,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/"/>
     <id>http://youknowhaze.github.io/2020/06/18/docker/docker-an-zhuang-jiao-ben/</id>
     <published>2020-06-18T00:00:00.000Z</published>
-    <updated>2020-09-10T10:21:37.764Z</updated>
+    <updated>2020-09-14T09:58:17.472Z</updated>
     
     <summary type="html">
     
@@ -393,7 +453,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/"/>
     <id>http://youknowhaze.github.io/2020/06/13/blog/yang-shi-zu-jian-diao-zheng/</id>
     <published>2020-06-13T18:23:38.000Z</published>
-    <updated>2020-09-10T10:21:37.764Z</updated>
+    <updated>2020-09-14T09:58:17.472Z</updated>
     
     <summary type="html">
     
@@ -420,7 +480,7 @@ chmod 777
     <link href="http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/"/>
     <id>http://youknowhaze.github.io/2020/06/06/blog/bo-ke-da-jian/</id>
     <published>2020-06-06T18:23:38.000Z</published>
-    <updated>2020-09-10T10:21:37.764Z</updated>
+    <updated>2020-09-14T09:58:17.468Z</updated>
     
     <summary type="html">
     

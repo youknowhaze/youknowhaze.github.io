@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="初识KAFKA, 烹雪煮茶">
+    <meta name="keywords" content="验证码组件, 烹雪煮茶">
     <meta name="description" content="create a description">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>初识KAFKA | 烹雪煮茶</title>
+    <title>验证码组件 | 烹雪煮茶</title>
     <link rel="icon" type="image/png" href="/haze/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/haze/libs/awesome/css/all.css">
@@ -287,12 +287,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/haze/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">初识KAFKA</h1>
+                    <h1 class="description center-align post-title">验证码组件</h1>
                 </div>
             </div>
         </div>
@@ -417,8 +417,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/haze/tags/kafka/">
-                                <span class="chip bg-color">kafka</span>
+                            <a href="/haze/tags/vue/">
+                                <span class="chip bg-color">vue</span>
+                            </a>
+                        
+                            <a href="/haze/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%84%E4%BB%B6/">
+                                <span class="chip bg-color">验证码组件</span>
                             </a>
                         
                     </div>
@@ -429,8 +433,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/haze/categories/kafka/" class="post-category">
-                                kafka
+                            <a href="/haze/categories/Web/" class="post-category">
+                                Web
                             </a>
                         
                     </div>
@@ -442,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-05
+                    2020-09-14
                 </div>
                 
 
@@ -458,125 +462,164 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="初识KAFKA"><a href="#初识KAFKA" class="headerlink" title="初识KAFKA"></a>初识KAFKA</h3><h4 id="一、-kafka基本概念介绍"><a href="#一、-kafka基本概念介绍" class="headerlink" title="一、 kafka基本概念介绍"></a>一、 kafka基本概念介绍</h4><h5 id="1、kafka扮演的角色"><a href="#1、kafka扮演的角色" class="headerlink" title="1、kafka扮演的角色"></a>1、kafka扮演的角色</h5><p>  <strong>消息系统</strong>：系统解耦、冗余存储、流量削峰、缓冲、异步通信、扩展性、可恢复性等<br>  <strong>存储系统</strong>：将数据消息持久化保存到磁盘<br>  <strong>流式处理平台</strong>：提供完整的流式处理类库，比如窗口、连接、交换和聚合等操作。</p>
-<h5 id="2、kafka的专业术语"><a href="#2、kafka的专业术语" class="headerlink" title="2、kafka的专业术语"></a>2、kafka的专业术语</h5><p> <strong>Producer</strong>：生产者，消息发送方，负责将消息发送到kafka队列中</p>
-<p> <strong>Consumer</strong>：消费者，消息接收方，负责接收kafka队列中的数据并进行相应的业务逻辑处理</p>
-<p> <strong>Broker</strong>：服务代理节点，一般情况下一个broker可以看做是一个kafka服务器</p>
-<h5 id="3、主题（topic）、分区（Partition）及副本-Replica"><a href="#3、主题（topic）、分区（Partition）及副本-Replica" class="headerlink" title="3、主题（topic）、分区（Partition）及副本(Replica)"></a>3、主题（topic）、分区（Partition）及副本(Replica)</h5><p><strong>(1)、</strong> 主题是一个逻辑上的概念，分为多个分区，一个分区只属于单个主题。同一主题下的不同分区消息是不同的。一个分区分为多个副本（大于等于1个）</p>
-<p><strong>(2)、</strong> 一条消息被发送到broker之前，会根据分区规则选择存储到哪个具体的分区。如果分区设置合理，消息会被均匀的分配到不同的分区中。kafka为分区引入了副本机制，增加副本数量可以提升容灾能力。同一分区的副本存储的相同消息，但是同一时刻副本内的消息不一定都是一样的（follwer副本的消息更新一般会稍微滞后于leader），副本间是一主多从关系，leader负责读写请求，follwer只负责与leader的消息进行同步。</p>
-<p><strong>(3)、</strong> 分区中所有副本统称为<strong>AR</strong>。所有与leader副本保持一定程度同步的副本（包括leader）组成<strong>ISR</strong>。与leader信息同步程度滞后太多的副本称为<strong>OSR</strong>。ISR和OSR是AR的一个子集，AR = OSR + ISR。当副本滞后leader太多，该副本会被leader从ISR中剔除。</p>
-<p>*<em>(4)、HW *</em> 标识了一个特别的偏移量，消费者只能拉取到这个值之前的消息（比如消费者能消费到的数据是0到5，那么HW的值就为6），HW的值取决于follwer副本与leader副本的同步情况，HW的值为同步的最小offset加1（若leader的值为15，follwer1位12，follwer2为7，则HW的值为8）。若分区队列中消息数量为0到8，则LEO=9，他标识当前日志文件中下一条待写入消息的offset。分区ISR集合中的每个副本都会维护自身的LEO。</p>
-<h4 id="二、-kafka的安装与配置"><a href="#二、-kafka的安装与配置" class="headerlink" title="二、 kafka的安装与配置"></a>二、 kafka的安装与配置</h4><p>详情见另外文档（地址待贴出）</p>
-<h4 id="三、kafka脚本生产与消费"><a href="#三、kafka脚本生产与消费" class="headerlink" title="三、kafka脚本生产与消费"></a>三、kafka脚本生产与消费</h4><p>#####1、创建主题</p>
-<pre><code># 进入kafka的根目录下，使用bin目录下的kafka-topics.sh脚本创建主题
-
-bin/kafka-topics.sh --zookeeper localhost:2181/kafka --create --topic topic-demo --replication-factor 3 --partitions 4
-
-
---zookeeper           指定了kafka所连接的ZK服务地址
---topic               指定了要创建的主题名称
---replication-factor  指定了副本因子
---create              创建主题的动作命令</code></pre><p>#####2、查看主题信息</p>
-<pre><code># 通过 --describe展示主题的具体信息
-bin/kafka-topics.sh --zookeeper localhost:2181/kafka --describe --topic topic-demo</code></pre><h4 id="3、订阅主题"><a href="#3、订阅主题" class="headerlink" title="3、订阅主题"></a>3、订阅主题</h4><p>  创建主题后通过kafka提供的两个脚本来检查是否可以正常地发送和消费数据</p>
-<pre><code># 使用kafka-console-consumer.sh来订阅主题
-
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9200 --topic topic-demo
-
-
---bootstrap-server    指定了连接的kafka集群地址
---topic               指定了消费者订阅的主题</code></pre><p>目前该主题暂无信息写入，所以脚本无法消费数据，再打开另一个终端，在kafka根目录下执行消息发送脚本，发送一条Hello Kafka!的信息</p>
-<pre><code># 使用kafka-console-producer.sh
-
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic topic-demo
-&gt;Hello kafka!
-&gt;
-
-
---broker-list      指定了连接kafka集群的地址
---topic            指定了发送消息时的主题
-第二行&gt;后面的信息为发送至kafka主题中的信息</code></pre><p>回到消费kafka的窗口，可以看到刚刚被发送至kafka的信息被获取到</p>
-<h4 id="四、java客户端kafka的发送与消费"><a href="#四、java客户端kafka的发送与消费" class="headerlink" title="四、java客户端kafka的发送与消费"></a>四、java客户端kafka的发送与消费</h4><h5 id="1、kafka的java客户端需要的maven依赖如下"><a href="#1、kafka的java客户端需要的maven依赖如下" class="headerlink" title="1、kafka的java客户端需要的maven依赖如下"></a>1、kafka的java客户端需要的maven依赖如下</h5><pre><code>&lt;dependency&gt;
-   &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
-   &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
-   &lt;version&gt;2.5.0&lt;/version&gt;
-&lt;/dependency&gt;</code></pre><h5 id="2、生产者客户端代码"><a href="#2、生产者客户端代码" class="headerlink" title="2、生产者客户端代码"></a>2、生产者客户端代码</h5><pre><code>import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringSerializer;
-
-public class ProducerFastStart{
-
-    public static final String brokerList = &quot;localhost:9092&quot;;
-
-    public static final String topic = &quot;topic-demo&quot;;
-
-    public static String sendMsg = &quot;this is kafka test message&quot;;
-
-    public static void main(String[] args) {
-        Properties properties = new Properties();
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class.getName());
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                brokerList);
-        KafkaProducer&lt;String,String&gt; producer
-                = new KafkaProducer&lt;String, String&gt;(properties);
-        ProducerRecord&lt;String,String&gt; record
-                = new ProducerRecord&lt;&gt;(topic,sendMsg);
-
-        try {
-            producer.send(record);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }finally {
-            producer.close();
-        }
+                <h2 id="验证码组件"><a href="#验证码组件" class="headerlink" title="验证码组件"></a>验证码组件</h2><h3 id="一、Vue前端组件"><a href="#一、Vue前端组件" class="headerlink" title="一、Vue前端组件"></a>一、Vue前端组件</h3><h4 id="1、新建js文件，命名为-verifyCode-js"><a href="#1、新建js文件，命名为-verifyCode-js" class="headerlink" title="1、新建js文件，命名为 verifyCode.js"></a>1、新建js文件，命名为 <strong>verifyCode.js</strong></h4><pre><code>function GVerify (options) { // 创建一个图形验证码对象，接收options对象为参数
+    this.options = { // 默认options参数值
+        id: &#39;&#39;, // 容器Id
+        canvasId: &#39;verifyCanvas&#39;, // canvas的ID
+        width: &#39;80&#39;, // 默认canvas宽度
+        height: &#39;30&#39;, // 默认canvas高度
+        type: &#39;number&#39;, // 图形验证码默认类型blend:数字字母混合类型、number:纯数字、letter:纯字母
+        code: &#39;&#39;
     }
 
-}</code></pre><h5 id="3、消费者客户端代码"><a href="#3、消费者客户端代码" class="headerlink" title="3、消费者客户端代码"></a>3、消费者客户端代码</h5><pre><code>import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Properties;
-
-public class KafkaConsumerTest {
-
-    public static final String brokerList = &quot;localhost:9092&quot;;
-
-    public static final String topic = &quot;topic-demo&quot;;
-
-    public static final String groupId = &quot;group.demo&quot;;
-
-    public static void main(String[] args) {
-        Properties properties = new Properties();
-        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG,groupId);
-
-        // 创建一个kafka消费者客户端实例
-        KafkaConsumer&lt;String,String&gt; consumer = new KafkaConsumer&lt;String, String&gt;(properties);
-        // 订阅主题
-        consumer.subscribe(Collections.singletonList(topic));
-
-        while (true){
-            ConsumerRecords&lt;String,String&gt; records = consumer.poll(Duration.ofMillis(1000));
-            for (ConsumerRecord&lt;String,String&gt; record:records){
-                System.out.println(record.value());
-            }
+    if (Object.prototype.toString.call(options) === &#39;[object Object]&#39;) { // 判断传入参数类型
+        for (var i in options) { // 根据传入的参数，修改默认参数值
+            this.options[i] = options[i]
         }
+    } else {
+        this.options.id = options
     }
 
+    this.options.numArr = &#39;0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z&#39;.split(&#39;,&#39;)
+    this.options.letterArr = getAllLetter()
 
-}</code></pre>
+    this.check_init()
+    this.refresh()
+}
+
+GVerify.prototype = {
+    /** 版本号**/
+    version: &#39;1.0.0&#39;,
+
+    /** 初始化方法**/
+    check_init: function () {
+        var con = document.getElementById(this.options.id)
+        var canvas = document.createElement(&#39;canvas&#39;)
+        // this.options.width = con.offsetWidth &gt; 0 ? con.offsetWidth : &#39;30&#39;
+        // this.options.height = con.offsetHeight &gt; 0 ? con.offsetHeight : &#39;30&#39;
+        this.options.width = &#39;120&#39;
+        this.options.height = &#39;40&#39;
+        canvas.id = this.options.canvasId
+        canvas.width = this.options.width
+        canvas.height = this.options.height
+        canvas.style.cursor = &#39;pointer&#39;
+        canvas.innerHTML = &#39;您的浏览器版本不支持canvas&#39;
+        con.appendChild(canvas)
+        var parent = this
+        canvas.onclick = function () {
+            parent.refresh()
+        }
+    },
+
+    /** 生成验证码**/
+    refresh: function () {
+        var canvas = document.getElementById(this.options.canvasId)
+        if (canvas.getContext) {
+            var ctx = canvas.getContext(&#39;2d&#39;)
+        }
+        ctx.textBaseline = &#39;middle&#39;
+
+        ctx.fillStyle = randomColor(180, 240)
+        ctx.fillRect(0, 0, this.options.width, this.options.height)
+
+        if (this.options.type === &#39;blend&#39;) { // 判断验证码类型
+            var txtArr = this.options.numArr.concat(this.options.letterArr)
+        } else if (this.options.type === &#39;number&#39;) {
+            var txtArr = this.options.numArr
+        } else {
+            var txtArr = this.options.letterArr
+        }
+        // 重置验证码
+        this.options.code = &quot;&quot;
+        for (var i = 1; i &lt;= 4; i++) {
+            var txt = txtArr[randomNum(0, txtArr.length)]
+            this.options.code += txt
+            ctx.font = randomNum(this.options.height / 2, this.options.height) + &#39;px SimHei&#39; // 随机生成字体大小
+            ctx.fillStyle = randomColor(50, 160) // 随机生成字体颜色
+            ctx.shadowOffsetX = randomNum(-3, 3)
+            ctx.shadowOffsetY = randomNum(-3, 3)
+            ctx.shadowBlur = randomNum(-3, 3)
+            ctx.shadowColor = &#39;rgba(0, 0, 0, 0.3)&#39;
+            var x = this.options.width / 5 * i
+            var y = this.options.height / 2
+            var deg = randomNum(-30, 30)
+            /** 设置旋转角度和坐标原点**/
+            ctx.translate(x, y)
+            ctx.rotate(deg * Math.PI / 180)
+            ctx.fillText(txt, 0, 0)
+            /** 恢复旋转角度和坐标原点**/
+            ctx.rotate(-deg * Math.PI / 180)
+            ctx.translate(-x, -y)
+        }
+        /** 绘制干扰线**/
+        for (var i = 0; i &lt; 4; i++) {
+            ctx.strokeStyle = randomColor(40, 180)
+            ctx.beginPath()
+            ctx.moveTo(randomNum(0, this.options.width), randomNum(0, this.options.height))
+            ctx.lineTo(randomNum(0, this.options.width), randomNum(0, this.options.height))
+            ctx.stroke()
+        }
+        /** 绘制干扰点**/
+        for (var i = 0; i &lt; this.options.width / 4; i++) {
+            ctx.fillStyle = randomColor(0, 255)
+            ctx.beginPath()
+            ctx.arc(randomNum(0, this.options.width), randomNum(0, this.options.height), 1, 0, 2 * Math.PI)
+            ctx.fill()
+        }
+    },
+
+    /** 验证验证码**/
+    checkvalidate: function (code) {
+        var code = code.toLowerCase()
+        var v_code = this.options.code.toLowerCase()
+
+        console.log(code + &quot; :-----------------------: &quot;+this.options.code)
+        if (code == v_code) {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+/** 生成字母数组**/
+function getAllLetter () {
+    var letterStr = &#39;a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z&#39;
+    return letterStr.split(&#39;,&#39;)
+}
+/** 生成一个随机数**/
+function randomNum (min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
+}
+/** 生成一个随机色**/
+function randomColor (min, max) {
+    var r = randomNum(min, max)
+    var g = randomNum(min, max)
+    var b = randomNum(min, max)
+    return &#39;rgb(&#39; + r + &#39;,&#39; + g + &#39;,&#39; + b + &#39;)&#39;
+}
+
+export {
+    GVerify
+}
+</code></pre><h4 id="2、在使用的页面进行引入"><a href="#2、在使用的页面进行引入" class="headerlink" title="2、在使用的页面进行引入"></a>2、在使用的页面进行引入</h4><pre><code>import { GVerify } from &#39;../utils/verifyCode&#39;;</code></pre><h4 id="3、加入验证-原本已有用户名密码的验证，现新增验证码，并进行初始化："><a href="#3、加入验证-原本已有用户名密码的验证，现新增验证码，并进行初始化：" class="headerlink" title="3、加入验证,原本已有用户名密码的验证，现新增验证码，并进行初始化："></a>3、加入验证,原本已有用户名密码的验证，现新增验证码，并进行初始化：</h4><pre><code>rules: {
+    username: [
+        { required: true, message: &#39;请输入用户名&#39;, trigger: &#39;blur&#39; },
+        { min: 2, max: 30, message: &#39;长度在 2 到 30 个字符&#39;, trigger: &#39;blur&#39; }
+    ],
+    password: [
+        { required: true, message: &#39;请输入密码&#39;, trigger: &#39;blur&#39; }
+    ],
+    verifyCode: [
+        { required: true, message: &#39;请输入验证码&#39;, trigger: &#39;blur&#39; }
+    ]
+},
+// 初始化验证码
+mounted(){
+    this.verifyCode = new GVerify(&#39;v_container&#39;);
+},</code></pre><h4 id="4、页面的使用如下："><a href="#4、页面的使用如下：" class="headerlink" title="4、页面的使用如下："></a>4、页面的使用如下：</h4><pre><code>&lt;el-form-item prop=&quot;verifyCode&quot; class=&quot;verifyCodeItemCss&quot;&gt;
+    &lt;el-input class=&quot;verify_css&quot; placeholder=&quot;请输入4位验证码&quot; v-model=&quot;loginForm.verifyCode&quot; @keyup.enter.native=&quot;submitForm(&#39;loginForm&#39;)&quot;&gt;&lt;/el-input&gt;
+                        &lt;!--关键 ↓--&gt;
+&lt;div  class=&quot;verify_css_check&quot; id=&quot;v_container&quot;&gt;&lt;/div&gt;</code></pre>
             </div>
             <hr/>
 
@@ -601,7 +644,7 @@ public class KafkaConsumerTest {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/chu-shi-kafka/">http://youknowhaze.github.io/haze/2020/07/05/environment/kafka/chu-shi-kafka/</a>
+                    <a href="http://youknowhaze.github.io/haze/2020/09/14/web/vueandspringboot/verificationcode/">http://youknowhaze.github.io/haze/2020/09/14/web/vueandspringboot/verificationcode/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -639,8 +682,12 @@ public class KafkaConsumerTest {
                     
                         <div class="article-tag">
                             
-                                <a href="/haze/tags/kafka/">
-                                    <span class="chip bg-color">kafka</span>
+                                <a href="/haze/tags/vue/">
+                                    <span class="chip bg-color">vue</span>
+                                </a>
+                            
+                                <a href="/haze/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%84%E4%BB%B6/">
+                                    <span class="chip bg-color">验证码组件</span>
                                 </a>
                             
                         </div>
@@ -682,52 +729,53 @@ public class KafkaConsumerTest {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/haze/2020/07/05/environment/kafka/kafkaproducer/">
+                <a href="/haze/2020/09/14/web/vueandspringboot/verificationcode/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/12.jpg" class="responsive-img" alt="Kafka生产者详解">
+                        <img src="/haze/medias/featureimages/2.jpg" class="responsive-img" alt="验证码组件">
                         
-                        <span class="card-title">Kafka生产者详解</span>
+                        <span class="card-title">验证码组件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kafka生产者详解一、客户端开发1、客户端代码示例上节对生产者客户端做了基本演示，这节对其进行修改后做具体分析
-import java.util.Properties;
-import org.apache.kafka.clients.pr
+                            验证码组件一、Vue前端组件1、新建js文件，命名为 verifyCode.jsfunction GVerify (options) { // 创建一个图形验证码对象，接收options对象为参数
+    this.options = { 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/kafka/" class="post-category">
-                                    kafka
+                            <a href="/haze/categories/Web/" class="post-category">
+                                    Web
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/kafka/">
-                        <span class="chip bg-color">kafka</span>
+                    <a href="/haze/tags/vue/">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
-                    <a href="/haze/tags/producer/">
-                        <span class="chip bg-color">producer</span>
+                    <a href="/haze/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%84%E4%BB%B6/">
+                        <span class="chip bg-color">验证码组件</span>
                     </a>
                     
                 </div>
@@ -741,33 +789,31 @@ import org.apache.kafka.clients.pr
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/haze/2020/07/05/environment/redis/redis-cao-zuo/">
+                <a href="/haze/2020/09/12/web/vueandspringboot/vue-encode/">
                     <div class="card-image">
                         
                         
-                        <img src="/haze/medias/featureimages/19.jpg" class="responsive-img" alt="java &amp; redis">
+                        <img src="/haze/medias/featureimages/2.jpg" class="responsive-img" alt="验证码组件">
                         
-                        <span class="card-title">java &amp; redis</span>
+                        <span class="card-title">验证码组件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Redis 常见操作一、运维常见命令1、启动redis
-# 进入redis根目录
-nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis-sent
+                            vue+springboot前后端加密传输一、背景   项目有一个自己的管理系统，因为仅内网访问，且使用人员只有自己项目组的开发、测试及产品人员，所以怎么简单怎么做的，比较简单。这次因为安全责任从北京迁移至项目开发人员所在地，全公司的所有项
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/haze/categories/command/" class="post-category">
-                                    command
+                            <a href="/haze/categories/Web/" class="post-category">
+                                    Web
                                 </a>
                             
                             
@@ -777,12 +823,16 @@ nohup src/redis-server redis.conf &gt;start.log 2&gt;&amp;1 &amp;2、启动redis
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/haze/tags/redis/">
-                        <span class="chip bg-color">redis</span>
-                    </a>
-                    
                     <a href="/haze/tags/java/">
                         <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/haze/tags/vue/">
+                        <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                    <a href="/haze/tags/%E5%8A%A0%E5%AF%86/">
+                        <span class="chip bg-color">加密</span>
                     </a>
                     
                 </div>
